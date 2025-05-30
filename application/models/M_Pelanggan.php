@@ -18,7 +18,7 @@ class M_Pelanggan extends CI_Model
         FROM 
             data_customer c
         LEFT JOIN 
-            data_paket p ON c.id_paket = p.id_paket
+            data_paket p ON c.nama_paket = p.nama_paket
         WHERE 
             c.kode_mikrotik = '$kode_mikrotik' 
             AND p.nama_paket <> 'EXPIRED'
