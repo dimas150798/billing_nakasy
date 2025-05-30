@@ -44,6 +44,8 @@ class M_Mikrotik_Paiton extends CI_Model
             $status = false;
 
             foreach ($Get_Data as $key => $Show_Data) {
+                $Get_Paket = $this->M_Paket->Check_NamaPaket($Show_Data['nama_paket']);
+
                 if ($Show_Mikrotik['name'] == $Show_Data['name_pppoe']) {
                     $status = true;
 
@@ -53,6 +55,7 @@ class M_Mikrotik_Paiton extends CI_Model
                             'kode_customer' => $Show_Mikrotik['name'],
                             'id_pppoe'      => $Show_Mikrotik['.id'],
                             'disabled'      => $Show_Mikrotik['disabled'],
+                            'id_paket'      => $Get_Paket->id_paket,
                             'kode_mikrotik' => 'Paiton',
                             'updated_at'        => date('Y-m-d H:i:s', time()),
                         ];
@@ -62,6 +65,7 @@ class M_Mikrotik_Paiton extends CI_Model
                             'kode_customer' => $Show_Mikrotik['name'],
                             'nama_customer' => $Show_Data['nama_customer'],
                             'nama_paket'    => $Nama_Paket[$Show_Mikrotik['profile']],
+                            'id_paket'      => $Get_Paket->id_paket,
                             'updated_at'    => date('Y-m-d H:i:s', time()),
                         ];
                     }
@@ -72,6 +76,7 @@ class M_Mikrotik_Paiton extends CI_Model
                             'kode_customer' => $Show_Mikrotik['name'],
                             'id_pppoe'      => $Show_Mikrotik['.id'],
                             'disabled'      => $Show_Mikrotik['disabled'],
+                            'id_paket'      => $Get_Paket->id_paket,
                             'kode_mikrotik' => 'Paiton',
                             'updated_at'    => date('Y-m-d H:i:s', time()),
                         ];
@@ -81,6 +86,7 @@ class M_Mikrotik_Paiton extends CI_Model
                             'kode_customer' => $Show_Data['kode_customer'],
                             'nama_customer' => $Show_Data['nama_customer'],
                             'nama_paket'    => $Nama_Paket[$Show_Mikrotik['profile']],
+                            'id_paket'      => $Get_Paket->id_paket,
                             'updated_at'        => date('Y-m-d H:i:s', time()),
                         ];
                     }
@@ -99,6 +105,7 @@ class M_Mikrotik_Paiton extends CI_Model
                     'kode_customer'     => '0',
                     'phone_customer'    => '0',
                     'nama_customer'     => $comment_mikrotik,
+                    'id_paket'      => $Get_Paket->id_paket,
                     'nama_paket'        => $Nama_Paket[$Show_Mikrotik['profile']],
                     'name_pppoe'        => $Show_Mikrotik['name'],
                     'password_pppoe'    => $Show_Mikrotik['password'],
