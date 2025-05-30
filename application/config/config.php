@@ -29,7 +29,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // $config['base_url'] = 'https://billing.nakasy.com/';
 
 // Config Domain Lokal
-// $config['base_url'] = env('baseurl');
+$config['base_url'] = env('baseurl');
 
 
 /*
