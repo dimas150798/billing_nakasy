@@ -5,26 +5,12 @@ class M_Pelanggan extends CI_Model
     // Menampilkan Data Pelanggan Aktif Akun Admin
     public function DataPelanggan($kode_mikrotik)
     {
-        $query   = $this->db->query("SELECT 
-            c.id_customer, 
-            c.kode_customer, 
-            c.phone_customer, 
-            c.nama_customer, 
-            c.name_pppoe, 
-            p.nama_paket, 
-            p.harga_paket, 
-            c.start_date, 
-            c.disabled
-        FROM 
-            data_customer c
-        LEFT JOIN 
-            data_paket p ON c.nama_paket = p.nama_paket
-        WHERE 
-            c.kode_mikrotik = '$kode_mikrotik' 
-            AND p.nama_paket <> 'EXPIRED'
-        ORDER BY 
-            c.name_pppoe ASC;
-        ");
+        $query   = $this->db->query("SELECT id_customer, kode_customer, phone_customer, nama_customer, name_pppoe, nama_paket, start_date, disabled
+            FROM data_customer
+
+            WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket <> 'EXPIRED'
+    
+            ORDER BY name_pppoe ASC");
 
         return $query->result_array();
     }

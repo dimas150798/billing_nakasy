@@ -47,7 +47,7 @@ class C_Data_Pelanggan extends CI_Controller
             $row[] = '<div class="text-center">' . ucwords(strtolower($dataCustomer['nama_customer'])) . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['name_pppoe'] . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['phone_customer'] . '</div>';
-            $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . ' / ' . $dataCustomer['harga_paket'] . '</div>';
+            $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . '</div>';
             $row[] = '<div class="text-center">' . $Status_Mikrotik . '</div>';
 
             $row[] = '
