@@ -74,35 +74,12 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 // Database Hosting
-// $db['default'] = array(
-//     'dsn'    => '',
-//     'hostname' => 'localhost',
-//     'username' => 'u215307866_nakasy',
-//     'password' => 'Nakasy63!',
-//     'database' => 'u215307866_billing_nakasy',
-//     'dbdriver' => 'mysqli',
-//     'dbprefix' => '',
-//     'pconnect' => FALSE,
-//     'db_debug' => (ENVIRONMENT !== 'production'),
-//     'cache_on' => FALSE,
-//     'cachedir' => '',
-//     'char_set' => 'utf8',
-//     'dbcollat' => 'utf8_general_ci',
-//     'swap_pre' => '',
-//     'encrypt' => FALSE,
-//     'compress' => FALSE,
-//     'stricton' => FALSE,
-//     'failover' => array(),
-//     'save_queries' => TRUE
-// );
-
-// Database Local
 $db['default'] = array(
     'dsn'    => '',
     'hostname' => 'localhost',
-    'username' => 'root',
-    'password' => '',
-    'database' => 'billing_nakasy',
+    'username' => 'u215307866_nakasy',
+    'password' => 'Nakasy63!',
+    'database' => 'u215307866_billing_nakasy',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
@@ -118,3 +95,26 @@ $db['default'] = array(
     'failover' => array(),
     'save_queries' => TRUE
 );
+
+// Database Local
+// $db['default'] = array(
+//     'dsn'    => '',
+//     'hostname' => 'localhost',
+//     'username' => 'root',
+//     'password' => '',
+//     'database' => 'billing_nakasy',
+//     'dbdriver' => 'mysqli',
+//     'dbprefix' => '',
+//     'pconnect' => FALSE,
+//     'db_debug' => (ENVIRONMENT !== 'production'),
+//     'cache_on' => FALSE,
+//     'cachedir' => '',
+//     'char_set' => 'utf8',
+//     'dbcollat' => 'utf8_general_ci',
+//     'swap_pre' => '',
+//     'encrypt' => FALSE,
+//     'compress' => FALSE,
+//     'stricton' => FALSE,
+//     'failover' => array(),
+//     'save_queries' => TRUE
+// );
