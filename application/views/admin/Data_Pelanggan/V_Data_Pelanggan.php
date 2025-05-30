@@ -35,7 +35,7 @@
                                                      </button>
                                                      <ul class="dropdown-menu">
                                                          <li><a class="dropdown-item" href="#">Export as Excel</a></li>
-                                                         <li><a class="dropdown-item" href="#">Import as Excel</a></li>
+                                                         <li><a class="dropdown-item" href="<?= base_url('admin/Data_Pelanggan/C_Import_Pelanggan') ?>">Import as Excel</a></li>
                                                      </ul>
                                                  </div>
                                                  <a href="<?= base_url('admin/Data_Pelanggan/C_Tambah_Pelanggan') ?>" class="btn btn-primary">

@@ -136,17 +136,17 @@ class C_Tambah_Pelanggan extends CI_Controller
 
         // Pastikan hanya menjalankan cluster yang sesuai
         if (isset($connectFunctions[$cluster])) {
-            $api = $connectFunctions[$cluster](); // Memanggil fungsi koneksi sesuai cluster
+            $api = $connectFunctions[$cluster]();
             if ($api === null) {
-                redirect('C_FormLogin'); // Jika API gagal terkoneksi, arahkan ke login
+                redirect('C_FormLogin');
                 return;
             }
 
             // Eksekusi berdasarkan cluster yang terhubung
             if ($cluster === 'Kraksaan') {
-                $this->M_Mikrotik_Kraksaan->index(); // Menjalankan metode untuk Kraksaan
+                $this->M_Mikrotik_Kraksaan->index();
             } elseif ($cluster === 'Paiton') {
-                $this->M_Mikrotik_Paiton->index(); // Menjalankan metode untuk Paiton
+                $this->M_Mikrotik_Paiton->index();
             }
         }
 

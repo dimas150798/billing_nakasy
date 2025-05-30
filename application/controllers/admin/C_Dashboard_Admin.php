@@ -38,9 +38,9 @@ class C_Dashboard_Admin extends CI_Controller
 
         // Pastikan hanya menjalankan cluster yang sesuai
         if (isset($connectFunctions[$cluster])) {
-            $api = $connectFunctions[$cluster](); // Memanggil fungsi koneksi sesuai cluster
+            $api = $connectFunctions[$cluster]();
             if ($api === null) {
-                redirect('C_FormLogin'); // Jika API gagal terkoneksi, arahkan ke login
+                redirect('C_FormLogin');
                 return;
             }
 

@@ -67,7 +67,9 @@ class C_Import_Pelanggan extends CI_Controller
                 $nama_area          = $row[11] ?? '';
                 $nama_sales         = $row[12] ?? '';
 
-                $Get_Paket = $this->M_Paket->Check_NamaPaket($nama_paket);
+                $Get_Paket  = $this->M_Paket->Check_NamaPaket($nama_paket);
+                $Get_Area   = $this->M_Area->Check_NamaArea($row[11]);
+                $Get_Sales  = $this->M_Sales->Check_NamaSales($row[12]);
 
                 $data_customer = [
                     'kode_customer'   => $kode_customer,
@@ -81,12 +83,14 @@ class C_Import_Pelanggan extends CI_Controller
                     'alamat_customer' => $alamat_customer,
                     'email_customer'  => $email_customer,
                     'start_date'      => $start_date,
+                    // 'id_area'         => $Get_Area->id_area,
+                    // 'id_sales'        => $Get_Sales->id_sales,
                     'nama_area'       => $nama_area,
                     'nama_sales'      => $nama_sales,
                 ];
 
                 // kondisi insert / update
-                $conditionData          = $this->M_CRUD->get('data_customer', "id_pppoe='$id_pppoe'")->result_array();
+                $conditionData          = $this->M_CRUD->get('data_customer', "name_pppoe='$name_pppoe'")->result_array();
 
                 // Get data data_customer
                 $getData                = $this->db->query("SELECT id_customer, kode_customer, phone_customer, latitude, longitude, nama_customer, nama_paket, name_pppoe, password_pppoe, id_pppoe, alamat_customer, email_customer, start_date, stop_date, nama_area, deskripsi_customer, nama_sales, created_at, updated_at FROM data_customer
@@ -95,9 +99,11 @@ class C_Import_Pelanggan extends CI_Controller
                 // condition update
                 if (count($conditionData) != 0) {
                     foreach ($getData as $data) {
-                        if ($data['id_pppoe'] == $sheetData[$i]['5']) {
-                            $this->db->update("data_customer", ['kode_customer' => $sheetData[$i]['1']], ['id_pppoe' => $data['id_pppoe']]);
-                            $this->db->update("data_customer", ['phone_customer' => $sheetData[$i]['3']], ['id_pppoe' => $data['id_pppoe']]);
+                        if ($data['name_pppoe'] == $sheetData[$i]['6']) {
+                            $this->db->update("data_customer", ['id_area' => $Get_Area->id_area], ['name_pppoe' => $data['name_pppoe']]);
+                            $this->db->update("data_customer", ['id_sales' => $Get_Sales->id_sales], ['name_pppoe' => $data['name_pppoe']]);
+                            // $this->db->update("data_customer", ['nama_sales' => $row[12] ?? ''], ['name_pppoe' => $data['name_pppoe']]);
+                            // $this->db->update("data_customer", ['nama_area' => $row[11] ?? ''], ['name_pppoe' => $data['name_pppoe']]);
 
                             echo "
                             <script>history.go(-1);            

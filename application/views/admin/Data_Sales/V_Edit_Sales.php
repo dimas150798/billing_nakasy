@@ -31,7 +31,7 @@
                                         <i class="bi bi-person-fill"></i>
                                     </span>
                                     <input type="text" id="nama_pegawai" class="form-control" name="nama_pegawai"
-                                        value="<?php echo $data['nama_sales'] ?>" placeholder="Masukkan Nama Sales..." required>
+                                        value="<?php echo $data['nama_sales'] ?>" placeholder="Masukkan Nama Sales..." readonly>
                                 </div>
                             </div>
 
