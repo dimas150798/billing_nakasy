@@ -76,21 +76,21 @@ class C_Edit_Pelanggan extends CI_Controller
             'Paiton'   => 'Connect_Paiton'
         ];
 
-        if (isset($mikrotikFunctions[$input['kode_mikrotik']])) {
-            $connectFunc = $mikrotikFunctions[$input['kode_mikrotik']];
-            $api = $connectFunc();
+        // if (isset($mikrotikFunctions[$input['kode_mikrotik']])) {
+        //     $connectFunc = $mikrotikFunctions[$input['kode_mikrotik']];
+        //     $api = $connectFunc();
 
-            $api->comm('/ppp/secret/set', [
-                ".id"       => $input['id_pppoe'],
-                "name"      => $input['name_pppoe'],
-                "password"  => $input['password_pppoe'],
-                "service"   => "any",
-                "profile"   => $paket->nama_paket,
-                "comment"   => $input['deskripsi_customer']
-            ]);
+        //     $api->comm('/ppp/secret/set', [
+        //         ".id"       => $input['id_pppoe'],
+        //         "name"      => $input['name_pppoe'],
+        //         "password"  => $input['password_pppoe'],
+        //         "service"   => "any",
+        //         "profile"   => $paket->nama_paket,
+        //         "comment"   => $input['deskripsi_customer']
+        //     ]);
 
-            $api->disconnect();
-        }
+        //     $api->disconnect();
+        // }
 
         // Data pelanggan yang akan diupdate
         $dataPelanggan = [
