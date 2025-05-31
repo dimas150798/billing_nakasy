@@ -49,7 +49,7 @@ class C_Kirim_WA_Lunas extends CI_Controller
 
         $convertPhone = preg_replace('/^\+?08/', '628', $phone_customer);
 
-        header("location:https://api.whatsapp.com/send?phone=$convertPhone&text=*NAKASY* %0a%0a Yth Bapak / Ibu %0a Nama : $nama_customer %0a ID Pelanggan : $kode_customer %0a Telepon : $phone_customer %0a%0a *PEMBAYARAN* %0a Tagihan Bulan : $bulan_transaksi %0a Jenis Paket : $nama_paket %0a Harga Paket : Rp.$harga_paket %0a Biaya Admin : Rp.$biaya_admin %0a Total : Rp.$total_transaksi (Sudah Termasuk PPN) %0a Keterangan : *Lunas* %0a%0a *Informasi Tambahan* %0a Simpan struk ini sebagai bukti telah melakukan pembayaran. %0a%0a Jika ada pertanyaan lebih lanjut, anda dapat langsung membalas pesan ini. %0a%0a Terima Kasih. %0a Hormat Kami. %0a%0a *NAKASY*
+        header("location:https://api.whatsapp.com/send?phone=$convertPhone&text=*NAKASY* %0a%0a Yth Bapak / Ibu %0a Nama : $nama_customer %0a ID Pelanggan : $kode_customer %0a Telepon : $phone_customer %0a%0a *PEMBAYARAN* %0a Tagihan Bulan : $bulan_transaksi %0a Jenis Paket : $nama_paket %0a Harga Paket : Rp.$harga_paket %0a Total : Rp.$total_transaksi (Sudah Termasuk PPN) %0a Keterangan : *Lunas* %0a%0a *Informasi Tambahan* %0a Simpan struk ini sebagai bukti telah melakukan pembayaran. %0a%0a Jika ada pertanyaan lebih lanjut, anda dapat langsung membalas pesan ini. %0a%0a Terima Kasih. %0a Hormat Kami. %0a%0a *NAKASY*
             ");
 
         echo "
