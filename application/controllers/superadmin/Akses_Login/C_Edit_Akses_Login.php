@@ -62,8 +62,10 @@ class C_Edit_Akses_Login extends CI_Controller
                 'created_at'      => date('Y-m-d H:i:s')
             ];
 
+            $condition = ['id_login' => $input['id_login']];
+
             // Update data ke database
-            $this->M_CRUD->updateData('data_login', $data_login, ['id_login' => $input['id_login']]);
+            $this->M_CRUD->updateData('data_login', $data_login, $condition);
 
             $this->session->set_flashdata(
                 'duplicate_email',
