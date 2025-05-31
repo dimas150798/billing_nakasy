@@ -76,7 +76,8 @@
                                               <label class="form-label fw-bold fs-6">Nominal Pembayaran: <span class="text-danger">*</span></label>
                                               <div class="input-group">
                                                   <span class="input-group-text bg-primary text-white"><i class="bi bi-currency-dollar"></i></span>
-                                                  <input type="number" class="form-control" name="gross_amount" value="" min="0" placeholder="Masukkan nominal pembayaran..." required>
+                                                  <input type="text" class="form-control" id="rupiahDisplay" placeholder="Masukkan nominal pembayaran..." required>
+                                                  <input type="hidden" name="gross_amount" id="rupiahRaw">
                                               </div>
                                           </div>
 
