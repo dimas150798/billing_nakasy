@@ -130,10 +130,10 @@
 
                         <!-- Email Pelanggan -->
                         <div class="col-md-6">
-                            <label for="email_customer" class="form-label fw-bold fs-6"> Email Pelanggan: <span class="text-danger">*</span></label>
+                            <label for="email_customer" class="form-label fw-bold fs-6"> Email Pelanggan:</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-primary text-white"><i class="bi bi-envelope-at-fill"></i></span>
-                                <input type="email" class="form-control fw-bold" name="email_customer" id="email_customer" value="" placeholder="Masukkan Email Pelanggan..." required>
+                                <input type="text" class="form-control fw-bold" name="email_customer" id="email_customer" value="" placeholder="Masukkan Email Pelanggan..." required>
                             </div>
                         </div>
 
