@@ -108,7 +108,7 @@ if (!function_exists('changeDateFormat')) {
                                 <div class="input-group">
                                     <span class="input-group-text bg-primary text-white"><i class="bi bi-wallet2"></i></span>
                                     <input type="text" class="form-control" name="gross_amount"
-                                        value="<?= number_format($data['gross_amount'] + $data['biaya_admin'], 0, ',', '.') ?>" readonly>
+                                        value="<?= number_format($data['gross_amount'], 0, ',', '.') ?>" readonly>
                                 </div>
                             </div>
 
