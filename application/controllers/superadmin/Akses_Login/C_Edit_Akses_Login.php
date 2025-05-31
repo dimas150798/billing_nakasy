@@ -65,8 +65,10 @@ class C_Edit_Akses_Login extends CI_Controller
             // Update data ke database
             $this->M_CRUD->updateData('data_login', $data_login, ['id_login' => $input['id_login']]);
 
-            // Notifikasi dan redirect
-            $this->session->set_flashdata('tambah_success', 'Edit akses login berhasil');
+            $this->session->set_flashdata(
+                'duplicate_email',
+                'edit akses login berhasil'
+            );
 
             redirect('superadmin/Akses_login/C_Data_Login');
         }
