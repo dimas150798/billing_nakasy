@@ -43,11 +43,9 @@ class C_Edit_Akses_Login extends CI_Controller
         $this->form_validation->set_message('required', 'Masukkan data terlebih dahulu...');
 
         if ($this->form_validation->run() === false) {
-            // Jika validasi gagal, tampilkan kembali form
-            $data = [
-                $data['Data_Login']  = $this->M_Login->EditLogin($input['id_login']),
-                $data['Data_Akses']    = $this->M_AksesLogin->DataAksesLogin(),
-            ];
+            // Jika validasi gagal, ambil data lama untuk ditampilkan kembali
+            $data['Data_Login']  = $this->M_Login->EditLogin($input['id_login']);
+            $data['Data_Akses']  = $this->M_AksesLogin->DataAksesLogin();
 
             $this->load->view('template/superadmin/V_Header');
             $this->load->view('template/superadmin/V_Sidebar');
@@ -57,21 +55,18 @@ class C_Edit_Akses_Login extends CI_Controller
         } else {
             // Data yang akan diupdate
             $data_login = [
-                'email_login'       => $input['email_login'],
-                'password_login'    => $input['password_login'],
-                'id_akses'          => $input['id_akses'],
-                'cluster'           => $input['cluster'],
-                'created_at'        => date('Y-m-d H:i:s')
+                'email_login'     => $input['email_login'],
+                'password_login'  => $input['password_login'],
+                'id_akses'        => $input['id_akses'],
+                'cluster'         => $input['cluster'],
+                'created_at'      => date('Y-m-d H:i:s')
             ];
 
             // Update data ke database
             $this->M_CRUD->updateData('data_login', $data_login, ['id_login' => $input['id_login']]);
 
             // Notifikasi dan redirect
-            $this->session->set_flashdata(
-                'tambah_success',
-                'Edit akses login berhasil'
-            );
+            $this->session->set_flashdata('tambah_success', 'Edit akses login berhasil');
 
             redirect('superadmin/Akses_login/C_Data_Login');
         }
