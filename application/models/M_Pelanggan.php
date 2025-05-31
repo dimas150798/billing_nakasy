@@ -32,7 +32,7 @@ class M_Pelanggan extends CI_Model
     // Menampilkan Data Pelanggan Terminated
     public function DataPelanggan_Terminated($kode_mikrotik)
     {
-        $query   = $this->db->query("SELECT id_customer, kode_customer, phone_customer, nama_customer, name_pppoe, nama_paket, start_date
+        $query   = $this->db->query("SELECT id_customer, kode_customer, phone_customer, nama_customer, name_pppoe, nama_paket, start_date, disabled
             FROM data_customer
 
             WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket = 'EXPIRED'

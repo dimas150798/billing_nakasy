@@ -36,13 +36,19 @@ class C_Pelanggan_Terminated extends CI_Controller
         $no = 0;
 
         foreach ($result as $dataCustomer) {
+            $isDisabled = $dataCustomer['disabled'] === 'true';
+
+            $Status_Mikrotik = $isDisabled
+                ? '<span class="badge bg-danger">DISABLE</span>'
+                : '<span class="badge bg-success">ENABLE</span>';
 
             $row = array();
             $row[] = '<div class="text-center">' . ++$no . '</div>';
             $row[] = ucwords(strtolower($dataCustomer['nama_customer']));
             $row[] = $dataCustomer['name_pppoe'];
-            $row[] = '<div class="text-center">' . $dataCustomer['phone_customer'] . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . '</div>';
+            $row[] = '<div class="text-center">' . $Status_Mikrotik . '</div>';
+
 
             $data[] = $row;
         }

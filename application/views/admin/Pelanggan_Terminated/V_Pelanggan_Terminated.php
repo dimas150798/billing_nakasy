@@ -38,11 +38,11 @@
                              <table id="mytable" class="table  table-striped table-bordered responsive nowrap" style="width:100%">
                                  <thead class="table-light">
                                      <tr>
-                                         <th class="text-center">No</th>
+                                         <th>No</th>t
                                          <th>Nama Customer</th>
                                          <th>Name PPPOE</th>
-                                         <th class="text-center">Telepon</th>
-                                         <th class="text-center">Nama Paket</th>
+                                         <th>Nama Paket</th>
+                                         <th>Status</th>
                                      </tr>
                                  </thead>
                                  <tbody>

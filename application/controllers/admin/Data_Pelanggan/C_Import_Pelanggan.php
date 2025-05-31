@@ -100,10 +100,11 @@ class C_Import_Pelanggan extends CI_Controller
                 if (count($conditionData) != 0) {
                     foreach ($getData as $data) {
                         if ($data['name_pppoe'] == $sheetData[$i]['6']) {
-                            $this->db->update("data_customer", ['id_area' => $Get_Area->id_area], ['name_pppoe' => $data['name_pppoe']]);
-                            $this->db->update("data_customer", ['id_sales' => $Get_Sales->id_sales], ['name_pppoe' => $data['name_pppoe']]);
+                            // $this->db->update("data_customer", ['id_area' => $Get_Area->id_area], ['name_pppoe' => $data['name_pppoe']]);
+                            // $this->db->update("data_customer", ['id_sales' => $Get_Sales->id_sales], ['name_pppoe' => $data['name_pppoe']]);
                             // $this->db->update("data_customer", ['nama_sales' => $row[12] ?? ''], ['name_pppoe' => $data['name_pppoe']]);
                             // $this->db->update("data_customer", ['nama_area' => $row[11] ?? ''], ['name_pppoe' => $data['name_pppoe']]);
+                            $this->db->update("data_customer", ['nama_paket' => $row[4] ?? ''], ['name_pppoe' => $data['name_pppoe']]);
 
                             echo "
                             <script>history.go(-1);            
