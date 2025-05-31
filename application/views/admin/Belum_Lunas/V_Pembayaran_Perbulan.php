@@ -105,17 +105,10 @@
 
                                           <!-- Pembayaran Melalui -->
                                           <div class="col-md-6">
-                                              <label for="nama_sales" class="form-label fw-bold fs-6"> Pembayaran Melalui: <span class="text-danger">*</span></label>
+                                              <label class="form-label fw-bold fs-6">Pembayaran Melalui: </label>
                                               <div class="input-group">
                                                   <span class="input-group-text bg-primary text-white"><i class="bi bi-person-check-fill"></i></span>
-                                                  <select id="nama_sales" name="nama_sales" class="form-control fw-bold" required>
-                                                      <option value="">Pilih Sales:</option>
-                                                      <?php foreach ($DataSales as $dataSales) : ?>
-                                                          <option value="<?php echo $dataSales['nama_sales']; ?>">
-                                                              <?php echo $dataSales['nama_sales']; ?>
-                                                          </option>
-                                                      <?php endforeach; ?>
-                                                  </select>
+                                                  <input type="text" class="form-control" name="nama_sales" value="" required>
                                               </div>
                                           </div>
 
@@ -127,7 +120,6 @@
                                                   <input type="text" class="form-control fw-bold" name="keterangan" id="keterangan" placeholder="Masukkan keterangan...">
                                               </div>
                                           </div>
-
 
                                       </div>
 
