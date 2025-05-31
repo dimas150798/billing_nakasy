@@ -108,7 +108,7 @@
                                               <label class="form-label fw-bold fs-6">Pembayaran Melalui: </label>
                                               <div class="input-group">
                                                   <span class="input-group-text bg-primary text-white"><i class="bi bi-person-check-fill"></i></span>
-                                                  <input type="text" class="form-control" name="nama_sales" value="" required>
+                                                  <input type="text" class="form-control" name="nama_sales" value="" placeholder="Masukkan pembayaran melalui..." required>
                                               </div>
                                           </div>
 
