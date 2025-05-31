@@ -48,6 +48,21 @@
 <!-- Custom JS (separate AJAX and other logic) -->
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 
+<script>
+    const rupiahDisplay = document.getElementById("rupiahDisplay");
+    const rupiahRaw = document.getElementById("rupiahRaw");
+
+    rupiahDisplay.addEventListener("input", function() {
+        // Ambil angka murni
+        const rawValue = this.value.replace(/\D/g, "");
+        // Format tampilan dengan titik ribuan
+        const formatted = new Intl.NumberFormat("id-ID").format(rawValue);
+        this.value = formatted;
+        // Simpan ke input hidden dalam format angka murni
+        rupiahRaw.value = rawValue;
+    });
+</script>
+
 </body>
 
 </html>
