@@ -119,10 +119,6 @@ class C_Pembayaran_Perbulan extends CI_Controller
                     'disabled' => 'false',
                 ]);
                 $api->disconnect();
-
-                // Jalankan proses cluster
-                $model = $cluster === 'Kraksaan' ? $this->M_Mikrotik_Kraksaan : $this->M_Mikrotik_Paiton;
-                $model->index();
             } else {
                 redirect('C_FormLogin');
                 return;
