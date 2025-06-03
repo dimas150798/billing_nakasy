@@ -29,29 +29,6 @@ class C_Dashboard_User extends CI_Controller
         $tahun          = $Split_Date[0];
         $bulan          = $Split_Date[1];
 
-        $cluster = $this->session->userdata('cluster');
-
-        $connectFunctions = [
-            'Kraksaan' => 'Connect_Kraksaaan',
-            'Paiton'   => 'Connect_Paiton'
-        ];
-
-        // Pastikan hanya menjalankan cluster yang sesuai
-        if (isset($connectFunctions[$cluster])) {
-            $api = $connectFunctions[$cluster](); // Memanggil fungsi koneksi sesuai cluster
-            if ($api === null) {
-                redirect('C_FormLogin'); // Jika API gagal terkoneksi, arahkan ke login
-                return;
-            }
-
-            // Eksekusi berdasarkan cluster yang terhubung
-            if ($cluster === 'Kraksaan') {
-                $this->M_Mikrotik_Kraksaan->index();
-            } elseif ($cluster === 'Paiton') {
-                $this->M_Mikrotik_Paiton->index();
-            }
-        }
-
         $month = date("m");
         $year = date("Y");
         $tanggalAkhir = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
@@ -71,6 +48,15 @@ class C_Dashboard_User extends CI_Controller
         $Jumlah_Pelanggan           = $this->M_BelumLunasUser->JumlahBelumLunas($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
         $Nominal_Fee                = $Jumlah_Pelanggan * 3000;
         $Total_Akhir                = $Nominal_Tagihan->hargaPaket - $Nominal_Fee;
+
+        $cluster = $this->session->userdata('cluster');
+
+        // Eksekusi berdasarkan cluster yang terhubung
+        if ($cluster === 'Kraksaan') {
+            $this->M_Mikrotik_Kraksaan->index();
+        } elseif ($cluster === 'Paiton') {
+            $this->M_Mikrotik_Paiton->index();
+        }
 
         $data['Jumlah_Pelanggan']   = $Jumlah_Pelanggan;
         $data['Nominal_Tagihan']    = $Nominal_Tagihan->hargaPaket;
