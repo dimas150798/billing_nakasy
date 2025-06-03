@@ -48,9 +48,8 @@ class C_Pembayaran_Perhari extends CI_Controller
             12 => 'Desember'
         ];
 
-        // Ambil data POST dan cluster
+        // Ambil data POST 
         $post = $this->input->post();
-        $cluster = $this->session->userdata('cluster');
 
         // Ambil tahun dan bulan dari tanggal transaksi
         [$tahun, $bulan] = array_map('intval', explode('-', $post['transaction_time']));
@@ -86,28 +85,26 @@ class C_Pembayaran_Perhari extends CI_Controller
             'status_code'      => 200,
         ];
 
-        // Fungsi koneksi Mikrotik sesuai cluster
-        $connectFunctions = [
+        $cluster = $this->session->userdata('cluster');
+
+        $connectors = [
             'Kraksaan' => 'Connect_Kraksaaan',
-            'Paiton'   => 'Connect_Paiton'
+            'Paiton'   => 'Connect_Paiton',
         ];
 
-        // Koneksi dan proses Mikrotik berdasarkan cluster
-        if (isset($connectFunctions[$cluster])) {
-            $connectFunc = $connectFunctions[$cluster];
-            $api = $connectFunc();
-
-            if ($api) {
-                // Aktifkan akun
-                $api->comm('/ppp/secret/set', [
-                    '.id' => $post['id_pppoe'],
-                    'disabled' => 'false',
-                ]);
-                $api->disconnect();
-            } else {
-                redirect('C_FormLogin');
-                return;
+        if (isset($connectors[$cluster])) {
+            $connectFunc = $connectors[$cluster];
+            if (function_exists($connectFunc)) {
+                $api = $connectFunc();
             }
+        }
+
+        if ($api) {
+            $api->comm('/ppp/secret/set', [
+                '.id'      => $post['id_pppoe'],
+                'disabled' => 'false',
+            ]);
+            $api->disconnect();
         }
 
         // Simpan ke database
