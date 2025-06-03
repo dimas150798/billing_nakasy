@@ -130,14 +130,6 @@ class C_Pembayaran_Perbulan extends CI_Controller
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran');
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran_history');
 
-        // Notifikasi sukses
-        $nama_customer = isset($post['nama_customer']) ? htmlspecialchars($post['nama_customer']) : 'Tidak Diketahui';
-
-        $this->session->set_flashdata(
-            'success_transaksi',
-            "Pembayaran Pelanggan <b>{$nama_customer}</b> Berhasil <br> Di bulan <b>{$months[$bulan]}</b> {$tahun}"
-        );
-
         redirect('admin/Belum_Lunas/C_Belum_Lunas');
     }
 }
