@@ -89,31 +89,37 @@ class C_Pembayaran_Perhari extends CI_Controller
             'status_code'      => 200,
         ];
 
-        // Koneksi ke Mikrotik
-        $connectFunctions = [
-            'Kraksaan' => 'Connect_Kraksaaan',
-            'Paiton'   => 'Connect_Paiton'
+        $dataPelanggan = [
+            'disabled'         => 'false',
         ];
 
-        if (isset($connectFunctions[$cluster])) {
-            $connectFunc = $connectFunctions[$cluster];
-            $api = $connectFunc();
+        // Koneksi ke Mikrotik
+        $connectors = [
+            'Kraksaan' => 'Connect_Kraksaaan',
+            'Paiton'   => 'Connect_Paiton',
+        ];
 
-            if ($api) {
-                $api->comm('/ppp/secret/set', [
-                    '.id' => $post['id_pppoe'],
-                    'disabled' => 'false',
-                ]);
-                $api->disconnect();
-            } else {
-                redirect('C_FormLogin');
-                return;
+        if (isset($connectors[$cluster])) {
+            $connectFunc = $connectors[$cluster];
+            if (function_exists($connectFunc)) {
+                $api = $connectFunc();
             }
+        }
+
+        if ($api) {
+            $api->comm('/ppp/secret/set', [
+                '.id'      => $post['id_pppoe'],
+                'disabled' => 'false',
+            ]);
+            $api->disconnect();
         }
 
         // Simpan ke database
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran');
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran_history');
+
+        // Update ke database (dua tabel)
+        $this->M_CRUD->updateData('data_customer', $dataPelanggan, ['id_customer' => $post['id_customer']]);
 
         // Notifikasi sukses
         $this->session->set_flashdata(
