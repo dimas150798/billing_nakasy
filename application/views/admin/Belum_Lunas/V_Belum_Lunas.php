@@ -9,6 +9,7 @@
 
                          <div class="card-body">
 
+
                              <!-- Header -->
                              <div class="row">
                                  <div class="col-12">
@@ -33,6 +34,14 @@
                                                      </div>
                                                  </div>
                                              </div>
+
+                                             <!-- Alert -->
+                                             <?php if ($this->session->flashdata('success_transaksi')): ?>
+                                                 <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                                     <?= $this->session->flashdata('success_transaksi'); ?>
+                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                 </div>
+                                             <?php endif; ?>
 
                                              <!-- Filter Form -->
                                              <form class="row row-cols-1 row-cols-md-auto g-3 align-items-end" action="<?= base_url('admin/Belum_Lunas/C_Belum_Lunas') ?>" method="get">

@@ -35,13 +35,6 @@
                                   </div>
                               <?php endif; ?>
 
-                              <?php if ($this->session->flashdata('success_transaksi')): ?>
-                                  <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                                      <?= $this->session->flashdata('success_transaksi'); ?>
-                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>
-                              <?php endif; ?>
-
                               <?php foreach ($Data_Pelanggan as $data) : ?>
                                   <form method="POST" action="<?php echo base_url('admin/Belum_Lunas/C_Pembayaran_Perbulan/PaymentSave') ?>">
                                       <div class="row g-4">
