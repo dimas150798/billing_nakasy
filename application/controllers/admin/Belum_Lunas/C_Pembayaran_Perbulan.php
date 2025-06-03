@@ -69,6 +69,7 @@ class C_Pembayaran_Perbulan extends CI_Controller
 
         // Ambil data POST dan session
         $post = $this->input->post();
+        $cluster = $this->session->userdata('cluster');
 
         // Ambil bulan dan tahun dari transaction_time
         [$tahun, $bulan] = array_map('intval', explode('-', $post['transaction_time']));
@@ -100,11 +101,12 @@ class C_Pembayaran_Perbulan extends CI_Controller
             'keterangan'       => $post['keterangan'],
             'transaction_time' => $post['transaction_time'],
             'expired_date'     => $post['transaction_time'],
-            // 'disabled'         => 'false',
             'status_code'      => 200
         ];
 
-        $cluster = $this->session->userdata('cluster');
+        $dataPelanggan = [
+            'disabled'         => 'false',
+        ];
 
         $connectors = [
             'Kraksaan' => 'Connect_Kraksaaan',
@@ -130,146 +132,15 @@ class C_Pembayaran_Perbulan extends CI_Controller
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran');
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran_history');
 
+        // Update ke database (dua tabel)
+        $this->M_CRUD->updateData('data_customer', $dataPelanggan, ['id_customer' => $post['id_customer']]);
+
+        // Notifikasi sukses
+        $this->session->set_flashdata(
+            'success_transaksi',
+            'Pembayaran Pelanggan <b>' . $post['nama_customer'] . '</b> Berhasil <br> Di bulan <b>' . $months[$bulan] . '</b> ' . $tahun
+        );
+
         redirect('admin/Belum_Lunas/C_Belum_Lunas');
     }
-
-    // public function PaymentSave1()
-    // {
-    //     // Mengambil data post pada view
-    //     $id_pppoe               = $this->input->post('id_pppoe');
-    //     $id_customer            = $this->input->post('id_customer');
-    //     $order_id               = $this->input->post('order_id');
-    //     $gross_amount           = $this->input->post('gross_amount');
-    //     $nama_customer          = $this->input->post('nama_customer');
-    //     $name_pppoe             = $this->input->post('name_pppoe');
-    //     $nama_paket             = $this->input->post('nama_paket');
-    //     $transaction_time       = $this->input->post('transaction_time');
-    //     $biaya_admin            = $this->input->post('biaya_admin');
-    //     $nama_admin             = $this->input->post('nama_admin');
-    //     $keterangan             = $this->input->post('keterangan');
-
-    //     $explode = explode("-", $transaction_time);
-    //     echo $explode[0]; //untuk tahun
-    //     echo $explode[1]; //untuk bulan
-    //     echo $explode[2]; //untuk tanggal
-
-    //     // Menyimpan data payment ke dalam array
-    //     $dataPayment = array(
-    //         'order_id'         => $order_id,
-    //         'gross_amount'     => $gross_amount,
-    //         'biaya_admin'      => $biaya_admin,
-    //         'name_pppoe'       => $name_pppoe,
-    //         'nama_paket'       => $nama_paket,
-    //         'nama_admin'       => $nama_admin,
-    //         'keterangan'       => $keterangan,
-    //         'transaction_time' => $transaction_time,
-    //         'expired_date'     => $transaction_time,
-    //         'disabled'         => 'false',
-    //         'status_code'      => 200
-    //     );
-
-    //     // Menyimpan data payment duplicate ke dalam array
-    //     $dataPaymentDuplicate = array(
-    //         'order_id'         => this->M_BelumLunas->invoice(),
-    //         'gross_amount'     => $gross_amount,
-    //         'biaya_admin'      => $biaya_admin,
-    //         'name_pppoe'       => $name_pppoe,
-    //         'nama_paket'       => $nama_paket,
-    //         'nama_admin'       => $nama_admin,
-    //         'keterangan'       => $keterangan,
-    //         'transaction_time' => $transaction_time,
-    //         'expired_date'     => $transaction_time,
-    //         'disabled'         => 'false',
-    //         'status_code'      => 200
-    //     );
-
-    //     // Memanggil mysql dari model
-    //     $data['DataPelanggan']  = $this->M_BelumLunas->Payment($id_customer);
-
-    //     $checkDuplicatePay      = $this->M_BelumLunas->CheckDuplicatePayment($explode[1], $explode[0], $name_pppoe);
-
-    //     // Check Order Id
-    //     $checkDuplicateCode = $this->M_BelumLunasUser->CheckDuplicateCode($order_id);
-
-    //     // Rules form validation
-    //     $this->form_validation->set_rules('biaya_admin', 'Biaya Admin', 'required');
-    //     $this->form_validation->set_rules('transaction_time', 'Tanggal Transaksi', 'required');
-    //     $this->form_validation->set_rules('nama_admin', 'Nama Admin', 'required');
-    //     $this->form_validation->set_message('required', 'Masukan data terlebih dahulu...');
-
-    //     if ($this->form_validation->run() == false) {
-    //         $this->load->view('template/header', $data);
-    //         $this->load->view('template/sidebarAdmin', $data);
-    //         $this->load->view('admin/BelumLunas/V_PayBelumLunas', $data);
-    //         $this->load->view('template/V_FooterBelumLunas', $data);
-    //     } else {
-    //         if ($checkDuplicatePay->bulan_payment == $explode[1] && $checkDuplicatePay->tahun_payment == $explode[0] && $checkDuplicatePay->name_pppoe == $name_pppoe) {
-    //             // Notifikasi duplicate payment
-    //             $this->session->set_flashdata('DuplicatePay_icon', 'error');
-    //             $this->session->set_flashdata('DuplicatePay_title', 'Payment Gagal');
-    //             $this->session->set_flashdata('DuplicatePay_text', 'Customer sudah melakukan <br> Pembayaran bulan ini');
-
-    //             echo "
-    //             <script>history.go(-1);            
-    //             </script>
-    //             ";
-    //         } else {
-    //             if ($order_id != $checkDuplicateCode->order_id) {
-    //                 // if ($kode_mikrotik = 'Kraksaan') {
-    //                 //     $api = connectKraksaaan();
-    //                 //     $api->comm('/ppp/secret/set', [
-    //                 //         ".id" => $id_pppoe,
-    //                 //         "disabled" => 'false',
-    //                 //     ]);
-    //                 //     $api->disconnect();
-    //                 // }
-
-    //                 // if ($kode_mikrotik_paiton = 'Paiton') {
-    //                 //     $api = connectPaiton();
-    //                 //     $api->comm('/ppp/secret/set', [
-    //                 //         ".id" => $id_pppoe_paiton,
-    //                 //         "disabled" => 'false',
-    //                 //     ]);
-    //                 //     $api->disconnect();
-    //                 // }
-
-    //                 $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
-    //                 $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
-
-    //                 // Notifikasi Login Berhasil
-    //                 $this->session->set_flashdata('payment_icon', 'success');
-    //                 $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
-
-    //                 redirect('admin/BelumLunas/C_BelumLunas');
-    //             } else {
-    //                 // if ($kode_mikrotik = 'Kraksaan') {
-    //                 //     $api = connectKraksaaan();
-    //                 //     $api->comm('/ppp/secret/set', [
-    //                 //         ".id" => $id_pppoe,
-    //                 //         "disabled" => 'false',
-    //                 //     ]);
-    //                 //     $api->disconnect();
-    //                 // }
-
-    //                 // if ($kode_mikrotik_paiton = 'Paiton') {
-    //                 //     $api = connectPaiton();
-    //                 //     $api->comm('/ppp/secret/set', [
-    //                 //         ".id" => $id_pppoe_paiton,
-    //                 //         "disabled" => 'false',
-    //                 //     ]);
-    //                 //     $api->disconnect();
-    //                 // }
-
-    //                 $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran');
-    //                 $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran_history');
-
-    //                 // Notifikasi Login Berhasil
-    //                 $this->session->set_flashdata('payment_icon', 'success');
-    //                 $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
-
-    //                 redirect('admin/BelumLunas/C_BelumLunas');
-    //             }
-    //         }
-    //     }
-    // }
 }

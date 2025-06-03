@@ -50,6 +50,7 @@ class C_Pembayaran_Perhari extends CI_Controller
 
         // Ambil data POST 
         $post = $this->input->post();
+        $cluster = $this->session->userdata('cluster');
 
         // Ambil tahun dan bulan dari tanggal transaksi
         [$tahun, $bulan] = array_map('intval', explode('-', $post['transaction_time']));
@@ -81,11 +82,12 @@ class C_Pembayaran_Perhari extends CI_Controller
             'keterangan'       => $post['keterangan'],
             'transaction_time' => $post['transaction_time'],
             'expired_date'     => $post['transaction_time'],
-            'disabled'         => 'false',
-            'status_code'      => 200,
+            'status_code'      => 200
         ];
 
-        $cluster = $this->session->userdata('cluster');
+        $dataPelanggan = [
+            'disabled'         => 'false',
+        ];
 
         $connectors = [
             'Kraksaan' => 'Connect_Kraksaaan',
@@ -111,14 +113,14 @@ class C_Pembayaran_Perhari extends CI_Controller
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran');
         $this->M_CRUD->insertData($paymentData, 'data_pembayaran_history');
 
+        // Update ke database (dua tabel)
+        $this->M_CRUD->updateData('data_customer', $dataPelanggan, ['id_customer' => $post['id_customer']]);
+
         // Notifikasi sukses
         $this->session->set_flashdata(
             'success_transaksi',
             'Pembayaran Pelanggan <b>' . $post['nama_customer'] . '</b> Berhasil <br> Di bulan <b>' . $months[$bulan] . '</b> ' . $tahun
         );
-
-        redirect('admin/BelumLunas/C_BelumLunas');
-
 
         redirect('admin/Belum_Lunas/C_Belum_Lunas');
     }
