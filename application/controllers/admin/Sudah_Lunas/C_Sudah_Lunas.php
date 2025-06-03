@@ -112,6 +112,7 @@ class C_Sudah_Lunas extends CI_Controller
                     '<div class="text-center">' . $customer['nama_paket'] . '</div>',
                     '<div class="text-center">' . number_format($customer['gross_amount'], 0, ',', '.') . '</div>',
                     '<div class="text-center">' . ucwords(strtolower($customer['nama_admin'])) . '</div>',
+                    '<div class="text-center">' . ucwords(strtolower($customer['keterangan'])) . '</div>',
                     '<div class="text-center">' . $Status_Mikrotik . '</div>',
 
                     '<div class="text-center">

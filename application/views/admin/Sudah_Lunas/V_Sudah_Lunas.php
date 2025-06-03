@@ -89,6 +89,7 @@
                                          <th class="text-center">Nama Paket</th>
                                          <th class="text-center">Harga</th>
                                          <th class="text-center">Melalui</th>
+                                         <th class="text-center">Keterangan</th>
                                          <th class="text-center">Status</th>
                                          <th class="text-center">Action</th>
                                      </tr>
