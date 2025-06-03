@@ -40,8 +40,8 @@ LEFT JOIN
 WHERE 
     c.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir'
     AND dp.transaction_time IS NULL
-    AND c.stop_date IS NULL
-    AND c.kode_mikrotik = '$cluster'
+    AND c.stop_date IS NULL 
+    AND c.kode_mikrotik = '$cluster' AND  p.nama_paket != 'EXPIRED'
 ORDER BY 
     c.nama_customer ASC;
 ");
