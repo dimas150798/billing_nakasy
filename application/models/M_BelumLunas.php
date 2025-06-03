@@ -35,12 +35,11 @@ LEFT JOIN
     data_paket p ON c.id_paket = p.id_paket
 LEFT JOIN 
     data_pembayaran dp ON c.name_pppoe = dp.name_pppoe 
-    AND MONTH(dp.transaction_time) = '$bulan' 
+    AND MONTH(dp.transaction_time) = '$bulan'   
     AND YEAR(dp.transaction_time) = '$tahun'
 WHERE 
     c.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir'
     AND dp.transaction_time IS NULL
-    AND c.stop_date IS NULL 
     AND c.kode_mikrotik = '$cluster' AND  p.nama_paket != 'EXPIRED'
 ORDER BY 
     c.nama_customer ASC;
@@ -62,7 +61,7 @@ ORDER BY
         AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
 
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
-        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND
+        data_pembayaran.transaction_time IS NULL AND
         data_customer.kode_mikrotik = '$cluster' AND
         data_customer.nama_paket != 'EXPIRED'
 
@@ -85,7 +84,7 @@ ORDER BY
         AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
         
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir'
-        AND data_pembayaran.transaction_time IS NULL AND  data_customer.stop_date IS NULL 
+        AND data_pembayaran.transaction_time IS NULL 
         AND data_customer.kode_mikrotik = '$cluster' AND
         data_customer.nama_paket != 'EXPIRED'");
 
