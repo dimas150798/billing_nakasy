@@ -82,6 +82,7 @@ class C_Pembayaran_Perhari extends CI_Controller
             'keterangan'       => $post['keterangan'],
             'transaction_time' => $post['transaction_time'],
             'expired_date'     => $post['transaction_time'],
+            'disabled'         => 'false',
             'status_code'      => 200,
         ];
 
@@ -103,13 +104,6 @@ class C_Pembayaran_Perhari extends CI_Controller
                     'disabled' => 'false',
                 ]);
                 $api->disconnect();
-
-                // Jalankan model sesuai cluster
-                $modelMap = [
-                    'Kraksaan' => $this->M_Mikrotik_Kraksaan,
-                    'Paiton'   => $this->M_Mikrotik_Paiton
-                ];
-                $modelMap[$cluster]->index();
             } else {
                 redirect('C_FormLogin');
                 return;
