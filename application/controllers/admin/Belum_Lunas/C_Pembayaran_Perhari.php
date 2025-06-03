@@ -117,6 +117,9 @@ class C_Pembayaran_Perhari extends CI_Controller
             'Pembayaran Pelanggan <b>' . $post['nama_customer'] . '</b> Berhasil <br> Di bulan <b>' . $months[$bulan] . '</b> ' . $tahun
         );
 
+        redirect('admin/BelumLunas/C_BelumLunas');
+
+
         redirect('admin/Belum_Lunas/C_Belum_Lunas');
     }
 }
