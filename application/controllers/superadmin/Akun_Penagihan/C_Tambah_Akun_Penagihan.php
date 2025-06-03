@@ -42,7 +42,8 @@ class C_Tambah_Akun_Penagihan extends CI_Controller
         $this->form_validation->set_message('required', 'Masukkan data terlebih dahulu...');
 
         if ($this->form_validation->run() == false) {
-            $data['Data_Akses']    = $this->M_AksesLogin->DataAksesLogin();
+            $data['Data_Login']    = $this->M_Login->DataLogin();
+            $data['DataArea']       = $this->M_Area->DataArea();
 
             $this->load->view('template/superadmin/V_Header');
             $this->load->view('template/superadmin/V_Sidebar');
@@ -53,14 +54,14 @@ class C_Tambah_Akun_Penagihan extends CI_Controller
         }
 
         // Cek duplikat email
-        $isDuplicateEmail = $this->M_Login->CheckDuplicateEmail($input['email_login_akun']);
+        $isDuplicateEmail = $this->M_AkunPenagihan->CheckDuplicateEmail($input['email_login_akun']);
 
         if ($isDuplicateEmail) {
             $this->session->set_flashdata(
                 'duplicate_email',
                 'Email sudah terdaftar. Silakan gunakan email lain.'
             );
-            redirect('superadmin/Akses_Login/C_Tambah_Akses_Login');
+            redirect('superadmin/Akun_Penagihan/C_Tambah_Akun_Penagihan');
             return;
         }
 
