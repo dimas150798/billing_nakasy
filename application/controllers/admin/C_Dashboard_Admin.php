@@ -31,25 +31,11 @@ class C_Dashboard_Admin extends CI_Controller
 
         $cluster = $this->session->userdata('cluster');
 
-        $connectFunctions = [
-            'Kraksaan' => 'Connect_Kraksaaan',
-            'Paiton'   => 'Connect_Paiton'
-        ];
-
-        // Pastikan hanya menjalankan cluster yang sesuai
-        if (isset($connectFunctions[$cluster])) {
-            $api = $connectFunctions[$cluster]();
-            if ($api === null) {
-                redirect('C_FormLogin');
-                return;
-            }
-
-            // Eksekusi berdasarkan cluster yang terhubung
-            if ($cluster === 'Kraksaan') {
-                $this->M_Mikrotik_Kraksaan->index();
-            } elseif ($cluster === 'Paiton') {
-                $this->M_Mikrotik_Paiton->index();
-            }
+        // Eksekusi berdasarkan cluster yang terhubung
+        if ($cluster === 'Kraksaan') {
+            $this->M_Mikrotik_Kraksaan->index();
+        } elseif ($cluster === 'Paiton') {
+            $this->M_Mikrotik_Paiton->index();
         }
 
         // Database
