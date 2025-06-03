@@ -81,6 +81,6 @@ class C_Tambah_Akses_Login extends CI_Controller
             'Menambah akses login berhasil'
         );
 
-        redirect('superadmin/Akses_login/C_Data_Login');
+        redirect('superadmin/Akses_Login/C_Data_Login');
     }
 }
