@@ -90,19 +90,6 @@
                                               </div>
                                           </div>
 
-                                          <!-- Biaya Admin -->
-                                          <div class="col-md-6">
-                                              <label class="form-label fw-bold fs-6">Biaya Admin: <span class="text-danger">*</span></label>
-                                              <div class="input-group">
-                                                  <span class="input-group-text bg-primary text-white"><i class="bi bi-receipt"></i></span>
-                                                  <select id="biaya_admin" name="biaya_admin" class="form-control fw-bold" required>
-                                                      <option value="">--- Pilih Biaya Admin ---</option>
-                                                      <option value="0">Rp. 0</option>
-                                                      <option value="3000">Rp. 3.000</option>
-                                                  </select>
-                                              </div>
-                                          </div>
-
                                           <!-- Pembayaran Melalui -->
                                           <div class="col-md-6">
                                               <label class="form-label fw-bold fs-6">Pembayaran Melalui: </label>
