@@ -122,7 +122,7 @@ class C_Sudah_Lunas extends CI_Controller
                         </button>
                         <ul class="dropdown-menu shadow-sm rounded-3">
                             <li><a onclick="WA_Data(' . $customer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-whatsapp text-success"></i> Kirim by WA</a></li>
-                            <li><a onclick="Edit_Pelunasan(\'' . $customer['order_id'] . '\')" class="dropdown-item text-black"><i class="bi bi-pencil-square"></i> Edit</a></li>
+                            <li><a onclick="Edit_Data(\'' . $customer['order_id'] . '\')" class="dropdown-item text-black"><i class="bi bi-pencil-square"></i> Edit</a></li>
 
                         </ul>
                     </div>
