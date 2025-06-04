@@ -9,8 +9,8 @@
             $cards = [
                 ['icon' => 'bi-person-fill-add', 'label' => 'Pelanggan Baru', 'value' => $Pelanggan_Baru],
                 ['icon' => 'bi-person-circle', 'label' => 'Total Pelanggan', 'value' => $Total_Pelanggan],
-                ['icon' => 'bi-patch-check', 'label' => 'Pelanggan Lunas', 'value' => 0],
-                ['icon' => 'bi-patch-exclamation', 'label' => 'Pelanggan Belum Lunas', 'value' => 0]
+                ['icon' => 'bi-patch-check', 'label' => 'Pelanggan Lunas', 'value' => $Pembayaran_Lunas],
+                ['icon' => 'bi-patch-exclamation', 'label' => 'Pelanggan Belum Lunas', 'value' => $Pembayaran_BelumLunas]
             ];
 
             foreach ($cards as $card): ?>

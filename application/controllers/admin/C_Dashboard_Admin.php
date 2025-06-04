@@ -25,7 +25,7 @@ class C_Dashboard_Admin extends CI_Controller
         $Today = date('Y-m-d');
 
         // Memisahkan Tanggal
-        $Split_Date       = explode("-", $Today);
+        $Split_Date     = explode("-", $Today);
         $tahun          = $Split_Date[0];
         $bulan          = $Split_Date[1];
 
@@ -41,6 +41,8 @@ class C_Dashboard_Admin extends CI_Controller
         // Database
         $data['Total_Pelanggan']    = $this->M_Pelanggan->Total_Pelanggan($this->session->userdata('cluster'));
         $data['Pelanggan_Baru']     = $this->M_Pelanggan->Pelanggan_Baru($tahun, $bulan);
+        $data['Pembayaran_Lunas']   = $this->M_SudahLunas->JumlahSudahLunas($bulan, $tahun, $Today, $cluster);
+        $data['Pembayaran_BelumLunas']   = $this->M_BelumLunas->JumlahBelumLunas($bulan, $tahun, $Today, $cluster);
 
         $this->load->view('template/admin/V_Header');
         $this->load->view('template/admin/V_Sidebar');

@@ -46,9 +46,16 @@ class C_Pelanggan_Terminated extends CI_Controller
             $row[] = '<div class="text-center">' . ++$no . '</div>';
             $row[] = ucwords(strtolower($dataCustomer['nama_customer']));
             $row[] = $dataCustomer['name_pppoe'];
-            $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . '</div>';
-            $row[] = '<div class="text-center">' . $Status_Mikrotik . '</div>';
+            $row[] = $dataCustomer['nama_paket'];
+            $row[] = $Status_Mikrotik;
 
+            $row[] = '
+            <div class="text-center">
+                <button type="button" onclick="Aktif_Pelanggan(' . $dataCustomer['id_customer'] . ')" 
+                        class="btn btn-sm btn-primary">
+                    <i class="bi-person-check"></i></a>
+                </button>
+            </div>';
 
             $data[] = $row;
         }

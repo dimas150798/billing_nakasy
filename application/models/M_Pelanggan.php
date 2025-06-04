@@ -15,6 +15,32 @@ class M_Pelanggan extends CI_Model
         return $query->result_array();
     }
 
+    // Menampilkan Total Pelanggan Keseluruhan Aktif
+    public function Total_Pelanggan($kode_mikrotik)
+    {
+        $query   = $this->db->query("SELECT name_pppoe 
+        FROM data_customer 
+        WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket != 'EXPIRED' 
+        GROUP BY name_pppoe
+        ORDER BY name_pppoe ASC");
+
+        return $query->num_rows();
+    }
+
+    // Menampilkan Total Pelanggan Baru
+    public function Pelanggan_Baru($Tahun, $Bulan)
+    {
+        $query   = $this->db->query("SELECT name_pppoe, start_date
+        FROM data_customer 
+
+        WHERE YEAR(start_date) = '$Tahun' AND MONTH(start_date) = '$Bulan'
+
+        GROUP BY name_pppoe
+        ORDER BY name_pppoe ASC");
+
+        return $query->num_rows();
+    }
+
     // Menampilkan Data Pelanggan Aktif Akun User
     public function DataPelanggan_User($kode_mikrotik)
     {
@@ -32,7 +58,7 @@ class M_Pelanggan extends CI_Model
     // Menampilkan Data Pelanggan Terminated
     public function DataPelanggan_Terminated($kode_mikrotik)
     {
-        $query   = $this->db->query("SELECT id_customer, kode_customer, phone_customer, nama_customer, name_pppoe, nama_paket, start_date, disabled
+        $query   = $this->db->query("SELECT id_customer, kode_customer, phone_customer, nama_customer, name_pppoe, id_pppoe, nama_paket, start_date, disabled
             FROM data_customer
 
             WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket = 'EXPIRED'
@@ -43,38 +69,12 @@ class M_Pelanggan extends CI_Model
         return $query->result_array();
     }
 
-    // Menampilkan Total Pelanggan Keseluruhan Aktif
-    public function Total_Pelanggan($kode_mikrotik)
-    {
-        $query   = $this->db->query("SELECT name_pppoe 
-        FROM data_customer 
-        WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket != 'EXPIRED' 
-        GROUP BY name_pppoe
-        ORDER BY name_pppoe ASC");
-
-        return $query->num_rows();
-    }
-
     // Menampilkan Total Pelanggan Keseluruhan Terminated
     public function Total_Pelanggan_Terminated($kode_mikrotik)
     {
         $query   = $this->db->query("SELECT name_pppoe 
         FROM data_customer 
         WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket = 'EXPIRED'
-        GROUP BY name_pppoe
-        ORDER BY name_pppoe ASC");
-
-        return $query->num_rows();
-    }
-
-    // Menampilkan Total Pelanggan Baru
-    public function Pelanggan_Baru($Tahun, $Bulan)
-    {
-        $query   = $this->db->query("SELECT name_pppoe, start_date
-        FROM data_customer 
-
-        WHERE YEAR(start_date) = '$Tahun' AND MONTH(start_date) = '$Bulan'
-
         GROUP BY name_pppoe
         ORDER BY name_pppoe ASC");
 

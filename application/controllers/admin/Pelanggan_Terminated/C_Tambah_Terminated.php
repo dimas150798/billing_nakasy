@@ -95,7 +95,8 @@ class C_Tambah_Terminated extends CI_Controller
             'id_customer'         => $input['id_customer'],
             'stop_date'           => $input['stop_date'],
             'nama_paket'          => $paket,
-            'updated_at'          => date('Y-m-d H:i:s')
+            'updated_at'          => date('Y-m-d H:i:s'),
+            'disabled'            => 'true'
         ];
 
         // Update data pelanggan

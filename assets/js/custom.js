@@ -87,7 +87,7 @@ function WA_Data(parameter_id) {
     window.open(waUrl + '/' + parameter_id, '_blank');
 }
 
-// WA Data kirim 
+// Pembayaran Pelanggan
 function Pembayaran(parameter_id) {
     // Ambil URL dari elemen data-url
     var pembayaranUrl = document.getElementById('pembayaran-url').getAttribute('data-url');
@@ -95,6 +95,13 @@ function Pembayaran(parameter_id) {
     window.location.href = pembayaranUrl + '/' + parameter_id;
 }
 
+// Aktifkan pelanggan terminasi
+function Aktif_Pelanggan(parameter_id) {
+    // Ambil URL dari elemen data-url
+    var aktifUrl = document.getElementById('aktif-url').getAttribute('data-url');
+
+    window.location.href = aktifUrl + '/' + parameter_id;
+}
 // Initialize Select2 for nama_paket
 $('#nama_paket').each(function() {
     $(this).select2({
