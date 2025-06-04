@@ -92,7 +92,6 @@ class C_Pembayaran_Perbulan extends CI_Controller
         $paymentData = [
             'order_id'         => $post['order_id'],
             'gross_amount'     => $post['gross_amount'],
-            'biaya_admin'      => $post['biaya_admin'],
             'name_pppoe'       => $post['name_pppoe'],
             'nama_paket'       => $post['nama_paket'],
             'nama_admin'       => $nama_penagih,
