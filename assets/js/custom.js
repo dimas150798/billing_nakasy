@@ -102,6 +102,15 @@ function Aktif_Pelanggan(parameter_id) {
 
     window.location.href = aktifUrl + '/' + parameter_id;
 }
+
+// Edit data pelunasan pemabayaran
+function Edit_Pelunasan(parameter_id) {
+    // Ambil URL dari elemen data-url
+    var pelunasanUrl = document.getElementById('pelunasan-url').getAttribute('data-url');
+
+    window.location.href = pelunasanUrl + '/' + parameter_id;
+}
+
 // Initialize Select2 for nama_paket
 $('#nama_paket').each(function() {
     $(this).select2({

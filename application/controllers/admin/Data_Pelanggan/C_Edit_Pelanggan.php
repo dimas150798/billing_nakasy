@@ -98,7 +98,7 @@ class C_Edit_Pelanggan extends CI_Controller
             'kode_customer'       => $input['kode_customer'],
             'phone_customer'      => $input['phone_customer'],
             'nama_customer'       => $input['nama_customer'],
-            'id_paket'            => $input['id_paket'],
+            'id_paket'            => $paket->id_paket,
             'nama_paket'          => $paket->nama_paket,
             'name_pppoe'          => $input['name_pppoe'],
             'password_pppoe'      => $input['password_pppoe'],

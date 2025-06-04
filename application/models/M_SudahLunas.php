@@ -115,6 +115,30 @@ class M_SudahLunas extends CI_Model
         return $query->result_array();
     }
 
+    // Pembayaran Pelanggan berdasarkan order_id
+    public function Payment_OrderID($order_id)
+    {
+        $query   = $this->db->query("SELECT 
+            data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
+            data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
+            DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales,
+            data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
+            data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
+            data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
+            data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket,
+            MONTH(data_pembayaran.transaction_time) as bulan_payment
+            FROM data_customer
+            LEFT JOIN data_paket ON data_customer.id_paket = data_paket.id_paket
+            LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+
+            WHERE data_pembayaran.order_id = '$order_id' 
+
+            GROUP BY data_customer.name_pppoe
+            ORDER BY DAY(data_customer.start_date) ASC");
+
+        return $query->result_array();
+    }
+
     // Pembayaran Pelanggan
     public function Kirim_WA($id_customer, $bulan, $tahun)
     {

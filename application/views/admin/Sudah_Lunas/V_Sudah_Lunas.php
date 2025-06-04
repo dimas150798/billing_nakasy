@@ -78,6 +78,13 @@
                                  </div>
                              </div>
 
+                             <?php if ($this->session->flashdata('edit_success')): ?>
+                                 <div class="alert alert-success text-dark alert-dismissible fade show text-center" role="alert">
+                                     <?= $this->session->flashdata('edit_success'); ?>
+                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                 </div>
+                             <?php endif; ?>
+
                              <!-- Tabel -->
                              <table id="mytable" class="table  table-striped table-bordered responsive nowrap" style="width:100%">
                                  <thead class="table-light">

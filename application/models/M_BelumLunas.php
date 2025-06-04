@@ -145,7 +145,7 @@ ORDER BY
     // Check duplicate pembayaran
     public function CheckDuplicatePayment($bulan, $tahun, $nama)
     {
-        $this->db->select('name_pppoe, nama_paket, status_code, transaction_time, MONTH(transaction_time) as bulan_payment, YEAR(transaction_time) as tahun_payment');
+        $this->db->select('gross_amount, name_pppoe, nama_paket, status_code, transaction_time, MONTH(transaction_time) as bulan_payment, YEAR(transaction_time) as tahun_payment');
         $this->db->where('MONTH(transaction_time)', $bulan);
         $this->db->where('YEAR(transaction_time)', $tahun);
         $this->db->where('name_pppoe', $nama);
