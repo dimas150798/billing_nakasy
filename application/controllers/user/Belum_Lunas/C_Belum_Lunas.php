@@ -75,7 +75,7 @@ class C_Belum_Lunas extends CI_Controller
         $Nominal_Tagihan            = $this->M_BelumLunasUser->NominalBelumLunas($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
         $Jumlah_Pelanggan           = $this->M_BelumLunasUser->JumlahBelumLunas($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
         $Nominal_Fee                = $Jumlah_Pelanggan * 3000;
-        $Total_Akhir                = $Nominal_Tagihan->hargaPaket - $Nominal_Fee;
+        $Total_Akhir                = $Nominal_Tagihan->hargaPaket;
 
 
         $data['Jumlah_Pelanggan']   = $Jumlah_Pelanggan;

@@ -79,7 +79,7 @@ class C_Sudah_Lunas extends CI_Controller
         $data['Jumlah_SudahLunas']  = $this->M_SudahLunasUser->JumlahSudahLunas($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
         $data['Nominal_Tagihan']    = $NominalTagihan->hargaPaket;
         $data['Nominal_Fee']        = $NominalFee->biayaAdmin;
-        $data['Total_Akhir']        = $NominalTagihan->hargaPaket - $NominalFee->biayaAdmin;
+        $data['Total_Akhir']        = $NominalTagihan->hargaPaket;
 
         // Load tampilan
         $this->load->view('template/user/V_Header');
