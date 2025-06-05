@@ -49,15 +49,6 @@ class C_Dashboard_User extends CI_Controller
         $Nominal_Fee                = $Jumlah_Pelanggan * 3000;
         $Total_Akhir                = $Nominal_Tagihan->hargaPaket - $Nominal_Fee;
 
-        $cluster = $this->session->userdata('cluster');
-
-        // Eksekusi berdasarkan cluster yang terhubung
-        if ($cluster === 'Kraksaan') {
-            $this->M_Mikrotik_Kraksaan->index();
-        } elseif ($cluster === 'Paiton') {
-            $this->M_Mikrotik_Paiton->index();
-        }
-
         $data['Jumlah_Pelanggan']   = $Jumlah_Pelanggan;
         $data['Nominal_Tagihan']    = $Nominal_Tagihan->hargaPaket;
         $data['Nominal_Fee']        = $Nominal_Fee;
