@@ -201,7 +201,6 @@ class M_Mikrotik_Kraksaan extends CI_Model
             AND YEAR(data_pembayaran.transaction_time) = '$tahun'
         WHERE 
             data_customer.start_date BETWEEN '2020-10-01' AND '$tanggalAkhir'
-            AND data_customer.stop_date IS NULL 
             AND data_customer.disabled = 'true'
             AND data_pembayaran.transaction_time IS NOT NULL 
             AND data_customer.kode_mikrotik = 'Kraksaan'

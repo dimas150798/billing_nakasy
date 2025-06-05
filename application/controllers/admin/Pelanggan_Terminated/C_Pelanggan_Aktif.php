@@ -110,6 +110,7 @@ class C_Pelanggan_Aktif extends CI_Controller
             'alamat_customer'     => $input['alamat_customer'],
             'email_customer'      => $input['email_customer'],
             'start_date'          => $input['start_date'],
+            'stop_date'           => NULL,
             'nama_area'           => $input['nama_area'],
             'deskripsi_customer'  => $input['deskripsi_customer'],
             'nama_sales'          => $input['nama_sales'],
