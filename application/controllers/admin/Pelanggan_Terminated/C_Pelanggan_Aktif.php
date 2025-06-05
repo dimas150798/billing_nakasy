@@ -87,7 +87,11 @@ class C_Pelanggan_Aktif extends CI_Controller
         if ($api) {
             $api->comm('/ppp/secret/set', [
                 '.id'      => $input['id_pppoe'],
+                'name'     => $input['name_pppoe'],
+                'password' => $input['password_pppoe'],
                 'disabled' => 'false',
+                'profile'  => $paket->nama_paket,
+                'comment'  => $input['deskripsi_customer'],
             ]);
             $api->disconnect();
         }
