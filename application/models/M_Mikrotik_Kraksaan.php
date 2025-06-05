@@ -118,7 +118,7 @@ class M_Mikrotik_Kraksaan extends CI_Model
         return $response;
     }
 
-    public function Terminasi_Kraksaan_ASC($bulan, $tahun, $tanggalAkhir)
+    public function Terminasi_Kraksaan($bulan, $tahun, $tanggalAkhir)
     {
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
         data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
@@ -139,6 +139,8 @@ class M_Mikrotik_Kraksaan extends CI_Model
         data_customer.disabled = 'false' AND data_customer.kode_mikrotik = 'Kraksaan'
 
         ORDER BY data_customer.nama_customer ASC
+
+        LIMIT 100
         ")->result_array();
 
         foreach ($getData as $data) {
@@ -147,8 +149,9 @@ class M_Mikrotik_Kraksaan extends CI_Model
 
             if ($day == '11') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
+
                     // disable secret dan active otomatis 
-                    $api = connectKraksaaan();
+                    $api = Connect_Kraksaaan();
                     $api->comm('/ppp/secret/set', [
                         ".id" => $data['id_pppoe'],
                         "disabled" => 'true',
@@ -157,7 +160,16 @@ class M_Mikrotik_Kraksaan extends CI_Model
                     // disable active otomatis
                     $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
                     $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+
                     $api->disconnect();
+
+                    $updateData[] = [
+                        'name_pppoe'    => $data['name_pppoe'],
+                        'disabled'      => 'true',
+                        'updated_at'    => date('Y-m-d H:i:s'),
+                    ];
+
+                    $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
                 }
             } else {
                 echo "Belum tanggal 11";

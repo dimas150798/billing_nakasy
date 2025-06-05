@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_Terminasi_Kraksaan extends CI_Controller
+class C_Terminasi_paiton extends CI_Controller
 {
 
     public function index()
@@ -30,6 +30,6 @@ class C_Terminasi_Kraksaan extends CI_Controller
         // Menggabungkan tanggal, bulan, tahun
         $TanggalAkhir = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-        $this->M_Mikrotik_Kraksaan->Terminasi_Kraksaan($bulan, $tahun, $TanggalAkhir);
+        $this->M_Mikrotik_Paiton->Terminasi_Paiton($bulan, $tahun, $TanggalAkhir);
     }
 }
