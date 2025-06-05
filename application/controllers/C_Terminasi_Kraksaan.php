@@ -19,7 +19,6 @@ class C_Terminasi_Kraksaan extends CI_Controller
 
     public function Terminasi()
     {
-
         date_default_timezone_set("Asia/Jakarta");
         $bulan = date("m");
         $tahun = date("Y");
