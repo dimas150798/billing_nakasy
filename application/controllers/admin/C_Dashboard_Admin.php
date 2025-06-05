@@ -31,13 +31,6 @@ class C_Dashboard_Admin extends CI_Controller
 
         $cluster = $this->session->userdata('cluster');
 
-        // Eksekusi berdasarkan cluster yang terhubung
-        if ($cluster === 'Kraksaan') {
-            $this->M_Mikrotik_Kraksaan->index();
-        } elseif ($cluster === 'Paiton') {
-            $this->M_Mikrotik_Paiton->index();
-        }
-
         // Database
         $data['Total_Pelanggan']    = $this->M_Pelanggan->Total_Pelanggan($this->session->userdata('cluster'));
         $data['Pelanggan_Baru']     = $this->M_Pelanggan->Pelanggan_Baru($tahun, $bulan);
