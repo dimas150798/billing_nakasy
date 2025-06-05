@@ -94,7 +94,7 @@ class C_Sudah_Lunas extends CI_Controller
         if (!empty($result)) {
             foreach ($result as $customer) {
                 $isBelumBayar = is_null($customer['gross_amount']);
-                $isDisabled = strtolower(trim($customer['disabled'])) === 'true';
+                $isDisabled = $customer['disabled'] === 'true';
 
                 $tanggalInfo = $isBelumBayar
                     ? 'Penagihan Tanggal ' . $customer['tanggal']

@@ -6,7 +6,7 @@ class M_SudahLunas extends CI_Model
     // Menampilkan Data Sudah Lunas
     public function SudahLunas($bulan, $tahun, $tanggalAkhir, $cluster)
     {
-        $query   = $this->db->query("SELECT data_customer.id_customer,  data_customer.nama_customer, data_customer.nama_paket, 
+        $query   = $this->db->query("SELECT data_customer.id_customer,  data_customer.nama_customer, data_customer.nama_paket, data_customer.disabled,
         data_customer.name_pppoe, data_customer.phone_customer, DAY(data_customer.start_date) as tanggal, data_customer.deskripsi_customer, data_customer.nama_sales,
         data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
         data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.transaction_time, data_pembayaran.expired_date,
