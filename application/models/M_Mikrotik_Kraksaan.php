@@ -204,6 +204,8 @@ class M_Mikrotik_Kraksaan extends CI_Model
             AND data_customer.disabled = 'true'
             AND data_pembayaran.transaction_time IS NOT NULL 
             AND data_customer.kode_mikrotik = 'Kraksaan'
+            AND data_customer.nama_paket != 'EXPIRED'
+            
         ORDER BY data_customer.nama_customer ASC
         LIMIT 100
     ")->result_array();
