@@ -103,6 +103,14 @@ function Aktif_Pelanggan(parameter_id) {
     window.location.href = aktifUrl + '/' + parameter_id;
 }
 
+// Kwitansi
+function Kwitansi(parameter_id) {
+    // Ambil URL dari elemen data-url
+    var kwitansiUrl = document.getElementById('kwitansi-url').getAttribute('data-url');
+
+    window.location.href = kwitansiUrl + '/' + parameter_id;
+}
+
 // Edit data pelunasan pemabayaran
 function Edit_Pelunasan(parameter_id) {
     // Ambil URL dari elemen data-url

@@ -9,3 +9,6 @@
 
 <!-- Kwitansi Lunas by WA Pelanggan-->
 <div id="wa-url" data-url="<?= site_url('admin/Sudah_Lunas/C_Kirim_WA_Lunas/KirimWA_Lunas'); ?>"></div>
+
+<!-- Kwitansi Lunas Pelanggan-->
+<div id="kwitansi-url" data-url="<?= site_url('admin/Sudah_Lunas/C_Kwitansi/Kwitansi'); ?>"></div>
