@@ -150,13 +150,14 @@ class M_Mikrotik_Paiton extends CI_Model
         LIMIT 100
         ")->result_array();
 
+        $updateData = [];
+
         foreach ($getData as $data) {
             date_default_timezone_set("Asia/Jakarta");
             $day = date("d");
 
             if ($day == '11') {
-                if ($data['transaction_time'] == null && $data['status_code'] == null) {
-
+                if (!empty($getData)) {
                     // disable secret dan active otomatis 
                     $api = Connect_Paiton();
                     $api->comm('/ppp/secret/set', [
@@ -167,6 +168,7 @@ class M_Mikrotik_Paiton extends CI_Model
                     // disable active otomatis
                     $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
                     $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+
                     $api->disconnect();
 
                     $updateData[] = [
@@ -176,6 +178,8 @@ class M_Mikrotik_Paiton extends CI_Model
                     ];
 
                     $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
+                } else {
+                    echo "Tidak ada pelanggan yang perlu dinonaktifkan.";
                 }
             } else {
                 echo "Belum tanggal 11";

@@ -143,13 +143,14 @@ class M_Mikrotik_Kraksaan extends CI_Model
         LIMIT 100
         ")->result_array();
 
+        $updateData = [];
+
         foreach ($getData as $data) {
             date_default_timezone_set("Asia/Jakarta");
             $day = date("d");
 
             if ($day == '11') {
-                if ($data['transaction_time'] == null && $data['status_code'] == null) {
-
+                if (!empty($getData)) {
                     // disable secret dan active otomatis 
                     $api = Connect_Kraksaaan();
                     $api->comm('/ppp/secret/set', [
@@ -170,6 +171,8 @@ class M_Mikrotik_Kraksaan extends CI_Model
                     ];
 
                     $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
+                } else {
+                    echo "Tidak ada pelanggan yang perlu dinonaktifkan.";
                 }
             } else {
                 echo "Belum tanggal 11";
