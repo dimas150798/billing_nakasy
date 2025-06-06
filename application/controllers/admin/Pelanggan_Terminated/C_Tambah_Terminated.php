@@ -103,8 +103,11 @@ class C_Tambah_Terminated extends CI_Controller
         $this->M_CRUD->updateData('data_customer', $dataPelanggan, ['id_customer' => $input['id_customer']]);
 
         // Set notifikasi dan redirect
-        $this->session->set_flashdata('Edit_icon', 'success');
-        $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+        $this->session->set_flashdata(
+            'registrasi_success',
+            'Registrasi Pelanggan Berhasil'
+        );
+
         redirect('admin/Data_Pelanggan/C_Data_Pelanggan');
     }
 }
