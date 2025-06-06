@@ -1,3 +1,15 @@
+<?php
+$months = array(1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember');
+
+if (!function_exists('changeDateFormat')) {
+    function changeDateFormat($format = 'd-m-Y', $givenDate = null)
+    {
+        return date($format, strtotime($givenDate));
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -157,7 +169,7 @@
                 <p><strong>ALAMAT:</strong> <?= ucwords(strtolower(htmlspecialchars($data['alamat_customer']))); ?></p>
 
                 <p class="section-title">RINCIAN TRANSAKSI</p>
-                <p><strong>BULAN:</strong> <?= date('F', strtotime($data['start_date'])); ?></p>
+                <p><strong>BULAN:</strong> <?= $months[$data['bulan_payment']] ?></p>
                 <p><strong>PAKET:</strong> <?= htmlspecialchars($data['nama_paket']); ?></p>
                 <p><strong>HARGA:</strong> Rp. <?= number_format($data['harga_paket'], 0, ',', '.'); ?></p>
                 <p><strong>TOTAL:</strong> <span class="highlight">Rp. <?= number_format(($data['harga_paket'] + ($data['biaya_admin'] ?? 0)), 0, ',', '.'); ?></span></p>
