@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_Terminasi_paiton extends CI_Controller
+class C_Terminasi_Paiton extends CI_Controller
 {
 
     public function index()
