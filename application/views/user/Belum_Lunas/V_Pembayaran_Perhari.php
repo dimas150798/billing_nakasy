@@ -43,6 +43,7 @@
                                           <input type="hidden" name="id_pppoe" value="<?= $data['id_pppoe'] ?>" readonly>
                                           <input type="hidden" name="id_customer" value="<?= $data['id_customer'] ?>" readonly>
                                           <input type="hidden" name="order_id" value="<?php echo $this->M_BelumLunas->invoice() ?>" readonly>
+                                          <input type="hidden" name="disabled" value="<?= $data['disabled'] ?>" readonly>
 
                                           <!-- Nama Pelanggan -->
                                           <div class="col-md-6">

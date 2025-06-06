@@ -105,25 +105,27 @@ class C_Pembayaran_Perbulan extends CI_Controller
             'disabled'         => 'false',
         ];
 
-        // Koneksi Mikrotik
-        $connectors = [
-            'Kraksaan' => 'Connect_Kraksaaan',
-            'Paiton'   => 'Connect_Paiton',
-        ];
+        if ($post['disabled'] == 'true') {
+            // Koneksi Mikrotik
+            $connectors = [
+                'Kraksaan' => 'Connect_Kraksaaan',
+                'Paiton'   => 'Connect_Paiton',
+            ];
 
-        if (isset($connectors[$cluster])) {
-            $connectFunc = $connectors[$cluster];
-            if (function_exists($connectFunc)) {
-                $api = $connectFunc();
+            if (isset($connectors[$cluster])) {
+                $connectFunc = $connectors[$cluster];
+                if (function_exists($connectFunc)) {
+                    $api = $connectFunc();
+                }
             }
-        }
 
-        if ($api) {
-            $api->comm('/ppp/secret/set', [
-                '.id'      => $post['id_pppoe'],
-                'disabled' => 'false',
-            ]);
-            $api->disconnect();
+            if (isset($api)) {
+                $api->comm('/ppp/secret/set', [
+                    '.id'      => $post['id_pppoe'],
+                    'disabled' => 'false',
+                ]);
+                $api->disconnect();
+            }
         }
 
         // Simpan data ke dua tabel
