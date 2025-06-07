@@ -135,7 +135,7 @@ if (!function_exists('changeDateFormat')) {
                 box-shadow: none;
                 border-radius: 0;
                 border: none;
-                border: 2px solid #000;
+                border: 1px solid #000;
             }
 
             .receipt p,
