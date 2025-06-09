@@ -60,7 +60,7 @@ if (!function_exists('changeDateFormat')) {
                                 <div class="input-group">
                                     <span class="input-group-text bg-primary text-white"><i class="bi bi-calendar-event"></i></span>
                                     <input type="text" class="form-control" name="transaction_time"
-                                        value="<?= $data['tanggal'] . ' / ' .  ($months[$data['bulan_payment']] ?? '-') . ' / ' . $data['tahun_payment'] ?>"
+                                        value="<?= $data['tanggal_payment'] . ' / ' .  ($months[$data['bulan_payment']] ?? '-') . ' / ' . $data['tahun_payment'] ?>"
                                         readonly>
                                 </div>
                             </div>
