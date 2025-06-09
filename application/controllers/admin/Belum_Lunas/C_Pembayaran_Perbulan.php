@@ -74,8 +74,10 @@ class C_Pembayaran_Perbulan extends CI_Controller
         // Ambil bulan dan tahun dari transaction_time
         [$tahun, $bulan] = array_map('intval', explode('-', $post['transaction_time']));
 
-        // Cek duplikasi pembayaran
+        // Cek duplikasi pembayaran & Sudah Lunas
         $duplicate = $this->M_BelumLunas->CheckDuplicatePayment($bulan, $tahun, $post['name_pppoe']);
+        $check_sudah_lunas = $this->M_SudahLunas->Check_Payment_OrderID($post['order_id']);
+
         if (
             $duplicate &&
             $duplicate->bulan_payment == $bulan &&
@@ -102,6 +104,19 @@ class C_Pembayaran_Perbulan extends CI_Controller
             'expired_date'     => $post['transaction_time'],
             'status_code'      => 200
         ];
+
+        $paymentData_NewOrderID = [
+            'order_id'         => $this->M_BelumLunas->invoice(),
+            'gross_amount'     => $post['gross_amount'],
+            'name_pppoe'       => $post['name_pppoe'],
+            'nama_paket'       => $post['nama_paket'],
+            'nama_admin'       => $post['nama_sales'],
+            'keterangan'       => $post['keterangan'],
+            'transaction_time' => $post['transaction_time'],
+            'expired_date'     => $post['transaction_time'],
+            'status_code'      => 200
+        ];
+
 
         $dataPelanggan = [
             'disabled'         => 'false',
@@ -130,11 +145,16 @@ class C_Pembayaran_Perbulan extends CI_Controller
             }
         }
 
-        // Simpan ke database (dua tabel)
-        $this->M_CRUD->insertData($paymentData, 'data_pembayaran');
-        $this->M_CRUD->insertData($paymentData, 'data_pembayaran_history');
+        // Tentukan data yang akan digunakan untuk insert
+        $insertData = ($post['order_id'] == $check_sudah_lunas->order_id)
+            ? $paymentData_NewOrderID
+            : $paymentData;
 
-        // Update ke database (dua tabel)
+        // Simpan ke database (dua tabel)
+        $this->M_CRUD->insertData($insertData, 'data_pembayaran');
+        $this->M_CRUD->insertData($insertData, 'data_pembayaran_history');
+
+        // Update ke database
         $this->M_CRUD->updateData('data_customer', $dataPelanggan, ['id_customer' => $post['id_customer']]);
 
         // Notifikasi sukses

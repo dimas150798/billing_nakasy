@@ -180,4 +180,20 @@ class M_SudahLunas extends CI_Model
             return false;
         }
     }
+
+    // Check Pembayaran
+    public function Check_Payment_OrderID($order_id)
+    {
+        $this->db->select('order_id');
+        $this->db->where('order_id', $order_id);
+        $this->db->limit(1);
+
+        $result = $this->db->get('data_pembayaran');
+
+        if ($result->num_rows() > 0) {
+            return $result->row(); // Kembalikan data jika ada
+        } else {
+            return null; // Tidak ada data, return null
+        }
+    }
 }
