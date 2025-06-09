@@ -17,14 +17,14 @@ class C_Kirim_WA_Lunas extends CI_Controller
         }
     }
 
-    public function KirimWA_Lunas($id_customer)
+    public function KirimWA_Lunas($order_id)
     {
         // Ambil bulan dan tahun dari session
         $bulan = $this->session->userdata('bulanGET') ?: $this->session->userdata('bulan');
         $tahun = $this->session->userdata('tahunGET') ?: $this->session->userdata('tahun');
 
         // Ambil data pelanggan dari model
-        $data['Data_Pelanggan'] = $this->M_SudahLunas->Kirim_WA($id_customer, $bulan, $tahun);
+        $data['Data_Pelanggan'] = $this->M_SudahLunas->Kirim_WA($order_id);
 
         // Load tampilan
         $this->load->view('template/admin/V_Header');

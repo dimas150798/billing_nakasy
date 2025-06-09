@@ -140,7 +140,7 @@ class M_SudahLunas extends CI_Model
     }
 
     // Pembayaran Pelanggan
-    public function Kirim_WA($id_customer, $bulan, $tahun)
+    public function Kirim_WA($order_id)
     {
         $query   = $this->db->query("SELECT 
             data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
@@ -155,7 +155,7 @@ class M_SudahLunas extends CI_Model
             LEFT JOIN data_paket ON data_customer.id_paket = data_paket.id_paket
             LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
 
-            WHERE data_customer.id_customer = '$id_customer' AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+            WHERE data_pembayaran.order_id = '$order_id'
     
             GROUP BY data_customer.name_pppoe
             ORDER BY DAY(data_customer.start_date) ASC");
