@@ -75,10 +75,12 @@ class C_Sudah_Lunas extends CI_Controller
         $nama_penagih               = $checkLogin->nama_penagih;
         $NominalTagihan             = $this->M_SudahLunasUser->NominalSudahLunas($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
         $NominalFee                 = $this->M_SudahLunasUser->NominalBiayaAdmin($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+        $Jumlah_Pelanggan           = $this->M_SudahLunasUser->JumlahSudahLunas($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+
 
         $data['Jumlah_SudahLunas']  = $this->M_SudahLunasUser->JumlahSudahLunas($month, $year, $lastDate, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
         $data['Nominal_Tagihan']    = $NominalTagihan->hargaPaket;
-        $data['Nominal_Fee']        = $NominalFee->biayaAdmin;
+        $data['Nominal_Fee']        = $Jumlah_Pelanggan * 3000;
         $data['Total_Akhir']        = $NominalTagihan->hargaPaket;
 
         // Load tampilan
