@@ -21,11 +21,11 @@ class C_Send_Telegram extends CI_Controller
 
         // Format pesan
         $message = "✅ PPPoE CONNECTED\n";
-        // $message .= "🕒 Tanggal: $datetime\n";
-        // $message .= "👤 User: $user\n";
-        // $message .= "📡 IP: $ip\n";
-        // $message .= "⏱ Uptime: $uptime\n";
-        // $message .= "📲 Caller ID: $caller";
+        $message .= "🕒 Tanggal: $datetime\n";
+        $message .= "👤 User: $user\n";
+        $message .= "📡 IP: $ip\n";
+        $message .= "⏱ Uptime: $uptime\n";
+        $message .= "📲 Caller ID: $caller";
 
         // Simpan ke log
         log_message('info', $message);
@@ -33,11 +33,7 @@ class C_Send_Telegram extends CI_Controller
         // Kirim ke Telegram
         $this->send_telegram($message);
 
-        // echo "UP Event Processed";
-
-        // Log dan respons
-        log_message('info', 'Test message sent to Telegram.');
-        echo "Test Message Sent";
+        echo "UP Event Processed";
     }
 
     public function on_down()
@@ -55,13 +51,13 @@ class C_Send_Telegram extends CI_Controller
         $message .= "📲 Last Caller: $last_called\n";
         $message .= "❌ Reason: $last_disconnect";
 
-        // Log ke file
-        log_message('error', $message);
+        // Simpan ke log
+        log_message('info', $message);
 
         // Kirim ke Telegram
         $this->send_telegram($message);
 
-        echo "DOWN Event Processed";
+        echo "UP Event Processed";
     }
 
     // Contoh fungsi kirim telegram jika ingin diaktifkan
