@@ -26,24 +26,36 @@ class C_Send_Telegram extends CI_Controller
 
         $Pelanggan = $this->M_Pelanggan->Send_Telegram($lastcaller);
 
+        // Format waktu
+        $tanggal = mdate('%d-%m-%Y', now('Asia/Jakarta'));
+        $jam     = mdate('%H:%i:%s', now('Asia/Jakarta'));
+
+        // Gunakan regex untuk memisahkan nama dan index
+        if (preg_match('/^(.*?)(\d+\/\d+\/\d+:\d+)$/', $Pelanggan->deskripsi_customer, $match)) {
+            $nama  = trim($match[1]);
+            $index = $match[2];
+        } else {
+            $index = '-';
+        }
+
         $message = "✅ CONNECTED\n";
+        $message .= "📅 Tanggal: $tanggal\n";
+        $message .= "🕒 Jam: $jam\n";
         $message .= "--===============---\n\n";
 
         $message .= "🆔 Kode Pelanggan: " . strtoupper($user) . "\n";
         $message .= "👤 User: " . ucwords(strtolower($Pelanggan->nama_customer)) . "\n";
+        $message .= "🧾 Profile: $profile\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
         $message .= "📍 Alamat: " . trim(ucwords(strtolower($Pelanggan->alamat_customer))) . "\n\n";
 
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
-        $message .= "🧾 Profile: $profile\n";
         $message .= "📡 IP Client: $ip\n";
+        $message .= "📡 Index:  $index\n";
         $message .= "📲 Caller ID: $caller\n";
-        $message .= "⏱ Uptime: $uptime\n";
-        $message .= "👥 Total Active: $active Client\n";
-        $message .= "📶 Service: $service\n";
+        $message .= "⏱ Uptime: $uptime\n\n";
         $message .= "❌ Last Disconnect: $lastdisc\n";
         $message .= "🔚 Last Logout: $lastlogout\n";
-        $message .= "📲 Last Caller ID: $lastcaller\n\n";
         $message .= "--===[NAKASY]===---\n";
 
         // Simpan ke log
@@ -68,19 +80,28 @@ class C_Send_Telegram extends CI_Controller
         $tanggal = mdate('%d-%m-%Y', now('Asia/Jakarta'));
         $jam     = mdate('%H:%i:%s', now('Asia/Jakarta'));
 
+        // Gunakan regex untuk memisahkan nama dan index
+        if (preg_match('/^(.*?)(\d+\/\d+\/\d+:\d+)$/', $Pelanggan->deskripsi_customer, $match)) {
+            $nama  = trim($match[1]);
+            $index = $match[2];
+        } else {
+            $index = '-';
+        }
+
         // Buat isi pesan Telegram
         $message  = "🚫 DISCONNECTED\n";
-        $message .= "--===============---\n\n";
-
         $message .= "📅 Tanggal: $tanggal\n";
         $message .= "🕒 Jam: $jam\n";
+        $message .= "--===============---\n\n";
+
         $message .= "🆔 Kode Pelanggan: " . strtoupper($user) . "\n";
         $message .= "👤 User: " . ucwords(strtolower($Pelanggan->nama_customer)) . "\n";
+        $message .= "🧾 Profile: $Pelanggan->nama_paket\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
         $message .= "📍 Alamat: " . trim(ucwords(strtolower($Pelanggan->alamat_customer))) . "\n\n";
 
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
-        $message .= "🧾 Profile: $Pelanggan->nama_paket\n";
+        $message .= "📡 Index:  $index\n";
         $message .= "❌ Last Disconnect: $lastdisc\n";
         $message .= "🔚 Last Logout: $lastlogout\n";
         $message .= "📲 Last Caller ID: $lastcaller\n\n";
