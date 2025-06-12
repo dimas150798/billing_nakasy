@@ -123,8 +123,8 @@ class M_Mikrotik_Kraksaan extends CI_Model
         date_default_timezone_set("Asia/Jakarta");
         $day = date("d");
 
-        if ($day != '11') {
-            return "Belum tanggal 11.";
+        if ($day != '11' && $day != '12') {
+            return "Bukan tanggal 11 atau 12.";
         }
 
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
