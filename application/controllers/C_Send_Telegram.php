@@ -26,7 +26,8 @@ class C_Send_Telegram extends CI_Controller
 
         $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
 
-        $message = "✅ PELANGGAN CONNECTED\n\n";
+        $message = "✅ CONNECTED\n";
+        $message .= "--===============---\n\n";
 
         $message .= "🆔 Kode Pelanggan: " . strtoupper($user) . "\n";
         $message .= "👤 User: " . ucwords(strtolower($Pelanggan->nama_customer)) . "\n";
@@ -42,7 +43,8 @@ class C_Send_Telegram extends CI_Controller
         $message .= "📶 Service: $service\n";
         $message .= "❌ Last Disconnect: $lastdisc\n";
         $message .= "🔚 Last Logout: $lastlogout\n";
-        $message .= "📲 Last Caller ID: $lastcaller\n";
+        $message .= "📲 Last Caller ID: $lastcaller\n\n";
+        $message .= "--===[NAKASY]===---\n";
 
         // Simpan ke log
         log_message('info', $message);
@@ -67,7 +69,8 @@ class C_Send_Telegram extends CI_Controller
         $jam     = mdate('%H:%i:%s', now('Asia/Jakarta'));
 
         // Buat isi pesan Telegram
-        $message  = "🚫 PELANGGAN DISCONNECTED\n\n";
+        $message  = "🚫 PELANGGAN DISCONNECTED\n";
+        $message .= "--===============---\n\n";
 
         $message .= "📅 Tanggal: $tanggal\n";
         $message .= "🕒 Jam: $jam\n";
@@ -80,7 +83,8 @@ class C_Send_Telegram extends CI_Controller
         $message .= "🧾 Profile: $Pelanggan->nama_paket\n";
         $message .= "❌ Last Disconnect: $lastdisc\n";
         $message .= "🔚 Last Logout: $lastlogout\n";
-        $message .= "📲 Last Caller ID: $lastcaller\n";
+        $message .= "📲 Last Caller ID: $lastcaller\n\n";
+        $message .= "--===[NAKASY]===---\n";
 
         // Kirim ke Telegram
         $this->send_telegram($message);
