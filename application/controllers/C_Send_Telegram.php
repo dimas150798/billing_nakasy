@@ -57,9 +57,9 @@ class C_Send_Telegram extends CI_Controller
     public function on_down()
     {
         $user         = $this->input->post('name');
-        $lastdisc     = $this->input->post('last-disconnect-reason');
-        $lastlogout   = $this->input->post('last-logged-out');
-        $lastcaller   = $this->input->post('last-caller-id');
+        $lastdisc    = $this->input->post('lastdisc');
+        $lastlogout  = $this->input->post('lastlogout');
+        $lastcaller  = $this->input->post('lastcaller');
 
         // Ambil data pelanggan dari database
         $Pelanggan = $this->M_Pelanggan->Send_Telegram($lastcaller);
