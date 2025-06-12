@@ -62,14 +62,14 @@ class C_Send_Telegram extends CI_Controller
         $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
 
         // Buat pesan Telegram
-        $message = "🚫 PPPoE DISCONNECTED\n";
+        $message = "🚫 PPPoE PELANGGAN DISCONNECTED\n";
         $message .= "\n";
         $message .= "👤 User: $Pelanggan->nama_customer\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
         $message .= "📍 Alamat: $Pelanggan->alamat_customer\n";
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🕒 Tanggal: $datetime\n";
-        $message .= "👤 User: $user\n";
+        $message .= "🔚 Last Logout: $last_logout\n";
         $message .= "📲 Last Caller: $last_called\n";
         $message .= "❌ Reason: $last_disconnect";
 
