@@ -118,32 +118,32 @@ class C_Pembayaran_Perbulan extends CI_Controller
         ];
 
 
-        $dataPelanggan = [
-            'disabled'         => 'false',
-        ];
+        // $dataPelanggan = [
+        //     'disabled'         => 'false',
+        // ];
 
-        if ($post['disabled'] == 'true') {
-            // Koneksi Mikrotik
-            $connectors = [
-                'Kraksaan' => 'Connect_Kraksaaan',
-                'Paiton'   => 'Connect_Paiton',
-            ];
+        // if ($post['disabled'] == 'true') {
+        //     // Koneksi Mikrotik
+        //     $connectors = [
+        //         'Kraksaan' => 'Connect_Kraksaaan',
+        //         'Paiton'   => 'Connect_Paiton',
+        //     ];
 
-            if (isset($connectors[$cluster])) {
-                $connectFunc = $connectors[$cluster];
-                if (function_exists($connectFunc)) {
-                    $api = $connectFunc();
-                }
-            }
+        //     if (isset($connectors[$cluster])) {
+        //         $connectFunc = $connectors[$cluster];
+        //         if (function_exists($connectFunc)) {
+        //             $api = $connectFunc();
+        //         }
+        //     }
 
-            if (isset($api)) {
-                $api->comm('/ppp/secret/set', [
-                    '.id'      => $post['id_pppoe'],
-                    'disabled' => 'false',
-                ]);
-                $api->disconnect();
-            }
-        }
+        //     if (isset($api)) {
+        //         $api->comm('/ppp/secret/set', [
+        //             '.id'      => $post['id_pppoe'],
+        //             'disabled' => 'false',
+        //         ]);
+        //         $api->disconnect();
+        //     }
+        // }
 
         // Tentukan data yang akan digunakan untuk insert
         $insertData = ($post['order_id'] == $check_sudah_lunas->order_id)
@@ -155,7 +155,7 @@ class C_Pembayaran_Perbulan extends CI_Controller
         $this->M_CRUD->insertData($insertData, 'data_pembayaran_history');
 
         // Update ke database
-        $this->M_CRUD->updateData('data_customer', $dataPelanggan, ['id_customer' => $post['id_customer']]);
+        // $this->M_CRUD->updateData('data_customer', $dataPelanggan, ['id_customer' => $post['id_customer']]);
 
         // Notifikasi sukses
         $this->session->set_flashdata(
