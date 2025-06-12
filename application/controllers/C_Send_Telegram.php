@@ -31,7 +31,7 @@ class C_Send_Telegram extends CI_Controller
         $message .= "🆔 Kode Pelanggan: " . strtoupper($user) . "\n";
         $message .= "👤 User: " . ucwords(strtolower($Pelanggan->nama_customer)) . "\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
-        $message .= "📍 Alamat: " . trim(ucwords(strtolower($Pelanggan->alamat_customer))) . "\n";
+        $message .= "📍 Alamat: " . trim(ucwords(strtolower($Pelanggan->alamat_customer))) . "\n\n";
 
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🧾 Profile: $profile\n";
@@ -74,7 +74,7 @@ class C_Send_Telegram extends CI_Controller
         $message .= "🆔 Kode Pelanggan: " . strtoupper($user) . "\n";
         $message .= "👤 User: " . ucwords(strtolower($Pelanggan->nama_customer)) . "\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
-        $message .= "📍 Alamat: " . trim(ucwords(strtolower($Pelanggan->alamat_customer))) . "\n";
+        $message .= "📍 Alamat: " . trim(ucwords(strtolower($Pelanggan->alamat_customer))) . "\n\n";
 
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🧾 Profile: $Pelanggan->nama_paket\n";
