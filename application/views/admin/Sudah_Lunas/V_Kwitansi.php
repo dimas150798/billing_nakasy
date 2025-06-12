@@ -160,7 +160,7 @@ if (!function_exists('changeDateFormat')) {
         <div class="receipt-wrapper">
             <div class="receipt" id="receipt">
                 <h2>INFLY NETWORKS</h2>
-                <p class="center"><i class="info-icon">📍</i>Jl. Kp. Melayu, Kapuran, Kraksaan Wetan No. 63, Kabupaten Probolinggo</p>
+                <p class="center"><i class="info-icon">📍</i><?= $Alamat ?></p>
 
                 <br>
 
@@ -178,8 +178,7 @@ if (!function_exists('changeDateFormat')) {
                 <p><strong>ADMIN BY:</strong> <?= htmlspecialchars($data['nama_admin'] ?? 'Sistem'); ?></p>
 
                 <p class="section-title center">Simpan struk ini sebagai bukti pembayaran.</p>
-                <p class="center">☎ CS: 0812-129-954-04</p>
-                <p class="center">☎ CS: 0851-343-836-70</p>
+                <p class="center">☎ CS: <?= $Telepon ?></p>
 
                 <h4>Terima Kasih</h4>
             </div>
