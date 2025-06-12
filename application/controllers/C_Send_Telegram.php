@@ -13,27 +13,37 @@ class C_Send_Telegram extends CI_Controller
 
     public function on_up()
     {
-        $user = $this->input->post('name');
-        $ip = $this->input->post('ip');
-        $uptime = $this->input->post('uptime');
-        $caller = $this->input->post('caller');
-        $datetime = mdate('%d-%m-%Y %H:%i:%s', now('Asia/Jakarta'));
+        // $user = $this->input->post('name');
+        // $ip = $this->input->post('ip');
+        // $uptime = $this->input->post('uptime');
+        // $caller = $this->input->post('caller');
+        // $datetime = mdate('%d-%m-%Y %H:%i:%s', now('Asia/Jakarta'));
 
-        // Format pesan
-        $message = "✅ PPPoE CONNECTED\n";
-        $message .= "🕒 Tanggal: $datetime\n";
-        $message .= "👤 User: $user\n";
-        $message .= "📡 IP: $ip\n";
-        $message .= "⏱ Uptime: $uptime\n";
-        $message .= "📲 Caller ID: $caller";
+        // // Format pesan
+        // $message = "✅ PPPoE CONNECTED\n";
+        // $message .= "🕒 Tanggal: $datetime\n";
+        // $message .= "👤 User: $user\n";
+        // $message .= "📡 IP: $ip\n";
+        // $message .= "⏱ Uptime: $uptime\n";
+        // $message .= "📲 Caller ID: $caller";
 
-        // Simpan ke log
-        log_message('info', $message);
+        // // Simpan ke log
+        // log_message('info', $message);
+
+        // // Kirim ke Telegram
+        // $this->send_telegram($message);
+
+        // echo "UP Event Processed";
+
+        // Pesan test sederhana
+        $message = "👋 Hello World from MikroTik CI3 Integration";
 
         // Kirim ke Telegram
         $this->send_telegram($message);
 
-        echo "UP Event Processed";
+        // Log dan respons
+        log_message('info', 'Test message sent to Telegram.');
+        echo "Test Message Sent";
     }
 
     public function on_down()
