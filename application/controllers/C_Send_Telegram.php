@@ -26,11 +26,13 @@ class C_Send_Telegram extends CI_Controller
 
         $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
 
-        $message = "✅ PPPoE PELANGGAN CONNECTED\n";
-        $message .= "\n";
+        $message = "✅ PELANGGAN CONNECTED\n\n";
+
+        $message .= "🆔 Kode Pelanggan: $user\n";
         $message .= "👤 User: $Pelanggan->nama_customer\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
-        $message .= "📍 Alamat: $Pelanggan->alamat_customer\n";
+        $message .= "📍 Alamat: $Pelanggan->alamat_customer\n\n";
+
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🧾 Profile: $profile\n";
         $message .= "📡 IP Client: $ip\n";
@@ -65,12 +67,15 @@ class C_Send_Telegram extends CI_Controller
         $jam     = mdate('%H:%i:%s', now('Asia/Jakarta'));
 
         // Buat isi pesan Telegram
-        $message  = "🚫 PPPoE PELANGGAN DISCONNECTED\n\n";
+        $message  = "🚫 PELANGGAN DISCONNECTED\n\n";
+
         $message .= "📅 Tanggal: $tanggal\n";
         $message .= "🕒 Jam: $jam\n";
+        $message .= "🆔 Kode Pelanggan: $user\n";
         $message .= "👤 User: $Pelanggan->nama_customer\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
-        $message .= "📍 Alamat: $Pelanggan->alamat_customer\n";
+        $message .= "📍 Alamat: $Pelanggan->alamat_customer\n\n";
+
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🧾 Profile: $Pelanggan->nama_paket\n";
         $message .= "❌ Last Disconnect: $lastdisc\n";
