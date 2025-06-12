@@ -13,21 +13,28 @@ class C_Send_Telegram extends CI_Controller
 
     public function on_up()
     {
-        $user = $this->input->post('name');
-        $ip = $this->input->post('ip');
-        $uptime = $this->input->post('uptime');
-        $caller = $this->input->post('caller');
-        $datetime = mdate('%d-%m-%Y %H:%i:%s', now('Asia/Jakarta'));
+        $user        = $this->input->post('name');
+        $profile     = $this->input->post('profile');
+        $ip          = $this->input->post('ip');
+        $caller      = $this->input->post('caller');
+        $uptime      = $this->input->post('uptime');
+        $active      = $this->input->post('active');
+        $service     = $this->input->post('service');
+        $lastdisc    = $this->input->post('lastdisc');
+        $lastlogout  = $this->input->post('lastlogout');
+        $lastcaller  = $this->input->post('lastcaller');
 
-        // Format pesan
         $message = "✅ PPPoE CONNECTED\n";
-        $message = "\n";
-        $message = "\n";
-        // $message .= "🕒 Tanggal: $datetime\n";
         $message .= "👤 User: $user\n";
-        // $message .= "📡 IP: $ip\n";
-        // $message .= "⏱ Uptime: $uptime\n";
-        // $message .= "📲 Caller ID: $caller";
+        $message .= "🧾 Profile: $profile\n";
+        $message .= "📡 IP Client: $ip\n";
+        $message .= "📲 Caller ID: $caller\n";
+        $message .= "⏱ Uptime: $uptime\n";
+        $message .= "👥 Total Active: $active Client\n";
+        $message .= "📶 Service: $service\n";
+        $message .= "❌ Last Disconnect: $lastdisc\n";
+        $message .= "🔚 Last Logout: $lastlogout\n";
+        $message .= "📲 Last Caller ID: $lastcaller\n";
 
         // Simpan ke log
         log_message('info', $message);
