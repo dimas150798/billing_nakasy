@@ -29,6 +29,8 @@ class C_Terminasi_Kraksaan extends CI_Controller
         // Menggabungkan tanggal, bulan, tahun
         $TanggalAkhir = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-        $this->M_Mikrotik_Kraksaan->Terminasi_Kraksaan($bulan, $tahun, $TanggalAkhir);
+        $Terminasi = $this->M_Mikrotik_Kraksaan->Terminasi_Kraksaan($bulan, $tahun, $TanggalAkhir);
+
+        echo $Terminasi;
     }
 }

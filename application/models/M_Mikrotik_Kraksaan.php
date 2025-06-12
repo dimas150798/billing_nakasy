@@ -172,10 +172,10 @@ class M_Mikrotik_Kraksaan extends CI_Model
 
                     $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
                 } else {
-                    echo "Tidak ada pelanggan yang perlu dinonaktifkan.";
+                    return  "Tidak ada pelanggan yang perlu dinonaktifkan.";
                 }
             } else {
-                echo "Belum tanggal 11";
+                return  "Belum tanggal 11";
             }
         }
     }
