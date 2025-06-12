@@ -77,12 +77,25 @@ class C_Send_Telegram extends CI_Controller
         $chat_id = '-4660175011';
 
         $url = "https://api.telegram.org/bot$token/sendMessage";
+
         $data = array(
             'chat_id' => $chat_id,
             'text' => $message
         );
 
-        $this->load->library('curl');
-        $this->curl->simple_post($url, $data);
+        // Native cURL (lebih stabil dari CI3 curl)
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        // Debug: log response & error
+        log_message('debug', "Telegram response: $response");
+        log_message('error', "Telegram error: $error");
     }
 }
