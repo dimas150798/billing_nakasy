@@ -53,11 +53,16 @@ class C_Send_Telegram extends CI_Controller
 
     public function on_down()
     {
-        $user = $this->input->post('name');
-        $last_disconnect = $this->input->post('last-disconnect-reason');
-        $last_logout = $this->input->post('last-logged-out');
-        $last_called = $this->input->post('last-caller-id');
-        $datetime = mdate('%d-%m-%Y %H:%i:%s', now('Asia/Jakarta'));
+        $user        = $this->input->post('name');
+        $profile     = $this->input->post('profile');
+        $ip          = $this->input->post('ip');
+        $caller      = $this->input->post('caller');
+        $uptime      = $this->input->post('uptime');
+        $active      = $this->input->post('active');
+        $service     = $this->input->post('service');
+        $lastdisc    = $this->input->post('lastdisc');
+        $lastlogout  = $this->input->post('lastlogout');
+        $lastcaller  = $this->input->post('lastcaller');
 
         $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
 
@@ -68,10 +73,15 @@ class C_Send_Telegram extends CI_Controller
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
         $message .= "📍 Alamat: $Pelanggan->alamat_customer\n";
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
-        $message .= "🕒 Tanggal: $datetime\n";
-        $message .= "🔚 Last Logout: $last_logout\n";
-        $message .= "📲 Last Caller: $last_called\n";
-        $message .= "❌ Reason: $last_disconnect";
+        $message .= "🧾 Profile: $profile\n";
+        $message .= "📡 IP Client: $ip\n";
+        $message .= "📲 Caller ID: $caller\n";
+        $message .= "⏱ Uptime: $uptime\n";
+        $message .= "👥 Total Active: $active Client\n";
+        $message .= "📶 Service: $service\n";
+        $message .= "❌ Last Disconnect: $lastdisc\n";
+        $message .= "🔚 Last Logout: $lastlogout\n";
+        $message .= "📲 Last Caller ID: $lastcaller\n";
 
         // Simpan ke log
         log_message('info', $message);
