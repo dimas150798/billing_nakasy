@@ -57,7 +57,7 @@ class C_Send_Telegram extends CI_Controller
         // Kirim ke Telegram
         $this->send_telegram($message);
 
-        echo "UP Event Processed";
+        echo "Down Event Processed";
     }
 
     // Contoh fungsi kirim telegram jika ingin diaktifkan
