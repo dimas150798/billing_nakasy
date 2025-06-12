@@ -21,11 +21,13 @@ class C_Send_Telegram extends CI_Controller
 
         // Format pesan
         $message = "✅ PPPoE CONNECTED\n";
-        $message .= "🕒 Tanggal: $datetime\n";
+        $message = "\n";
+        $message = "\n";
+        // $message .= "🕒 Tanggal: $datetime\n";
         $message .= "👤 User: $user\n";
-        $message .= "📡 IP: $ip\n";
-        $message .= "⏱ Uptime: $uptime\n";
-        $message .= "📲 Caller ID: $caller";
+        // $message .= "📡 IP: $ip\n";
+        // $message .= "⏱ Uptime: $uptime\n";
+        // $message .= "📲 Caller ID: $caller";
 
         // Simpan ke log
         log_message('info', $message);
