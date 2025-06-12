@@ -50,19 +50,24 @@ class C_Send_Telegram extends CI_Controller
 
         echo "UP Event Processed";
     }
-
     public function on_down()
     {
-        $user        = $this->input->post('name');
-        $lastdisc    = $this->input->post('lastdisc');
-        $lastlogout  = $this->input->post('lastlogout');
-        $lastcaller  = $this->input->post('lastcaller');
+        $user         = $this->input->post('name');
+        $lastdisc     = $this->input->post('last-disconnect-reason');
+        $lastlogout   = $this->input->post('last-logged-out');
+        $lastcaller   = $this->input->post('last-caller-id');
 
+        // Ambil data pelanggan dari database
         $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
 
-        // Buat pesan Telegram
-        $message = "🚫 PPPoE PELANGGAN DISCONNECTED\n";
-        $message .= "\n";
+        // Format waktu
+        $tanggal = mdate('%d-%m-%Y', now('Asia/Jakarta'));
+        $jam     = mdate('%H:%i:%s', now('Asia/Jakarta'));
+
+        // Buat isi pesan Telegram
+        $message  = "🚫 PPPoE PELANGGAN DISCONNECTED\n\n";
+        $message .= "📅 Tanggal: $tanggal\n";
+        $message .= "🕒 Jam: $jam\n";
         $message .= "👤 User: $Pelanggan->nama_customer\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
         $message .= "📍 Alamat: $Pelanggan->alamat_customer\n";
@@ -72,11 +77,11 @@ class C_Send_Telegram extends CI_Controller
         $message .= "🔚 Last Logout: $lastlogout\n";
         $message .= "📲 Last Caller ID: $lastcaller\n";
 
-        // Simpan ke log
-        log_message('info', $message);
-
         // Kirim ke Telegram
         $this->send_telegram($message);
+
+        // Simpan ke log
+        log_message('info', $message);
 
         echo "Down Event Processed";
     }
