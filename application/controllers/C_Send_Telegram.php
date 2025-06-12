@@ -24,7 +24,7 @@ class C_Send_Telegram extends CI_Controller
         $lastlogout  = $this->input->post('lastlogout');
         $lastcaller  = $this->input->post('lastcaller');
 
-        $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
+        $Pelanggan = $this->M_Pelanggan->Send_Telegram($lastcaller);
 
         $message = "✅ CONNECTED\n";
         $message .= "--===============---\n\n";
@@ -62,7 +62,7 @@ class C_Send_Telegram extends CI_Controller
         $lastcaller   = $this->input->post('last-caller-id');
 
         // Ambil data pelanggan dari database
-        $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
+        $Pelanggan = $this->M_Pelanggan->Send_Telegram($lastcaller);
 
         // Format waktu
         $tanggal = mdate('%d-%m-%Y', now('Asia/Jakarta'));

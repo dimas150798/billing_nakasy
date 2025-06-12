@@ -130,14 +130,14 @@ class M_Pelanggan extends CI_Model
         return $query->result_array();
     }
 
-    public function Send_Telegram($name_pppoe)
+    public function Send_Telegram($last_caller_id)
     {
         $this->db->select('id_customer, kode_customer, phone_customer, 
             latitude, longitude, nama_customer, id_paket, nama_paket, name_pppoe, 
             password_pppoe, id_pppoe, id_pppoe_paiton, alamat_customer, email_customer, 
             start_date, stop_date, nama_area, deskripsi_customer, nama_sales, disabled, 
-            disabled_paiton, kode_mikrotik');
-        $this->db->where('name_pppoe', $name_pppoe);
+            disabled_paiton, kode_mikrotik, last_caller_id');
+        $this->db->where('last_caller_id', $last_caller_id);
 
         $this->db->limit(1);
         $result = $this->db->get('data_customer');
