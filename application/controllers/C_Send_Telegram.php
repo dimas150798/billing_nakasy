@@ -38,7 +38,7 @@ class C_Send_Telegram extends CI_Controller
             $index = '-';
         }
 
-        $message = "✅ CONNECTED\n";
+        $message = "✅ CONNECTED\n\n";
         $message .= "📅 Tanggal: $tanggal\n";
         $message .= "🕒 Jam: $jam\n";
         $message .= "--===============---\n\n";
@@ -89,7 +89,7 @@ class C_Send_Telegram extends CI_Controller
         }
 
         // Buat isi pesan Telegram
-        $message  = "🚫 DISCONNECTED\n";
+        $message  = "🚫 DISCONNECTED\n\n";
         $message .= "📅 Tanggal: $tanggal\n";
         $message .= "🕒 Jam: $jam\n";
         $message .= "--===============---\n\n";
