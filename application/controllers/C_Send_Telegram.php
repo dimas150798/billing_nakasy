@@ -55,7 +55,7 @@ class C_Send_Telegram extends CI_Controller
         $message .= "📲 Caller ID: $caller\n";
         $message .= "⏱ Uptime: $uptime\n\n";
         $message .= "❌ Last Disconnect: $lastdisc\n";
-        $message .= "🔚 Last Logout: $lastlogout\n";
+        $message .= "🔚 Last Logout: $lastlogout\n\n";
         $message .= "--===[NAKASY]===---\n";
 
         // Simpan ke log
