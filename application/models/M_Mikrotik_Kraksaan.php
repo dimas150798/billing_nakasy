@@ -54,6 +54,7 @@ class M_Mikrotik_Kraksaan extends CI_Model
                             'kode_customer' => $Show_Mikrotik['name'],
                             'id_pppoe'      => $Show_Mikrotik['.id'],
                             'disabled'      => $Show_Mikrotik['disabled'],
+                            'deskripsi_customer' => !empty($Show_Mikrotik['comment']) ? $Show_Mikrotik['comment'] : '-',
                             'kode_mikrotik' => 'Kraksaan',
                             'updated_at'    => date('Y-m-d H:i:s', time()),
                         ];
@@ -73,6 +74,7 @@ class M_Mikrotik_Kraksaan extends CI_Model
                             'kode_customer' => $Show_Mikrotik['name'],
                             'id_pppoe'      => $Show_Mikrotik['.id'],
                             'disabled'      => $Show_Mikrotik['disabled'],
+                            'deskripsi_customer' => !empty($Show_Mikrotik['comment']) ? $Show_Mikrotik['comment'] : '-',
                             'kode_mikrotik' => 'Kraksaan',
                             'updated_at'    => date('Y-m-d H:i:s', time()),
                         ];
@@ -101,6 +103,7 @@ class M_Mikrotik_Kraksaan extends CI_Model
                     'email_customer'    => '0',
                     'disabled'          => $Show_Mikrotik['disabled'],
                     'kode_mikrotik'     => 'Kraksaan',
+                    'deskripsi_customer' => !empty($Show_Mikrotik['comment']) ? $Show_Mikrotik['comment'] : '-',
                     'created_at'        => date('Y-m-d H:i:s', time()),
                     'updated_at'        => date('Y-m-d H:i:s', time()),
                 ];
