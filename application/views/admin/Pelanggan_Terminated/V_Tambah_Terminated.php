@@ -33,21 +33,12 @@
                                 </div>
                             </div>
 
-                            <!-- Kode Pelanggan -->
+                            <!-- Name PPPOE -->
                             <div class="col-md-6">
-                                <label for="kode_customer" class="form-label fw-bold fs-6">Kode Pelanggan: <span class="text-danger">*</span></label>
+                                <label for="name_pppoe" class="form-label fw-bold fs-6">Name PPPOE: <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-upc-scan"></i></span>
-                                    <input type="text" class="form-control" name="kode_customer" value="<?php echo $data['kode_customer'] ?>" placeholder="Masukkan Kode Pelanggan..." readonly>
-                                </div>
-                            </div>
-
-                            <!-- Tanggal Registrasi -->
-                            <div class="col-md-6">
-                                <label for="start_date" class="form-label fw-bold fs-6">Tanggal Registrasi: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-calendar-date"></i></span>
-                                    <input type="date" class="form-control" name="start_date" value="<?php echo $data['start_date'] ?>" readonly>
+                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-person-bounding-box"></i></span>
+                                    <input type="text" class="form-control" name="name_pppoe" value="<?php echo $data['name_pppoe'] ?>" placeholder="Masukkan Name PPPOE..." readonly>
                                 </div>
                             </div>
 
@@ -60,84 +51,6 @@
                                 </div>
                             </div>
 
-                            <!-- Name PPPOE -->
-                            <div class="col-md-6">
-                                <label for="name_pppoe" class="form-label fw-bold fs-6">Name PPPOE: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-person-bounding-box"></i></span>
-                                    <input type="text" class="form-control" name="name_pppoe" value="<?php echo $data['name_pppoe'] ?>" placeholder="Masukkan Name PPPOE..." readonly>
-                                </div>
-                            </div>
-
-                            <!-- Password PPPOE -->
-                            <div class="col-md-6">
-                                <label for="password_pppoe" class="form-label fw-bold fs-6">Password PPPOE: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-shield-lock"></i></span>
-                                    <input type="text" class="form-control" name="password_pppoe" value="<?php echo $data['password_pppoe'] ?>" placeholder="Masukkan Password PPPOE..." readonly>
-                                </div>
-                            </div>
-
-                            <!-- Phone Customer -->
-                            <div class="col-md-6">
-                                <label for="phone_customer" class="form-label fw-bold fs-6">No. Telepon: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-telephone-fill"></i></span>
-                                    <input type="text" class="form-control" name="phone_customer" value="<?php echo $data['phone_customer'] ?>" placeholder="Masukkan No Telepon..." readonly>
-                                </div>
-                            </div>
-
-                            <!-- Paket Internet -->
-                            <div class="col-md-6">
-                                <label for="nama_paket" class="form-label fw-bold fs-6">Paket Internet: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-wifi"></i></span>
-                                    <input type="text" class="form-control" name="nama_paket" value="<?php echo $data['nama_paket'] ?>" placeholder="Masukkan No Telepon..." readonly>
-                                </div>
-                            </div>
-
-                            <!-- Nama Area -->
-                            <div class="col-md-6">
-                                <label for="nama_odp" class="form-label fw-bold fs-6">Nama ODP / Area: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-map"></i></span>
-                                    <input type="text" class="form-control" name="nama_odp" value="<?php echo $data['nama_area'] ?>" placeholder="Masukkan No Telepon..." readonly>
-                                </div>
-                            </div>
-
-                            <!-- Nama Sales -->
-                            <div class="col-md-6">
-                                <label for="id_sales" class="form-label fw-bold fs-6">Nama Sales / Penagih: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-person-check-fill"></i></span>
-                                    <select id="nama_sales" name="nama_sales" class="form-control" readonly>
-                                        <option value="">Pilih Sales:</option>
-                                        <?php foreach ($DataSales as $dataSales) : ?>
-                                            <option value="<?php echo $dataSales['nama_sales'] ?>" <?= $data['nama_sales'] == $dataSales['nama_sales'] ? "selected" : null ?>>
-                                                <?php echo $dataSales['nama_sales'] ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Alamat Pelanggan -->
-                            <div class="col-md-6">
-                                <label for="alamat_customer" class="form-label fw-bold fs-6">Alamat Pelanggan: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-house-door-fill"></i></span>
-                                    <textarea class="form-control" name="alamat_customer" id="alamat_customer" rows="3" placeholder="Masukkan Alamat Pelanggan..." readonly><?php echo $data['alamat_customer'] ?></textarea>
-                                </div>
-                            </div>
-
-                            <!-- Deskripsi Pelanggan -->
-                            <div class="col-md-6">
-                                <label for="deskripsi_customer" class="form-label fw-bold fs-6">Keterangan: <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-file-earmark-text-fill"></i></span>
-                                    <textarea class="form-control" name="deskripsi_customer" id="deskripsi_customer" rows="3" placeholder="Masukkan Keterangan..." readonly><?php echo $data['deskripsi_customer'] ?></textarea>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Button -->

@@ -70,15 +70,6 @@ class C_Tambah_Terminated extends CI_Controller
             $api = $connectFunc();
 
             $api->comm('/ppp/secret/set', [
-                ".id"       => $input['id_pppoe'],
-                "name"      => $input['name_pppoe'],
-                "password"  => $input['password_pppoe'],
-                "service"   => "any",
-                "profile"   => $paket,
-                "comment"   => $input['deskripsi_customer']
-            ]);
-
-            $api->comm('/ppp/secret/set', [
                 ".id" => $input['id_pppoe'],
                 "disabled" => 'true',
             ]);
