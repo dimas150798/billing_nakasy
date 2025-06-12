@@ -127,6 +127,13 @@ class M_Mikrotik_Paiton extends CI_Model
 
     public function Terminasi_Paiton($bulan, $tahun, $tanggalAkhir)
     {
+        date_default_timezone_set("Asia/Jakarta");
+        $day = (int)date("d");
+
+        if ($day < 11 || $day > 26) {
+            return "Di luar rentang tanggal 11 sampai 26.";
+        }
+
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
         data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
         DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales, data_customer.disabled, 
@@ -150,40 +157,38 @@ class M_Mikrotik_Paiton extends CI_Model
         LIMIT 100
         ")->result_array();
 
+        if (empty($getData)) {
+            return "Tidak ada pelanggan yang perlu dinonaktifkan.";
+        }
+
         $updateData = [];
+        $api = Connect_Paiton();
 
         foreach ($getData as $data) {
-            date_default_timezone_set("Asia/Jakarta");
-            $day = date("d");
+            // disable secret dan active otomatis 
+            $api->comm('/ppp/secret/set', [
+                ".id" => $data['id_pppoe'],
+                "disabled" => 'true',
+            ]);
 
-            if ($day == '11') {
-                if (!empty($getData)) {
-                    // disable secret dan active otomatis 
-                    $api = Connect_Paiton();
-                    $api->comm('/ppp/secret/set', [
-                        ".id" => $data['id_pppoe'],
-                        "disabled" => 'true',
-                    ]);
+            // disable active otomatis
+            $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+            $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
 
-                    // disable active otomatis
-                    $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
-                    $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+            // Siapkan untuk update batch database
+            $updateData[] = [
+                'name_pppoe' => $data['name_pppoe'],
+                'disabled'   => 'true',
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+        }
 
-                    $api->disconnect();
+        $api->disconnect();
 
-                    $updateData[] = [
-                        'name_pppoe'    => $data['name_pppoe'],
-                        'disabled'      => 'true',
-                        'updated_at'    => date('Y-m-d H:i:s'),
-                    ];
-
-                    $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
-                } else {
-                    echo "Tidak ada pelanggan yang perlu dinonaktifkan.";
-                }
-            } else {
-                echo "Belum tanggal 11";
-            }
+        if (!empty($updateData)) {
+            $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
+        } else {
+            return "Tidak ada yang perlu diperbarui.";
         }
     }
 

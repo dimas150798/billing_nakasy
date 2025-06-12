@@ -30,6 +30,8 @@ class C_Terminasi_Paiton extends CI_Controller
         // Menggabungkan tanggal, bulan, tahun
         $TanggalAkhir = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-        $this->M_Mikrotik_Paiton->Terminasi_Paiton($bulan, $tahun, $TanggalAkhir);
+        $Terminasi = $this->M_Mikrotik_Paiton->Terminasi_Paiton($bulan, $tahun, $TanggalAkhir);
+
+        echo $Terminasi;
     }
 }
