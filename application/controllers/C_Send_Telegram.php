@@ -24,8 +24,12 @@ class C_Send_Telegram extends CI_Controller
         $lastlogout  = $this->input->post('lastlogout');
         $lastcaller  = $this->input->post('lastcaller');
 
-        $message = "✅ PPPoE CONNECTED\n";
-        $message .= "👤 User: $user\n";
+        $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
+
+        $message = "✅ PPPoE PELANGGAN CONNECTED\n";
+        $message .= "\n";
+        $message .= "👤 User: $Pelanggan->nama_customer\n";
+        $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
         $message .= "🧾 Profile: $profile\n";
         $message .= "📡 IP Client: $ip\n";
         $message .= "📲 Caller ID: $caller\n";
@@ -53,8 +57,15 @@ class C_Send_Telegram extends CI_Controller
         $last_called = $this->input->post('last-caller-id');
         $datetime = mdate('%d-%m-%Y %H:%i:%s', now('Asia/Jakarta'));
 
+        $Pelanggan = $this->M_Pelanggan->Send_Telegram($user);
+
         // Buat pesan Telegram
         $message = "🚫 PPPoE DISCONNECTED\n";
+        $message .= "\n";
+        $message .= "👤 User: $Pelanggan->nama_customer\n";
+        $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
+        $message .= "📍 Alamat: $Pelanggan->alamat_customer\n";
+        $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🕒 Tanggal: $datetime\n";
         $message .= "👤 User: $user\n";
         $message .= "📲 Last Caller: $last_called\n";
