@@ -54,6 +54,8 @@ class M_Mikrotik_Paiton extends CI_Model
                             'kode_customer' => $Show_Mikrotik['name'],
                             'id_pppoe'      => $Show_Mikrotik['.id'],
                             'disabled'      => $Show_Mikrotik['disabled'],
+                            'last_caller_id'      => $Show_Mikrotik['last-caller-id'],
+                            'deskripsi_customer' => !empty($Show_Mikrotik['comment']) ? $Show_Mikrotik['comment'] : '-',
                             'kode_mikrotik' => 'Paiton',
                             'updated_at'    => date('Y-m-d H:i:s', time()),
                         ];
@@ -73,6 +75,8 @@ class M_Mikrotik_Paiton extends CI_Model
                             'kode_customer' => $Show_Mikrotik['name'],
                             'id_pppoe'      => $Show_Mikrotik['.id'],
                             'disabled'      => $Show_Mikrotik['disabled'],
+                            'last_caller_id'      => $Show_Mikrotik['last-caller-id'],
+                            'deskripsi_customer' => !empty($Show_Mikrotik['comment']) ? $Show_Mikrotik['comment'] : '-',
                             'kode_mikrotik' => 'Paiton',
                             'updated_at'    => date('Y-m-d H:i:s', time()),
                         ];
@@ -107,7 +111,9 @@ class M_Mikrotik_Paiton extends CI_Model
                     'alamat_customer'   => '0',
                     'email_customer'    => '0',
                     'disabled'          => $Show_Mikrotik['disabled'],
+                    'last_caller_id'    => $Show_Mikrotik['last-caller-id'],
                     'kode_mikrotik'     => 'Paiton',
+                    'deskripsi_customer' => !empty($Show_Mikrotik['comment']) ? $Show_Mikrotik['comment'] : '-',
                     'created_at'        => date('Y-m-d H:i:s', time()),
                     'updated_at'        => date('Y-m-d H:i:s', time()),
                 ];
