@@ -28,10 +28,10 @@ class C_Send_Telegram extends CI_Controller
 
         $message = "✅ PELANGGAN CONNECTED\n\n";
 
-        $message .= "🆔 Kode Pelanggan: $user\n";
-        $message .= "👤 User: $Pelanggan->nama_customer\n";
+        $message .= "🆔 Kode Pelanggan: " . strtoupper($user) . "\n";
+        $message .= "👤 User: " . ucwords(strtolower($Pelanggan->nama_customer)) . "\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
-        $message .= "📍 Alamat: $Pelanggan->alamat_customer\n\n";
+        $message .= "📍 Alamat: " . ucwords(strtolower($Pelanggan->alamat_customer)) . "\n\n";
 
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🧾 Profile: $profile\n";
@@ -71,10 +71,10 @@ class C_Send_Telegram extends CI_Controller
 
         $message .= "📅 Tanggal: $tanggal\n";
         $message .= "🕒 Jam: $jam\n";
-        $message .= "🆔 Kode Pelanggan: $user\n";
-        $message .= "👤 User: $Pelanggan->nama_customer\n";
+        $message .= "🆔 Kode Pelanggan: " . strtoupper($user) . "\n";
+        $message .= "👤 User: " . ucwords(strtolower($Pelanggan->nama_customer)) . "\n";
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
-        $message .= "📍 Alamat: $Pelanggan->alamat_customer\n\n";
+        $message .= "📍 Alamat: " . ucwords(strtolower($Pelanggan->alamat_customer)) . "\n\n";
 
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
         $message .= "🧾 Profile: $Pelanggan->nama_paket\n";
