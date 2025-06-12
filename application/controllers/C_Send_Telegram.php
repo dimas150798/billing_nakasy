@@ -67,7 +67,7 @@ class C_Send_Telegram extends CI_Controller
         $message .= "📞 Telepon: $Pelanggan->phone_customer\n";
         $message .= "📍 Alamat: $Pelanggan->alamat_customer\n";
         $message .= "🔐 SN Modem: $Pelanggan->password_pppoe\n";
-        $message .= "🔐 SN Modem: $Pelanggan->nama_paket\n";
+        $message .= "🧾 Profile: $Pelanggan->nama_paket\n";
         $message .= "❌ Last Disconnect: $lastdisc\n";
         $message .= "🔚 Last Logout: $lastlogout\n";
         $message .= "📲 Last Caller ID: $lastcaller\n";
