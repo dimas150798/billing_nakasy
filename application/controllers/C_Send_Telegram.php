@@ -69,7 +69,7 @@ class C_Send_Telegram extends CI_Controller
         $jam     = mdate('%H:%i:%s', now('Asia/Jakarta'));
 
         // Buat isi pesan Telegram
-        $message  = "🚫 PELANGGAN DISCONNECTED\n";
+        $message  = "🚫 DISCONNECTED\n";
         $message .= "--===============---\n\n";
 
         $message .= "📅 Tanggal: $tanggal\n";
