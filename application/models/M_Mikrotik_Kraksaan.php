@@ -120,6 +120,13 @@ class M_Mikrotik_Kraksaan extends CI_Model
 
     public function Terminasi_Kraksaan($bulan, $tahun, $tanggalAkhir)
     {
+        date_default_timezone_set("Asia/Jakarta");
+        $day = date("d");
+
+        if ($day != '11') {
+            return "Belum tanggal 11.";
+        }
+
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
         data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
         DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales, data_customer.disabled, 
@@ -143,42 +150,44 @@ class M_Mikrotik_Kraksaan extends CI_Model
         LIMIT 100
         ")->result_array();
 
+        if (empty($getData)) {
+            return "Tidak ada pelanggan yang perlu dinonaktifkan.";
+        }
+
         $updateData = [];
+        $api = Connect_Kraksaaan(); // koneksi API hanya sekali
+
 
         foreach ($getData as $data) {
-            date_default_timezone_set("Asia/Jakarta");
-            $day = date("d");
+            // Disable secret
+            $api->comm('/ppp/secret/set', [
+                ".id" => $data['id_pppoe'],
+                "disabled" => 'true',
+            ]);
 
-            if ($day == '11') {
-                if (!empty($getData)) {
-                    // disable secret dan active otomatis 
-                    $api = Connect_Kraksaaan();
-                    $api->comm('/ppp/secret/set', [
-                        ".id" => $data['id_pppoe'],
-                        "disabled" => 'true',
-                    ]);
-
-                    // disable active otomatis
-                    $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
-                    $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
-
-                    $api->disconnect();
-
-                    $updateData[] = [
-                        'name_pppoe'    => $data['name_pppoe'],
-                        'disabled'      => 'true',
-                        'updated_at'    => date('Y-m-d H:i:s'),
-                    ];
-
-                    $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
-                } else {
-                    return  "Tidak ada pelanggan yang perlu dinonaktifkan.";
-                }
-            } else {
-                return  "Belum tanggal 11";
+            // Disable active
+            $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+            if (!empty($ambilid)) {
+                $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
             }
+
+            // Siapkan untuk update batch database
+            $updateData[] = [
+                'name_pppoe' => $data['name_pppoe'],
+                'disabled'   => 'true',
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+        }
+
+        $api->disconnect();
+
+        if (!empty($updateData)) {
+            $this->db->update_batch("data_customer", $updateData, 'name_pppoe');
+        } else {
+            return "Tidak ada yang perlu diperbarui.";
         }
     }
+
 
     public function Enable_Kraksaan($bulan, $tahun, $tanggalAkhir)
     {
