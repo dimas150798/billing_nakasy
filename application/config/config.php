@@ -26,10 +26,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 
 // Config Domain Hosting
-$config['base_url'] = 'https://billing.nakasy.com/';
+// $config['base_url'] = 'https://billing.nakasy.com/';
 
 // Config Domain Lokal
-// $config['base_url'] = 'http://localhost/billing_nakasy/';
+$config['base_url'] = 'http://localhost/billing_nakasy/';
 
 
 /*

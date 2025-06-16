@@ -95,3 +95,10 @@ body {
         .table {
             font-size: 0.800rem;
         }
+
+        .keterangan-col {
+            max-width: 150px;         
+            word-wrap: break-word;    
+            white-space: normal;      
+            overflow-wrap: break-word;
+        }
