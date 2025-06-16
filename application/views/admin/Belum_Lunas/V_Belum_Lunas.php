@@ -9,20 +9,20 @@
 
                         <!-- Informasi Status -->
                         <div>
-                            <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
-                                <h4 class="fw-bold text-white mb-0">Pembayaran:</h4>
-                                <span class="badge bg-danger bg-gradient fs-6 px-3 py-2 rounded-pill">Belum Lunas</span>
+                            <div class="d-flex flex-wrap gap-3">
+                                <span class="fw-semibold">Pembayaran :</span>
+                                <span class="badge bg-danger text-white fs-6 px-3 py-2 rounded-pill">Belum Lunas</span>
                             </div>
 
                             <div class="d-flex flex-wrap gap-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bx bx-user fs-5 text-primary"></i>
-                                    <span class="fw-semibold">Jumlah:</span>
+                                    <span class="fw-semibold">Jumlah :</span>
                                     <span class="badge bg-primary text-white fs-6 px-3 py-2 rounded-pill"><?= $Jumlah_BelumLunas ?></span>
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bx bx-money fs-5 text-success"></i>
-                                    <span class="fw-semibold">Nominal:</span>
+                                    <span class="fw-semibold">Nominal :</span>
                                     <span class="badge bg-success text-white fs-6 px-3 py-2 rounded-pill"><?= number_format($Nominal_BelumLunas, 0, ',', '.') ?></span>
                                 </div>
                             </div>
