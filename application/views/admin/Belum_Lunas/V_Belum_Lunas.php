@@ -9,11 +9,13 @@
 
                         <!-- Informasi Status -->
                         <div>
-                            <div class="d-flex flex-wrap gap-3">
-                                <span class="fw-semibold">Pembayaran :</span>
+                            <!-- Baris Pembayaran -->
+                            <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+                                <span class="fw-semibold mb-0">Pembayaran :</span>
                                 <span class="badge bg-danger text-white fs-6 px-3 py-2 rounded-pill">Belum Lunas</span>
                             </div>
 
+                            <!-- Info Jumlah dan Nominal -->
                             <div class="d-flex flex-wrap gap-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bx bx-user fs-5 text-primary"></i>
@@ -27,6 +29,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <!-- Filter -->
                         <form class="row row-cols-1 row-cols-md-auto g-3 align-items-end" action="<?= base_url('admin/Belum_Lunas/C_Belum_Lunas') ?>" method="get">
