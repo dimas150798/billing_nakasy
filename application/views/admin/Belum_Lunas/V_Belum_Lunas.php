@@ -81,13 +81,13 @@
 
             <!-- Table -->
             <div class="table-responsive" style="width: 100%;">
-                <table id="mytable" class="table  table-striped table-bordered responsive nowrap">
+                <table id="mytable" class="table table-striped table-bordered w-100 responsive">
                     <thead class="table-light">
                         <tr>
                             <th class="text-center">No</th>
                             <th class="text-center">Nama</th>
-                            <th class="text-center">Name PPPOE</th>
-                            <th class="text-center">Nama Paket</th>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Paket</th>
                             <th class="text-center">Tarif</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Action</th>

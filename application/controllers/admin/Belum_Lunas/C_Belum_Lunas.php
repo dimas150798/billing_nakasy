@@ -96,8 +96,8 @@ class C_Belum_Lunas extends CI_Controller
                 $isDisabled = $customer['disabled'] === 'true';
 
                 $Status_Mikrotik = $isDisabled
-                    ? '<span class="badge bg-danger px-2 py-1 fs-6 rounded-pill">DISABLE</span>'
-                    : '<span class="badge bg-success px-2 py-1 fs-6 rounded-pill">ENABLE</span>';
+                    ? '<span class="badge bg-danger px-2 py-1" style="font-size: 0.65rem; border-radius: 999px;">DISABLE</span>'
+                    : '<span class="badge bg-success px-2 py-1" style="font-size: 0.65rem; border-radius: 999px;">ENABLE</span>';
 
                 $data[] = [
                     '<div class="text-center">' . $no++ . '</div>',
