@@ -1,0 +1,97 @@
+body {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* Navbar */
+        .nav-link.active {
+            background-color: #ffffff !important;
+            color: #0d6efd !important;
+        }
+
+        .navbar-nav .dropdown-menu {
+            position: absolute !important;
+            width: auto;
+            max-width: 260px;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+
+        .navbar .dropdown-menu {
+            z-index: 1050;
+        }
+
+        .offcanvas-modern {
+            backdrop-filter: blur(10px);
+            background-color: rgba(30, 30, 30, 0.9);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .offcanvas-modern .nav-link {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 0.5rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .offcanvas-modern .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+
+        .offcanvas-modern .section-title {
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #bbb;
+            margin: 1.5rem 0 0.5rem 1.2rem;
+        }
+
+        .offcanvas-modern .offcanvas-title {
+            font-size: 1.1rem;
+        }
+
+        .icon-rounded {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 6px;
+        }
+
+        .active {
+            background-color: rgba(13, 110, 253, 0.2) !important;
+        }
+
+        .btn-close-white {
+            filter: brightness(0) invert(1);
+        }
+
+        .hover-bg:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Navbar */
+
+        /* Card Filter */
+        .card {
+            border-radius: 1.25rem;
+        }
+
+        .badge {
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-select-sm {
+            min-width: 150px;
+        }
+
+        .btn-info {
+            background: linear-gradient(to right, #00b4d8, #0077b6);
+            border: none;
+        }
+
+        /* Card Filter */
+
+        .table {
+            font-size: 0.800rem;
+        }

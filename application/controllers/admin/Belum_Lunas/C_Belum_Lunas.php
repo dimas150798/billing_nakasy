@@ -70,11 +70,11 @@ class C_Belum_Lunas extends CI_Controller
         $data['Nominal_BelumLunas'] = $getPaket->hargaPaket ?? 0;
 
         // Load tampilan
-        $this->load->view('template/admin/V_Header');
-        $this->load->view('template/admin/V_Sidebar');
+        $this->load->view('template/admin/V_Header_New');
         $this->load->view('template/admin/V_Get_BelumLunas');
+        $this->load->view('template/admin/V_Sidebar_New');
         $this->load->view('admin/Belum_Lunas/V_Belum_Lunas', $data);
-        $this->load->view('template/admin/V_Footer');
+        $this->load->view('template/admin/V_Footer_New');
     }
 
     public function GetDataAjax()
@@ -96,8 +96,8 @@ class C_Belum_Lunas extends CI_Controller
                 $isDisabled = $customer['disabled'] === 'true';
 
                 $Status_Mikrotik = $isDisabled
-                    ? '<span class="badge bg-danger">DISABLE</span>'
-                    : '<span class="badge bg-success">ENABLE</span>';
+                    ? '<span class="badge bg-danger px-2 py-1 fs-6 rounded-pill">DISABLE</span>'
+                    : '<span class="badge bg-success px-2 py-1 fs-6 rounded-pill">ENABLE</span>';
 
                 $data[] = [
                     '<div class="text-center">' . $no++ . '</div>',
@@ -107,18 +107,14 @@ class C_Belum_Lunas extends CI_Controller
                     '<div class="text-center">' . number_format($customer['harga_paket'], 0, ',', '.') . '</div>',
                     '<div class="text-center">' . $Status_Mikrotik . '</div>',
 
-                    '<div class="text-center">
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
+                    '<div class="text-center d-flex justify-content-center gap-2">
+                        <button onclick="WA_Data(' . $customer['id_customer'] . ')" class="btn btn-sm btn-outline-success rounded-pill px-2" title="Kirim by WA">
+                            <i class="bi bi-whatsapp"></i>
                         </button>
-                        <ul class="dropdown-menu shadow-sm rounded-3">
-                            <li><a onclick="WA_Data(' . $customer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-whatsapp text-success"></i> Kirim by WA</a></li>
-                            <li><a onclick="Pembayaran(' . $customer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-credit-card"></i> Pembayaran</a></li>
-                        </ul>
-                    </div>
-
-                </div>'
+                        <button onclick="Pembayaran(' . $customer['id_customer'] . ')" class="btn btn-sm btn-outline-primary rounded-pill px-2" title="Pembayaran">
+                            <i class="bi bi-credit-card"></i>
+                        </button>
+                    </div>'
                 ];
             }
         }
