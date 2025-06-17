@@ -68,12 +68,12 @@
                 <div class="section-title">Pembayaran</div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center text-white fw-medium <?= $this->uri->segment(3) == 'C_Sudah_Lunas' ? 'active' : '' ?>" href="<?= base_url('admin/Sudah_Lunas/C_Sudah_Lunas') ?>">
+                        <a class="nav-link d-flex align-items-center text-white fw-medium <?= $this->uri->segment(3) == 'C_Sudah_Lunas' ? 'active' : '' ?>" href="<?= base_url('user/Sudah_Lunas/C_Sudah_Lunas') ?>">
                             <i class="bx bx-check-circle me-3 fs-5 text-primary icon-rounded"></i> Sudah Lunas
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center text-white fw-medium <?= $this->uri->segment(3) == 'C_Belum_Lunas' ? 'active' : '' ?>" href="<?= base_url('admin/Belum_Lunas/C_Belum_Lunas') ?>">
+                        <a class="nav-link d-flex align-items-center text-white fw-medium <?= $this->uri->segment(3) == 'C_Belum_Lunas' ? 'active' : '' ?>" href="<?= base_url('user/Belum_Lunas/C_Belum_Lunas') ?>">
                             <i class="bx bx-x-circle me-3 fs-5 text-warning icon-rounded"></i> Belum Lunas
                         </a>
                     </li>
