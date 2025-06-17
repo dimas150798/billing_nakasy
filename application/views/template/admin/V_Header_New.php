@@ -20,7 +20,7 @@
     <!-- Core Theme CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/css/core.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css" />
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/_nks.css" />
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles_nks.css" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
