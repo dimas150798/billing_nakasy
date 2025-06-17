@@ -84,11 +84,11 @@ class C_Sudah_Lunas extends CI_Controller
         $data['Total_Akhir']        = $NominalTagihan->hargaPaket - $Jumlah_Pelanggan * 3000;
 
         // Load tampilan
-        $this->load->view('template/user/V_Header');
-        $this->load->view('template/user/V_Sidebar');
+        $this->load->view('template/user/V_Header_New');
+        $this->load->view('template/user/V_Sidebar_New');
         $this->load->view('template/user/V_Get_SudahLunas');
         $this->load->view('user/Sudah_Lunas/V_Sudah_Lunas', $data);
-        $this->load->view('template/user/V_Footer');
+        $this->load->view('template/user/V_Footer_New');
     }
 
     public function GetDataAjax()
@@ -127,8 +127,8 @@ class C_Sudah_Lunas extends CI_Controller
                     : date('d-m-Y / H:i:s', strtotime($customer['transaction_time']));
 
                 $Status_Mikrotik = $isDisabled
-                    ? '<span class="badge bg-danger">DISABLE</span>'
-                    : '<span class="badge bg-success">ENABLE</span>';
+                    ? '<span class="badge bg-danger px-2 py-1" style="font-size: 0.65rem; border-radius: 999px;">DISABLE</span>'
+                    : '<span class="badge bg-success px-2 py-1" style="font-size: 0.65rem; border-radius: 999px;">ENABLE</span>';
 
                 $data[] = [
                     '<div class="text-center">' . $no++ . '</div>',
@@ -141,16 +141,12 @@ class C_Sudah_Lunas extends CI_Controller
                     '<div class="text-center">' . $Status_Mikrotik . '</div>',
 
                     '<div class="text-center">
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu shadow-sm rounded-3">
-                            <li><a onclick="WA_Data(\'' . $customer['order_id'] . '\')" class="dropdown-item text-black"><i class="bi bi-whatsapp text-success"></i> Kirim by WA</a></li>
-                        </ul>
-                    </div>
-
-                </div>'
+                        <div class="d-flex justify-content-center align-items-center flex-nowrap gap-1">
+                            <button onclick="WA_Data(\'' . $customer['order_id'] . '\')" class="btn btn-sm btn-outline-success rounded-pill px-2" title="Kirim via WA">
+                                <i class="bi bi-whatsapp"></i>
+                            </button>
+                        </div>
+                    </div>'
                 ];
             }
         }
