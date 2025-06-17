@@ -80,17 +80,21 @@
     </div>
 
     <div class="controls">
-        <input type="search" id="searchInput" placeholder="🔍 Cari nama, ID, paket...">
+        <div class="left-control">
+            <label>
+                Tampilkan
+                <select id="rowsPerPage">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                </select>
+                entri per halaman
+            </label>
+        </div>
 
-        <label>
-            Tampilkan
-            <select id="rowsPerPage">
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-            </select>
-            entri per halaman
-        </label>
+        <div class="right-control">
+            <input type="search" id="searchInput" placeholder="🔍 Cari nama, ID, paket...">
+        </div>
     </div>
 
     <!-- Table -->
@@ -104,7 +108,7 @@
                     <th class="sortable" data-index="3">Paket <span class="sort-icon"></span></th>
                     <th class="sortable" data-index="4">Tarif <span class="sort-icon"></span></th>
                     <th class="sortable" data-index="5">Status <span class="sort-icon"></span></th>
-                    <th>Action</th>
+                    <th>Opsi</th>
                 </tr>
             </thead>
             <tbody id="table-body">

@@ -120,12 +120,15 @@ body {
 .left-control {
     flex: 1;
     min-width: 200px;
+    display: flex;
+    align-items: center;
 }
 
 .right-control {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     min-width: 200px;
 }
 
@@ -139,12 +142,6 @@ input[type="search"] {
     background-color: #fff;
     transition: all 0.2s ease;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-
-input[type="search"]:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 .table-responsive {

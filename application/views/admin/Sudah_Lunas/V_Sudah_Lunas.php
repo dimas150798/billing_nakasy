@@ -93,7 +93,7 @@
                          <th class="text-center">Melalui</th>
                          <th class="text-center">Keterangan</th>
                          <th class="text-center">Status</th>
-                         <th class="text-center">Action</th>
+                         <th class="text-center">Opsi</th>
                      </tr>
                  </thead>
                  <tbody>
