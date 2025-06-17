@@ -1,0 +1,313 @@
+:root {
+    --border: #dee2e6;
+     --gray: #f1f3f5;
+}
+
+/* ===================== BODY ===================== */
+body {
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* ===================== NAVBAR ===================== */
+.nav-link.active {
+    background-color: #ffffff !important;
+    color: #0d6efd !important;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute !important;
+    width: auto;
+    max-width: 260px;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.navbar .dropdown-menu {
+    z-index: 1050;
+}
+
+.offcanvas-modern {
+    backdrop-filter: blur(10px);
+    background-color: rgba(30, 30, 30, 0.9);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.offcanvas-modern .nav-link {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.offcanvas-modern .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+}
+
+.offcanvas-modern .section-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #bbb;
+    margin: 1.5rem 0 0.5rem 1.2rem;
+}
+
+.offcanvas-modern .offcanvas-title {
+    font-size: 1.1rem;
+}
+
+.icon-rounded {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    padding: 6px;
+}
+
+.active {
+    background-color: rgba(13, 110, 253, 0.2) !important;
+}
+
+.btn-close-white {
+    filter: brightness(0) invert(1);
+}
+
+.hover-bg:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+/* ===================== CARD FILTER ===================== */
+.card {
+    border-radius: 1.25rem;
+}
+
+.badge {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.form-select-sm {
+    min-width: 150px;
+}
+
+.btn-info {
+    background: linear-gradient(to right, #00b4d8, #0077b6);
+    border: none;
+}
+
+/* ===================== TABLES ===================== */
+.table {
+    font-size: 0.8rem;
+}
+
+.keterangan-col {
+    max-width: 150px;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.left-control {
+    flex: 1;
+    min-width: 200px;
+}
+
+.right-control {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 200px;
+}
+
+input[type="search"] {
+    width: 100%;
+    max-width: 220px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+input[type="search"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.responsive-table thead th {
+    background-color: #e9f2ff;
+    color: #333;
+}
+
+.responsive-table th,
+.responsive-table td {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.responsive-table thead {
+    background-color: var(--gray);
+}
+
+.responsive-table tr:hover {
+    background-color: #f5faff;
+}
+
+/* ===================== PAGINATION ===================== */
+.pagination {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5rem 0;
+}
+
+.pagination button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: #fff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    color: #333;
+}
+
+.pagination button:hover {
+    background-color: #f0f4ff;
+    border-color: #a2b8f4;
+}
+
+.pagination .active-page {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+    font-weight: 600;
+    box-shadow: 0 2px 3px rgba(59, 130, 246, 0.2);
+}
+
+/* ===================== SORT ICON ===================== */
+th.sortable {
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th.sortable .sort-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: #aaa;
+    transition: color 0.2s;
+    pointer-events: none;
+}
+
+th.sortable.sorted-asc .sort-icon {
+    color: #007bff; /* Biru */
+}
+
+th.sortable.sorted-desc .sort-icon {
+    color: #dc3545; /* Merah */
+}
+
+/* ===================== RESPONSIVE TABLE ===================== */
+@media screen and (max-width: 768px) {
+    #searchInput {
+        display: block;
+        margin: 0 auto;
+        margin-top: 1rem;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-control,
+    .right-control {
+        width: 100%;
+        justify-content: center;
+        display: flex;
+    }
+    
+    .responsive-table thead {
+        display: none;
+    }
+
+    .responsive-table,
+    .responsive-table tbody,
+    .responsive-table tr,
+    .responsive-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .responsive-table tr {
+        border-radius: 8px;
+        border: 2px solid #dee2e6;
+        overflow: hidden;
+        background-color: #fff;
+        position: relative;
+    }
+
+    .responsive-table tr::after {
+        content: "";
+        display: block;
+        height: 2rem;
+        background: transparent;
+    }
+
+    .responsive-table td {
+        text-align: left;
+        position: relative;
+        padding: 0.75rem 1rem 0.75rem 50%;
+        border-bottom: 1px solid #e2e2e2;
+        background-color: #fff;
+    }
+
+    .responsive-table td:last-child {
+        border-bottom: none;
+    }
+
+    .responsive-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+}
