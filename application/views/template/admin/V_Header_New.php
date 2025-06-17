@@ -10,9 +10,8 @@
     <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/Icon_Nakasy.png') ?>" />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Iconify & Bootstrap Icons -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/fonts/iconify-icons.css" />
@@ -46,5 +45,4 @@
     <!--CSS Select  -->
     <link href="<?php echo base_url(); ?>assets/css/select2.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>assets/css/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
-
 </head>

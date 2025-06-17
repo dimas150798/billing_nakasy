@@ -34,6 +34,9 @@
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/custom2.js"></script>
 
+<!-- Tables Vanilla -->
+<script src="<?php echo base_url(); ?>assets/js/tableVanilla.js"></script>
+
 <script>
     const rupiahDisplay = document.getElementById("rupiahDisplay");
     const rupiahRaw = document.getElementById("rupiahRaw");

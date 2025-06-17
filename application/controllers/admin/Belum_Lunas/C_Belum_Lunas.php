@@ -71,9 +71,9 @@ class C_Belum_Lunas extends CI_Controller
 
         // Load tampilan
         $this->load->view('template/admin/V_Header_New');
-        $this->load->view('template/admin/V_Get_BelumLunas');
         $this->load->view('template/admin/V_Sidebar_New');
         $this->load->view('admin/Belum_Lunas/V_Belum_Lunas', $data);
+        $this->load->view('template/admin/V_Get_BelumLunas');
         $this->load->view('template/admin/V_Footer_New');
     }
 
