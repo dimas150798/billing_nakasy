@@ -64,6 +64,14 @@
     });
 </script>
 
+<script>
+    // Atur tanggal hari ini secara otomatis
+    document.addEventListener("DOMContentLoaded", function() {
+        const today = new Date().toISOString().split('T')[0]; // format YYYY-MM-DD
+        document.getElementById("date_now").value = today;
+    });
+</script>
+
 </body>
 
 </html>

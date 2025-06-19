@@ -40,7 +40,7 @@
                             <label for="start_date" class="form-label fw-bold fs-6"> Tanggal Registrasi: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <span class="input-group-text bg-primary text-white"><i class="bi bi-calendar-date"></i></span>
-                                <input type="date" class="form-control fw-bold" name="start_date" id="start_date" value="" required>
+                                <input type="date" class="form-control fw-bold" name="start_date" id="date_now" value="" required>
                             </div>
                         </div>
 
