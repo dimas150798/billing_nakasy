@@ -21,12 +21,14 @@ class C_Data_Pelanggan extends CI_Controller
     public function index()
     {
         $data['Total_Pelanggan']    = $this->M_Pelanggan->Total_Pelanggan($this->session->userdata('cluster'));
+        $data['Pelanggan_Enable']    = $this->M_Pelanggan->Pelanggan_Enable($this->session->userdata('cluster'));
+        $data['Pelanggan_Disable']    = $this->M_Pelanggan->Pelanggan_Disable($this->session->userdata('cluster'));
 
-        $this->load->view('template/admin/V_Header');
-        $this->load->view('template/admin/V_Sidebar');
+        $this->load->view('template/admin/V_Header_New');
+        $this->load->view('template/admin/V_Sidebar_New');
         $this->load->view('template/admin/V_Get_Data');
         $this->load->view('admin/Data_Pelanggan/V_Data_Pelanggan', $data);
-        $this->load->view('template/admin/V_Footer');
+        $this->load->view('template/admin/V_Footer_New');
     }
 
     public function GetDataAjax()
@@ -39,36 +41,33 @@ class C_Data_Pelanggan extends CI_Controller
             $isDisabled = $dataCustomer['disabled'] === 'true';
 
             $Status_Mikrotik = $isDisabled
-                ? '<span class="badge bg-danger">DISABLE</span>'
-                : '<span class="badge bg-success">ENABLE</span>';
+                ? '<span class="badge bg-danger px-2 py-1" style="font-size: 0.65rem; border-radius: 999px;">DISABLE</span>'
+                : '<span class="badge bg-success px-2 py-1" style="font-size: 0.65rem; border-radius: 999px;">ENABLE</span>';
 
             $row = array();
             $row[] = '<div class="text-center">' . ++$no . '</div>';
             $row[] = '<div class="text-center">' . ucwords(strtolower($dataCustomer['nama_customer'])) . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['name_pppoe'] . '</div>';
-            $row[] = '<div class="text-center">' . $dataCustomer['phone_customer'] . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . '</div>';
+            $row[] = '<div class="text-center">' . $dataCustomer['phone_customer'] . '</div>';
+            $row[] = '<div class="text-center keterangan-col">' . ucwords(strtolower($dataCustomer['alamat_customer'])) . '</div>';
+            $row[] = '<div class="text-center">' . $dataCustomer['nama_area'] . '</div>';
             $row[] = '<div class="text-center">' . $Status_Mikrotik . '</div>';
 
-            $row[] = '
-            <div class="text-center">
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                    <ul class="dropdown-menu shadow-sm rounded-3">
-                        <li>
-                            <a onclick="Edit_Data(' . $dataCustomer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-pencil-square"></i> Edit </a>
-                        </li>
-                        <li>
-                            <a onclick="Delete_Data(' . $dataCustomer['id_customer'] . ')" class="dropdown-item text-danger"><i class="bi bi-trash"></i> Delete </a>
-                        </li>
-                        <li>
-                            <a onclick="Terminated_Data(' . $dataCustomer['id_customer'] . ')" class="dropdown-item text-danger"><i class="bx bx-user-x"></i> Terminated </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>';
+            $row[] =
+                '<div class="text-center">
+                        <div class="d-flex justify-content-center align-items-center flex-nowrap gap-1">
+                        <button onclick="Edit_Data(\'' . $dataCustomer['id_customer'] . '\')" class="btn btn-sm btn-outline-secondary rounded-pill px-2" title="Edit Data">
+                        <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button onclick="Terminated_Data(' . $dataCustomer['id_customer'] . ')" class="btn btn-sm btn-outline-primary rounded-pill px-2" title="Kwitansi">
+                            <i class="bi bi-person-x"></i>
+                        </button>
+                        <button onclick="Delete_Data(\'' . $dataCustomer['id_customer'] . '\')" class="btn btn-sm btn-outline-danger rounded-pill px-2" title="Hapus Data">
+                        <i class="bi bi-trash"></i>
+                        </button>
+                        </div>
+                    </div>';
 
 
 

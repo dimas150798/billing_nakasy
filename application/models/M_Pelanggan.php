@@ -5,7 +5,7 @@ class M_Pelanggan extends CI_Model
     // Menampilkan Data Pelanggan Aktif Akun Admin
     public function DataPelanggan($kode_mikrotik)
     {
-        $query   = $this->db->query("SELECT id_customer, kode_customer, phone_customer, nama_customer, name_pppoe, nama_paket, start_date, disabled
+        $query   = $this->db->query("SELECT id_customer, kode_customer, phone_customer, nama_customer, name_pppoe, nama_paket, start_date, disabled, alamat_customer, nama_area
             FROM data_customer
 
             WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket <> 'EXPIRED'
@@ -21,6 +21,30 @@ class M_Pelanggan extends CI_Model
         $query   = $this->db->query("SELECT name_pppoe 
         FROM data_customer 
         WHERE kode_mikrotik = '$kode_mikrotik' AND nama_paket != 'EXPIRED' 
+        GROUP BY name_pppoe
+        ORDER BY name_pppoe ASC");
+
+        return $query->num_rows();
+    }
+
+    public function Pelanggan_Enable($kode_mikrotik)
+    {
+        $query   = $this->db->query("SELECT name_pppoe 
+        FROM data_customer 
+        WHERE kode_mikrotik = '$kode_mikrotik' AND disabled = 'false' AND nama_paket != 'EXPIRED' 
+
+        GROUP BY name_pppoe
+        ORDER BY name_pppoe ASC");
+
+        return $query->num_rows();
+    }
+
+    public function Pelanggan_Disable($kode_mikrotik)
+    {
+        $query   = $this->db->query("SELECT name_pppoe 
+        FROM data_customer 
+        WHERE kode_mikrotik = '$kode_mikrotik' AND disabled = 'true' AND nama_paket != 'EXPIRED' 
+
         GROUP BY name_pppoe
         ORDER BY name_pppoe ASC");
 
