@@ -22,6 +22,24 @@ class C_Pembayaran_Perbulan extends CI_Controller
         // Kirim data ke view (jika masih mau ditampilkan)
         $data['Data_Pelanggan'] = $this->session->userdata('data_pelanggan');
 
+        date_default_timezone_set("Asia/Jakarta");
+
+        $day   = (int)date("d");
+        $bulan = $this->session->userdata('Bulan_Opsi');
+        $tahun = $this->session->userdata('Tahun_Opsi');
+
+        // Ambil jam dan menit saat ini
+        $jam = date("H");
+        $menit = date("i");
+
+        // Gabungkan ke timestamp dengan jam sekarang
+        $timestamp = mktime($jam, $menit, 0, $bulan, $day, $tahun);
+
+        // Format ke input datetime-local
+        $date_opsi = date("Y-m-d\TH:i", $timestamp);
+
+        $data['date_opsi'] = $date_opsi;
+
         // Load tampilan
         $this->load->view('template/admin/V_Header');
         $this->load->view('template/admin/V_Sidebar');
@@ -41,6 +59,24 @@ class C_Pembayaran_Perbulan extends CI_Controller
         // Kirim data ke view (jika masih mau ditampilkan)
         $data['Data_Pelanggan'] = $data_pelanggan;
         $data['DataSales']      = $this->M_Sales->DataSales();
+
+        date_default_timezone_set("Asia/Jakarta");
+
+        $day   = (int)date("d");
+        $bulan = $this->session->userdata('Bulan_Opsi');
+        $tahun = $this->session->userdata('Tahun_Opsi');
+
+        // Ambil jam dan menit saat ini
+        $jam = date("H");
+        $menit = date("i");
+
+        // Gabungkan ke timestamp dengan jam sekarang
+        $timestamp = mktime($jam, $menit, 0, $bulan, $day, $tahun);
+
+        // Format ke input datetime-local
+        $date_opsi = date("Y-m-d\TH:i", $timestamp);
+
+        $data['date_opsi'] = $date_opsi;
 
         // Load tampilan
         $this->load->view('template/admin/V_Header');

@@ -84,10 +84,10 @@
 
                                           <!-- Tanggal Pembayaran -->
                                           <div class="col-md-6">
-                                              <label for="transaction_time" class="form-label fw-bold fs-6">Tanggal Pembayaran: <span class="text-danger">*</span></label>
+                                              <label for="transaction_time" class="form-label fw-bold fs-6">Tanggal: <span class="text-danger">*</span></label>
                                               <div class="input-group">
                                                   <span class="input-group-text bg-primary text-white"><i class="bi bi-calendar-event-fill"></i></span>
-                                                  <input type="datetime-local" class="form-control fw-bold" name="transaction_time" id="transaction_time" value="" required>
+                                                  <input type="datetime-local" class="form-control fw-bold" name="transaction_time" id="transaction_time" value="<?= $date_opsi ?>" required>
                                               </div>
                                           </div>
 
