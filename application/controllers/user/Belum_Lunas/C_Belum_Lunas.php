@@ -60,7 +60,7 @@ class C_Belum_Lunas extends CI_Controller
 
         $this->session->set_userdata([
             'Bulan_Opsi'        => $month,
-            'Tahun_Opsi'        => $$year
+            'Tahun_Opsi'        => $year
         ]);
 
         // Untuk ditampilkan (tanpa 0 di depan bulan)
