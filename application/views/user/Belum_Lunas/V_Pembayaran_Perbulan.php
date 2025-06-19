@@ -91,15 +91,6 @@
                                               </div>
                                           </div>
 
-                                          <!-- Keterangan -->
-                                          <div class="col-md-6">
-                                              <label for="keterangan" class="form-label fw-bold fs-6">Keterangan:</label>
-                                              <div class="input-group">
-                                                  <span class="input-group-text bg-primary text-white"><i class="bi bi-chat-text-fill"></i></span>
-                                                  <input type="text" class="form-control fw-bold" name="keterangan" id="keterangan" placeholder="Masukkan keterangan...">
-                                              </div>
-                                          </div>
-
                                       </div>
 
                                       <!-- Button -->
