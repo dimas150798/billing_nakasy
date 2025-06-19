@@ -58,6 +58,11 @@ class C_Belum_Lunas extends CI_Controller
         $year       = $this->session->userdata('tahunGET') ?? $this->session->userdata('tahun');
         $lastDate   = $this->session->userdata('TanggalAkhirGET') ?? $this->session->userdata('TanggalAkhir');
 
+        $this->session->set_userdata([
+            'Bulan_Opsi'        => $month,
+            'Tahun_Opsi'        => $$year
+        ]);
+
         // Untuk ditampilkan (tanpa 0 di depan bulan)
         $bulan_show = $this->session->userdata('bulan_GET') ?? date("n");
         $tahun_show = $this->session->userdata('tahunGET') ?? date("Y");
