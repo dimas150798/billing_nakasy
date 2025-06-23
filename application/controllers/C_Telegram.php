@@ -41,20 +41,75 @@ class C_Telegram extends CI_Controller
         exit('OK');
     }
 
+    private function cekMikrotik($pppoe_name)
+    {
+        $api = Connect_Kraksaaan(); // Asumsikan ini sudah mengembalikan objek RouterosAPI yang terkoneksi
+
+        if (!$api) return false; // gagal konek
+
+        $api->write('/ppp/active/print', false);
+        $api->write('?name=' . $pppoe_name, true);
+        $result = $api->read();
+
+        return !empty($result); // TRUE jika user aktif (online)
+    }
+
     private function cekPelanggan($chat_id, $kode)
     {
         $data = $this->M_Pelanggan->Name_PPPOE($kode);
 
-        if ($data) {
-            $status = ($data->disabled == '0' || $data->disabled == 'false') ? 'Aktif ✅' : 'Nonaktif ❌';
-
-            $msg = "🧑 *Nama:* $data->nama_customer\n"
-                . "📶 *Status:* $status\n"
-                . "📦 *Paket:* $data->nama_paket\n"
-                . "📍 *Alamat:* $data->alamat_customer";
-        } else {
-            $msg = "❌ Data pelanggan dengan kode *$kode* tidak ditemukan.";
+        if (!$data) {
+            $this->sendMessage($chat_id, "❌ Data pelanggan dengan kode *$kode* tidak ditemukan.");
+            return;
         }
+
+        $api = Connect_Kraksaaan();
+        $ip = $caller = $uptime = $lastdisc = $lastlogout = $lastcaller = '-';
+
+        $status_login = 'Offline 🔴';
+
+        if ($api) {
+            // Cek apakah user aktif di Mikrotik
+            $api->write('/ppp/active/print', false);
+            $api->write('?name=' . $data->name_pppoe, true);
+            $activeData = $api->read();
+
+            if (!empty($activeData)) {
+                $aktif = $activeData[0];
+                $ip = $aktif['address'] ?? '-';
+                $caller = $aktif['caller-id'] ?? '-';
+                $uptime = $aktif['uptime'] ?? '-';
+                $status_login = 'Online 🟢';
+            }
+
+            // Ambil data secret (last disconnect, logout, caller)
+            $api->write('/ppp/secret/print', false);
+            $api->write('?name=' . $data->name_pppoe, true);
+            $secretData = $api->read();
+
+            if (!empty($secretData)) {
+                $s = $secretData[0];
+                $lastdisc   = $s['last-disconnected'] ?? '-';
+                $lastlogout = $s['last-logged-out'] ?? '-';
+                $lastcaller = $s['last-caller-id'] ?? '-';
+            }
+
+            $api->disconnect();
+        }
+
+        $status_langganan = ($data->disabled == '0' || $data->disabled == 'false') ? 'Aktif ✅' : 'Nonaktif ❌';
+
+        $msg = "🧑 *Nama:* $data->nama_customer\n"
+            . "📶 *Status Langganan:* $status_langganan\n"
+            . "🔌 *Status Mikrotik:* $status_login\n"
+            . "📦 *Paket:* $data->nama_paket\n"
+            . "📍 *Alamat:* $data->alamat_customer\n\n"
+            . "🌐 *IP:* `$ip`\n"
+            . "📞 *Caller:* `$caller`\n"
+            . "⏱ *Uptime:* `$uptime`\n"
+            . "📤 *Last Logout:* `$lastlogout`\n"
+            . "📴 *Last Disconnect:* `$lastdisc`\n"
+            . "📞 *Last Caller ID:* `$lastcaller`";
 
         $this->sendMessage($chat_id, $msg);
     }
