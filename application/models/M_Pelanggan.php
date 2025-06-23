@@ -176,7 +176,7 @@ class M_Pelanggan extends CI_Model
 
     public function Name_PPPOE($name_pppoe)
     {
-        $this->db->select('id_customer, kode_customer, nama_customer, nama_paket, alamat_customer, name_pppoe, deskripsi_customer, disabled');
+        $this->db->select('id_customer, kode_customer, nama_customer, nama_paket, alamat_customer, name_pppoe, deskripsi_customer, phone_customer, disabled');
         $this->db->where('LOWER(name_pppoe)', strtolower(trim($name_pppoe)));
         $this->db->limit(1);
         $query = $this->db->get('data_customer');

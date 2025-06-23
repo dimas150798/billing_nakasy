@@ -122,19 +122,20 @@ class C_Telegram extends CI_Controller
             . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
             . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
             . "🌐 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
+            . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
             . "📶 Status: {$status_login}\n"
             . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n\n";
 
         if ($status_mikrotik['online']) {
             $msg .= "🌐 IP: {$status_mikrotik['ip']}\n"
                 . "📡 Index: $index\n"
-                . "📞 Caller: {$status_mikrotik['caller']}\n"
+                . "📲 Caller: {$status_mikrotik['caller']}\n"
                 . "⏱ Uptime: {$status_mikrotik['uptime']}\n\n"
                 . "---===[LIVE TRAFFIC]===---";
         } else {
             $msg .=  "📡 Index:  $index\n"
                 . "📴 Last Disconnect: {$status_mikrotik['lastlogout']}\n"
-                . "📞 Last Caller ID: {$status_mikrotik['lastcaller']}\n"
+                . "📲 Last Caller ID: {$status_mikrotik['lastcaller']}\n"
                 . "---===[LIVE TRAFFIC]===---";
         }
 
@@ -166,6 +167,8 @@ class C_Telegram extends CI_Controller
             $msg = "---===[💰 Status Pembayaran]===---" . "\n\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+                . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n"
+                . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
                 . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
                 . "💵 Status: Sudah Dibayar ✅\n"
@@ -176,6 +179,8 @@ class C_Telegram extends CI_Controller
             $msg = "---===[💰 Status Pembayaran]===---" . "\n\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+                . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n"
+                . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
                 . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
                 . "💵 Status: Belum Dibayar ❌" . "\n\n"
