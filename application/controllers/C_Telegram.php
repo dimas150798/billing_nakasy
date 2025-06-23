@@ -57,15 +57,17 @@ class C_Telegram extends CI_Controller
 
         $this->sendMessage($chat_id, $msg);
     }
+
     private function sendMessage($chat_id, $text)
     {
+        $url = $this->apiUrl . "sendMessage";
         $data = [
             'chat_id' => $chat_id,
-            'text' => $text,
-            'parse_mode' => 'Markdown'
+            'text' => $text
         ];
 
-        $ch = curl_init("https://api.telegram.org/bot{$this->token}/sendMessage");
+        // Gunakan cURL
+        $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);
