@@ -115,10 +115,10 @@ class C_Telegram extends CI_Controller
         $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
 
         $msg = "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
-            . "🆔 ID Pelanggan: " . strtoupper($data->id_customer) . "\n"
+            . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
             . "📦 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
             . "🔌 Status: {$status_login}\n"
-            . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n";
+            . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n\n";
 
         if ($status_mikrotik['online']) {
             $msg .= "🌐 IP: {$status_mikrotik['ip']}\n"
