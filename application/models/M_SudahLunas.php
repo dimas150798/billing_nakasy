@@ -27,6 +27,30 @@ class M_SudahLunas extends CI_Model
         return $query->result_array();
     }
 
+    // Menampilkan Data Sudah Lunas
+    public function Pelanggan_SudahLunas($name_pppoe, $bulan, $tahun, $tanggalAkhir, $cluster)
+    {
+        $query   = $this->db->query("SELECT data_customer.id_customer,  data_customer.nama_customer, data_customer.nama_paket, data_customer.disabled,
+        data_customer.name_pppoe, data_customer.phone_customer, DAY(data_customer.start_date) as tanggal, data_customer.deskripsi_customer, data_customer.nama_sales,
+        data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
+        data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.transaction_time, data_pembayaran.expired_date,
+        data_paket.nama_paket as namaPaket, data_paket.harga_paket
+
+        FROM data_customer
+        LEFT JOIN data_paket ON data_customer.id_paket = data_paket.id_paket
+        LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+
+        AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+
+        WHERE data_customer.name_pppoe = 'name_pppoe' AND data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
+        data_pembayaran.transaction_time IS NOT NULL AND data_customer.kode_mikrotik = '$cluster'
+
+        GROUP BY data_customer.name_pppoe
+        ORDER BY data_pembayaran.order_id DESC");
+
+        return $query->result_array();
+    }
+
     // Menampilkan Jumlah Belum Lunas
     public function JumlahSudahLunas($bulan, $tahun, $tanggalAkhir, $cluster)
     {

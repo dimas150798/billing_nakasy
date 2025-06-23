@@ -23,18 +23,23 @@ class C_Telegram extends CI_Controller
 
             if (strtolower($text) === '/start') {
                 $pesan = "Halo @$username! 👋\n\n"
-                    . "Selamat datang di Bot Billing Nakasy.\n"
+                    . "Selamat datang di *Bot Billing Nakasy*.\n"
                     . "Perintah yang tersedia:\n"
-                    . "• `/cek [kode]` — untuk cek status pelanggan\n"
-                    . "• `/help` — bantuan";
+                    . "• `/cek [kode]` — cek status pelanggan\n"
+                    . "• `/pembayaran [kode]` — cek status pembayaran bulan ini\n"
+                    . "• `/help` — bantuan umum.";
                 $this->sendMessage($chat_id, $pesan);
             } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
                 $kode = $matches[1];
                 $this->cekPelanggan($chat_id, $kode);
+            } elseif (preg_match('/^\/pembayaran\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
+                $kode = $matches[1];
+                $this->cekPembayaran($chat_id, $kode);
             } else {
-                $this->sendMessage($chat_id, "⚠️ Gunakan format: `/cek [kode_customer]` atau /start");
+                $this->sendMessage($chat_id, "⚠️ Perintah tidak dikenali. Gunakan `/start` untuk melihat bantuan.");
             }
         }
+
 
         // Penting! Beri response ke Telegram agar tidak timeout
         http_response_code(200);
@@ -133,6 +138,48 @@ class C_Telegram extends CI_Controller
 
         $this->sendMessage($chat_id, $msg);
     }
+
+    private function cekPembayaran($chat_id, $kode)
+    {
+        $data = $this->M_Pelanggan->Name_PPPOE($kode);
+
+        if (!$data) {
+            $this->sendMessage($chat_id, "❌ Pelanggan dengan PPPoE *$kode* tidak ditemukan.");
+            return;
+        }
+
+        $bulan = date('m');
+        $tahun = date('Y');
+        $periode = date('F Y');
+
+        $query = $this->db->get_where('data_pembayaran', [
+            'name_pppoe' => $data->name_pppoe,
+            'bulan' => $bulan,
+            'tahun' => $tahun
+        ]);
+
+        if ($query->num_rows() > 0) {
+            $p = $query->row();
+            $msg = "💰 *Status Pembayaran*\n\n"
+                . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+                . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
+                . "📦 Paket: " . ucwords($data->nama_paket) . "\n"
+                . "📅 Periode: $periode\n"
+                . "💵 Status: Sudah Dibayar ✅\n"
+                . "📆 Tanggal Bayar: " . date('d M Y', strtotime($p->tgl_bayar)) . "\n"
+                . "👨‍💼 Admin: " . ucwords($p->nama_admin);
+        } else {
+            $msg = "💰 *Status Pembayaran*\n\n"
+                . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+                . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
+                . "📦 Paket: " . ucwords($data->nama_paket) . "\n"
+                . "📅 Periode: $periode\n"
+                . "💵 Status: Belum Dibayar ❌";
+        }
+
+        $this->sendMessage($chat_id, $msg);
+    }
+
 
 
     private function sendMessage($chat_id, $text)
