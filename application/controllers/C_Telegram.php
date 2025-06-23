@@ -173,7 +173,7 @@ class C_Telegram extends CI_Controller
                 . "👨‍💼 Melalui: " . ucwords($p->nama_admin) . "\n\n"
                 . "---===[BILLING NAKASY]===---";
         } else {
-            $msg = "💰 *Status Pembayaran*\n\n"
+            $msg = "---===[💰 Status Pembayaran]===---" . "\n\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
                 . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
