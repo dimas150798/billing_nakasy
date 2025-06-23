@@ -84,9 +84,9 @@ class C_Telegram extends CI_Controller
 
         if (!empty($secret)) {
             $s = $secret[0];
-            $result['lastdisc']   = $s['last-disconnected'] ?? '-';
-            $result['lastlogout'] = $s['last-logged-out'] ?? '-';
-            $result['lastcaller'] = $s['last-caller-id'] ?? '-';
+            $result['lastdisc']   = !empty($s['last-disconnected']) ? $s['last-disconnected'] : 'Tidak tersedia';
+            $result['lastlogout'] = !empty($s['last-logged-out']) ? $s['last-logged-out'] : 'Tidak tersedia';
+            $result['lastcaller'] = !empty($s['last-caller-id']) ? $s['last-caller-id'] : 'Tidak tersedia';
         }
 
         $api->disconnect();
