@@ -46,7 +46,7 @@ class C_Telegram extends CI_Controller
                     . "📡 Selamat datang di Bot Nakasy Kraksaan!\n\n"
                     . "Bot ini membantu Anda mengecek status layanan internet dan pembayaran.\n\n"
                     . "Perintah yang tersedia:\n"
-                    . "• 🔍 /cek [Name PPOE] — cek status pelanggan (online/offline, paket, dll)\n"
+                    . "• 🔍 /cek [Name PPOE] — cek status pelanggan (Active/Disconnect, paket, dll)\n"
                     . "• 💰 /pembayaran [Name PPOE] — cek status pembayaran bulan ini\n\n"
                     . "📞 Hubungi admin jika butuh bantuan lebih lanjut.";
                 $this->sendMessage($chat_id, $pesan);
