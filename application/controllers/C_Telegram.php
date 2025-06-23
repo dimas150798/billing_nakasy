@@ -107,16 +107,20 @@ class C_Telegram extends CI_Controller
         $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
 
         $msg = "🧑 *Nama:* {$data->nama_customer}\n"
-            . "📶 *Status Langganan:* {$status_langganan}\n"
             . "🔌 *Status Mikrotik:* {$status_login}\n"
             . "📦 *Paket:* {$data->nama_paket}\n"
-            . "📍 *Alamat:* {$data->alamat_customer}\n\n"
-            . "🌐 *IP:* `{$status_mikrotik['ip']}`\n"
-            . "📞 *Caller:* `{$status_mikrotik['caller']}`\n"
-            . "⏱ *Uptime:* `{$status_mikrotik['uptime']}`\n"
-            . "📤 *Last Logout:* `{$status_mikrotik['lastlogout']}`\n"
-            . "📴 *Last Disconnect:* `{$status_mikrotik['lastdisc']}`\n"
-            . "📞 *Last Caller ID:* `{$status_mikrotik['lastcaller']}`";
+            . "📍 *Alamat:* {$data->alamat_customer}\n\n";
+
+        if ($status_mikrotik['online']) {
+            $msg .= "🌐 *IP:* `{$status_mikrotik['ip']}`\n"
+                . "📞 *Caller:* `{$status_mikrotik['caller']}`\n"
+                . "⏱ *Uptime:* `{$status_mikrotik['uptime']}`\n";
+        } else {
+            $msg .= "📤 *Last Logout:* `{$status_mikrotik['lastlogout']}`\n"
+                . "📴 *Last Disconnect:* `{$status_mikrotik['lastdisc']}`\n"
+                . "📞 *Last Caller ID:* `{$status_mikrotik['lastcaller']}`\n";
+        }
+
 
         $this->sendMessage($chat_id, $msg);
     }
