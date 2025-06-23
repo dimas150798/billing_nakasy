@@ -24,7 +24,7 @@ class C_Telegram extends CI_Controller
 
             // Respon sederhana
             $balasan = ($text === '/start') ?
-                "Halo @$username, selamat datang di Bot CI3 di shared hosting! 🚀" :
+                "Halo @$username, Selamat datang di BOT Nakasy Cluster Kraksaan! 🚀" :
                 "Kamu mengirim: $text";
 
             $this->sendMessage($chat_id, $balasan);
