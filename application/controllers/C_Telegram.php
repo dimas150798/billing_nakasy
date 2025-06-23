@@ -32,6 +32,9 @@ class C_Telegram extends CI_Controller
             } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
                 $kode = $matches[1];
                 $this->cekPelanggan($chat_id, $kode);
+            } elseif (preg_match('/^\/pembayaran\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
+                $kode = $matches[1];
+                $this->cekPembayaran($chat_id, $kode);
             } else {
                 $this->sendMessage($chat_id, "⚠️ Perintah tidak dikenali. Gunakan `/start` untuk melihat bantuan.");
             }
