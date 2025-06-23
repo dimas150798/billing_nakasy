@@ -161,7 +161,7 @@ class C_Telegram extends CI_Controller
 
         if ($query->num_rows() > 0) {
             $p = $query->row();
-            $msg = "---===[💰 *Status Pembayaran]===---" . "\n\n"
+            $msg = "---===[💰 Status Pembayaran]===---" . "\n\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
                 . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
