@@ -11,6 +11,28 @@ class C_Telegram extends CI_Controller
         $this->apiUrl = "https://api.telegram.org/bot{$this->token}/";
     }
 
+    public function setBotCommands()
+    {
+        $token = '7935905626:AAEvyQjXk-JpIhdQv7ffIGkDIoiFRJiL6UM';
+        $url = "https://api.telegram.org/bot{$token}/setMyCommands";
+
+        $commands = [
+            ['command' => 'start', 'description' => 'Memulai bot'],
+            ['command' => 'cek', 'description' => 'Cek status pelanggan'],
+            ['command' => 'pembayaran', 'description' => 'Cek status pembayaran']
+        ];
+
+        $postData = ['commands' => json_encode($commands)];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        echo $response;
+    }
+
     public function botWebhook()
     {
         $input = file_get_contents('php://input');
