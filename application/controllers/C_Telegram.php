@@ -26,7 +26,7 @@ class C_Telegram extends CI_Controller
                     . "Selamat datang di Bot Billing Nakasy.\n"
                     . "Perintah yang tersedia:\n"
                     . "• /cek [kode] — untuk cek status pelanggan\n"
-                    . "• /pembayaran [kode] — untuk cek status pelanggan\n";
+                    . "• /pembayaran [kode] — untuk cek status pembayaran pelanggan\n";
                 $this->sendMessage($chat_id, $pesan);
             } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
                 $kode = $matches[1];
