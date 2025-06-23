@@ -11,36 +11,61 @@ class C_Telegram extends CI_Controller
         $this->apiUrl = "https://api.telegram.org/bot{$this->token}/";
     }
 
-    // Webhook endpoint yang dipanggil Telegram
-    public function bot_start()
+    public function botWebhook()
     {
         $input = file_get_contents('php://input');
         $update = json_decode($input, true);
 
         if (isset($update['message'])) {
             $chat_id  = $update['message']['chat']['id'];
-            $text     = $update['message']['text'];
-            $username = $update['message']['from']['username'] ?? 'unknown';
+            $text     = trim($update['message']['text']);
+            $username = $update['message']['from']['username'] ?? 'pengguna';
 
-            // Respon sederhana
-            $balasan = ($text === '/start') ?
-                "Halo @$username, Selamat datang di BOT Nakasy Cluster Kraksaan! 🚀" :
-                "Kamu mengirim: $text";
-
-            $this->sendMessage($chat_id, $balasan);
+            if (strtolower($text) === '/start') {
+                $pesan = "Halo @$username! 👋\n\n"
+                    . "Selamat datang di Bot Billing Nakasy.\n"
+                    . "Perintah yang tersedia:\n"
+                    . "• `/cek [kode]` — untuk cek status pelanggan\n"
+                    . "• `/help` — bantuan";
+                $this->sendMessage($chat_id, $pesan);
+            } elseif (strtolower(substr($text, 0, 4)) === '/cek') {
+                $parts = explode(' ', $text);
+                if (count($parts) == 2 && is_numeric($parts[1])) {
+                    $this->cekPelanggan($chat_id, $parts[1]);
+                } else {
+                    $this->sendMessage($chat_id, "⚠️ Gunakan format: `/cek [kode_customer]`");
+                }
+            } else {
+                $this->sendMessage($chat_id, "❓ Perintah tidak dikenali. Gunakan /start untuk bantuan.");
+            }
         }
     }
 
+    private function cekPelanggan($chat_id, $kode)
+    {
+        $query = $this->db->get_where('data_customer', ['kode_customer' => $kode]);
+
+        if ($query->num_rows() > 0) {
+            $d = $query->row();
+            $msg = "🧑 *Nama:* $d->nama_customer\n"
+                . "📶 *Status:* $d->status\n"
+                . "📦 *Paket:* $d->nama_paket\n"
+                . "📍 *Alamat:* $d->alamat_customer";
+        } else {
+            $msg = "❌ Data pelanggan dengan kode `$kode` tidak ditemukan.";
+        }
+
+        $this->sendMessage($chat_id, $msg);
+    }
     private function sendMessage($chat_id, $text)
     {
-        $url = $this->apiUrl . "sendMessage";
         $data = [
             'chat_id' => $chat_id,
-            'text' => $text
+            'text' => $text,
+            'parse_mode' => 'Markdown'
         ];
 
-        // Gunakan cURL
-        $ch = curl_init($url);
+        $ch = curl_init("https://api.telegram.org/bot{$this->token}/sendMessage");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_exec($ch);
