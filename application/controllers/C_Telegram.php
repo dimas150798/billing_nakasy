@@ -64,7 +64,7 @@ class C_Telegram extends CI_Controller
             'lastcaller' => '-'
         ];
 
-        // Check active (online)
+        // Active check
         $api->write('/ppp/active/print', false);
         $api->write('?name=' . $pppoe_name, true);
         $active = $api->read();
@@ -77,21 +77,22 @@ class C_Telegram extends CI_Controller
             $result['uptime']  = $user['uptime'] ?? '-';
         }
 
-        // Check secret (last activity)
+        // Last disconnect info
         $api->write('/ppp/secret/print', false);
         $api->write('?name=' . $pppoe_name, true);
         $secret = $api->read();
 
         if (!empty($secret)) {
             $s = $secret[0];
-            $result['lastdisc']   = !empty($s['last-disconnected']) ? $s['last-disconnected'] : 'Tidak tersedia';
-            $result['lastlogout'] = !empty($s['last-logged-out']) ? $s['last-logged-out'] : 'Tidak tersedia';
-            $result['lastcaller'] = !empty($s['last-caller-id']) ? $s['last-caller-id'] : 'Tidak tersedia';
+            $result['lastdisc']   = $s['last-disconnected'] ?? '-';
+            $result['lastlogout'] = $s['last-logged-out'] ?? '-';
+            $result['lastcaller'] = $s['last-caller-id'] ?? '-';
         }
 
         $api->disconnect();
         return $result;
     }
+
     private function cekPelanggan($chat_id, $kode)
     {
         $data = $this->M_Pelanggan->Name_PPPOE($kode);
@@ -113,11 +114,11 @@ class C_Telegram extends CI_Controller
 
         $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
 
-        $msg = "🆔 ID Pelanggan: " . strtoupper($data->id_customer) . "\n"
-            . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+        $msg = "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+            . "🆔 ID Pelanggan: " . strtoupper($data->id_customer) . "\n"
+            . "📦 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
             . "🔌 Status: {$status_login}\n"
-            . "📦 Paket: {$data->nama_paket}\n"
-            . "📍 Alamat: {$data->alamat_customer}\n\n";
+            . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n";
 
         if ($status_mikrotik['online']) {
             $msg .= "🌐 IP: {$status_mikrotik['ip']}\n"
@@ -129,7 +130,6 @@ class C_Telegram extends CI_Controller
                 . "📴 Last Disconnect: {$status_mikrotik['lastlogout']}\n"
                 . "📞 Last Caller ID: {$status_mikrotik['lastcaller']}\n";
         }
-
 
         $this->sendMessage($chat_id, $msg);
     }
