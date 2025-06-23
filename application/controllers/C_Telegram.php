@@ -41,19 +41,57 @@ class C_Telegram extends CI_Controller
         exit('OK');
     }
 
-    private function cekMikrotik($pppoe_name)
+    private function getMikrotikLastStatus($pppoe_name)
     {
-        $api = Connect_Kraksaaan(); // Asumsikan ini sudah mengembalikan objek RouterosAPI yang terkoneksi
+        $api = Connect_Kraksaaan();
+        if (!$api) return [
+            'online' => false,
+            'ip' => '-',
+            'caller' => '-',
+            'uptime' => '-',
+            'lastdisc' => '-',
+            'lastlogout' => '-',
+            'lastcaller' => '-'
+        ];
 
-        if (!$api) return false; // gagal konek
+        $result = [
+            'online' => false,
+            'ip' => '-',
+            'caller' => '-',
+            'uptime' => '-',
+            'lastdisc' => '-',
+            'lastlogout' => '-',
+            'lastcaller' => '-'
+        ];
 
+        // Check active (online)
         $api->write('/ppp/active/print', false);
         $api->write('?name=' . $pppoe_name, true);
-        $result = $api->read();
+        $active = $api->read();
 
-        return !empty($result); // TRUE jika user aktif (online)
+        if (!empty($active)) {
+            $user = $active[0];
+            $result['online']  = true;
+            $result['ip']      = $user['address'] ?? '-';
+            $result['caller']  = $user['caller-id'] ?? '-';
+            $result['uptime']  = $user['uptime'] ?? '-';
+        }
+
+        // Check secret (last activity)
+        $api->write('/ppp/secret/print', false);
+        $api->write('?name=' . $pppoe_name, true);
+        $secret = $api->read();
+
+        if (!empty($secret)) {
+            $s = $secret[0];
+            $result['lastdisc']   = $s['last-disconnected'] ?? '-';
+            $result['lastlogout'] = $s['last-logged-out'] ?? '-';
+            $result['lastcaller'] = $s['last-caller-id'] ?? '-';
+        }
+
+        $api->disconnect();
+        return $result;
     }
-
     private function cekPelanggan($chat_id, $kode)
     {
         $data = $this->M_Pelanggan->Name_PPPOE($kode);
@@ -63,53 +101,22 @@ class C_Telegram extends CI_Controller
             return;
         }
 
-        $api = Connect_Kraksaaan();
-        $ip = $caller = $uptime = $lastdisc = $lastlogout = $lastcaller = '-';
-
-        $status_login = 'Offline 🔴';
-
-        if ($api) {
-            // Cek apakah user aktif di Mikrotik
-            $api->write('/ppp/active/print', false);
-            $api->write('?name=' . $data->name_pppoe, true);
-            $activeData = $api->read();
-
-            if (!empty($activeData)) {
-                $aktif = $activeData[0];
-                $ip = $aktif['address'] ?? '-';
-                $caller = $aktif['caller-id'] ?? '-';
-                $uptime = $aktif['uptime'] ?? '-';
-                $status_login = 'Online 🟢';
-            }
-
-            // Ambil data secret (last disconnect, logout, caller)
-            $api->write('/ppp/secret/print', false);
-            $api->write('?name=' . $data->name_pppoe, true);
-            $secretData = $api->read();
-
-            if (!empty($secretData)) {
-                $s = $secretData[0];
-                $lastdisc   = $s['last-disconnected'] ?? '-';
-                $lastlogout = $s['last-logged-out'] ?? '-';
-                $lastcaller = $s['last-caller-id'] ?? '-';
-            }
-
-            $api->disconnect();
-        }
+        $status_mikrotik = $this->getMikrotikLastStatus($data->name_pppoe);
 
         $status_langganan = ($data->disabled == '0' || $data->disabled == 'false') ? 'Aktif ✅' : 'Nonaktif ❌';
+        $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
 
-        $msg = "🧑 *Nama:* $data->nama_customer\n"
-            . "📶 *Status Langganan:* $status_langganan\n"
-            . "🔌 *Status Mikrotik:* $status_login\n"
-            . "📦 *Paket:* $data->nama_paket\n"
-            . "📍 *Alamat:* $data->alamat_customer\n\n"
-            . "🌐 *IP:* `$ip`\n"
-            . "📞 *Caller:* `$caller`\n"
-            . "⏱ *Uptime:* `$uptime`\n"
-            . "📤 *Last Logout:* `$lastlogout`\n"
-            . "📴 *Last Disconnect:* `$lastdisc`\n"
-            . "📞 *Last Caller ID:* `$lastcaller`";
+        $msg = "🧑 *Nama:* {$data->nama_customer}\n"
+            . "📶 *Status Langganan:* {$status_langganan}\n"
+            . "🔌 *Status Mikrotik:* {$status_login}\n"
+            . "📦 *Paket:* {$data->nama_paket}\n"
+            . "📍 *Alamat:* {$data->alamat_customer}\n\n"
+            . "🌐 *IP:* `{$status_mikrotik['ip']}`\n"
+            . "📞 *Caller:* `{$status_mikrotik['caller']}`\n"
+            . "⏱ *Uptime:* `{$status_mikrotik['uptime']}`\n"
+            . "📤 *Last Logout:* `{$status_mikrotik['lastlogout']}`\n"
+            . "📴 *Last Disconnect:* `{$status_mikrotik['lastdisc']}`\n"
+            . "📞 *Last Caller ID:* `{$status_mikrotik['lastcaller']}`";
 
         $this->sendMessage($chat_id, $msg);
     }
