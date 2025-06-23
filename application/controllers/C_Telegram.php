@@ -30,8 +30,9 @@ class C_Telegram extends CI_Controller
                 $this->sendMessage($chat_id, $pesan);
             } elseif (strtolower(substr($text, 0, 4)) === '/cek') {
                 $parts = explode(' ', $text);
-                if (count($parts) == 2 && is_numeric($parts[1])) {
-                    $this->cekPelanggan($chat_id, $parts[1]);
+                if (count($parts) == 2) {
+                    $kode = trim($parts[1]);
+                    $this->cekPelanggan($chat_id, $kode);
                 } else {
                     $this->sendMessage($chat_id, "⚠️ Gunakan format: `/cek [kode_customer]`");
                 }
@@ -48,7 +49,7 @@ class C_Telegram extends CI_Controller
         if ($query->num_rows() > 0) {
             $d = $query->row();
             $msg = "🧑 *Nama:* $d->nama_customer\n"
-                . "📶 *Status:* $d->status\n"
+                . "📶 *Status:* $d->disabled\n"
                 . "📦 *Paket:* $d->nama_paket\n"
                 . "📍 *Alamat:* $d->alamat_customer";
         } else {
