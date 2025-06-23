@@ -28,39 +28,30 @@ class C_Telegram extends CI_Controller
                     . "• `/cek [kode]` — untuk cek status pelanggan\n"
                     . "• `/help` — bantuan";
                 $this->sendMessage($chat_id, $pesan);
-            } elseif (strtolower(substr($text, 0, 4)) === '/cek') {
-                $parts = explode(' ', $text);
-                if (count($parts) == 2) {
-                    $kode = trim($parts[1]);
-                    $this->cekPelanggan($chat_id, $kode);
-                } else {
-                    $this->sendMessage($chat_id, "⚠️ Gunakan format: `/cek [kode_customer]`");
-                }
+            } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
+                $kode = $matches[1];
+                $this->cekPelanggan($chat_id, $kode);
             } else {
-                $this->sendMessage($chat_id, "❓ Perintah tidak dikenali. Gunakan /start untuk bantuan.");
+                $this->sendMessage($chat_id, "⚠️ Gunakan format: `/cek [kode_customer]` atau /start");
             }
         }
+
+        // Penting! Beri response ke Telegram agar tidak timeout
+        http_response_code(200);
+        exit('OK');
     }
 
     private function cekPelanggan($chat_id, $kode)
     {
-        // Pastikan huruf kecil semua untuk pencarian case-insensitive
-        $kode = strtolower(trim($kode));
+        $data = $this->M_Pelanggan->Name_PPPOE($kode);
 
-        // WHERE name_pppoe (case-insensitive)
-        $this->db->where('LOWER(name_pppoe)', $kode);
-        $query = $this->db->get('data_customer');
+        if ($data) {
+            $status = ($data->disabled == '0' || $data->disabled == 'false') ? 'Aktif ✅' : 'Nonaktif ❌';
 
-        if ($query->num_rows() > 0) {
-            $d = $query->row();
-
-            // Konversi status disabled jadi teks yang lebih ramah
-            $status = ($d->disabled == 'false' || $d->disabled == '0') ? 'Aktif ✅' : 'Nonaktif ❌';
-
-            $msg = "🧑 *Nama:* $d->nama_customer\n"
+            $msg = "🧑 *Nama:* $data->nama_customer\n"
                 . "📶 *Status:* $status\n"
-                . "📦 *Paket:* $d->nama_paket\n"
-                . "📍 *Alamat:* $d->alamat_customer";
+                . "📦 *Paket:* $data->nama_paket\n"
+                . "📍 *Alamat:* $data->alamat_customer";
         } else {
             $msg = "❌ Data pelanggan dengan kode *$kode* tidak ditemukan.";
         }

@@ -174,6 +174,21 @@ class M_Pelanggan extends CI_Model
         }
     }
 
+    public function Name_PPPOE($name_pppoe)
+    {
+        $this->db->select('id_customer, kode_customer, phone_customer, 
+        latitude, longitude, nama_customer, id_paket, nama_paket, name_pppoe, 
+        password_pppoe, id_pppoe, id_pppoe_paiton, alamat_customer, email_customer, 
+        start_date, stop_date, nama_area, deskripsi_customer, nama_sales, disabled, 
+        disabled_paiton, kode_mikrotik');
+        $this->db->where('LOWER(name_pppoe)', strtolower(trim($name_pppoe)));
+        $this->db->limit(1);
+
+        $query = $this->db->get('data_customer');
+        return ($query->num_rows() > 0) ? $query->row() : false;
+    }
+
+
     public function Send_Telegram($last_caller_id)
     {
         $this->db->select('id_customer, kode_customer, phone_customer, 
