@@ -141,7 +141,7 @@ class C_Telegram extends CI_Controller
         $msg = "---===[🖥️ Status Pelanggan]===---\n\n"
             . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
             . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
-            . "🌐 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
+            . "🌐 Paket: " . strtoupper($data->nama_paket) . "\n"
             . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
             . "📶 Status: {$status_login}\n"
             . "📍 Alamat: " . trim(ucwords(strtolower($data->alamat_customer))) . "\n\n";
@@ -188,7 +188,7 @@ class C_Telegram extends CI_Controller
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
                 . "📍 Alamat: " . trim(ucwords(strtolower($data->alamat_customer))) . "\n"
                 . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
-                . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
+                . "🌐 Paket: " . strtoupper($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
                 . "💵 Status: Sudah Dibayar ✅\n"
                 . "📆 Tanggal Bayar: " . date('d M Y', strtotime($p->transaction_time)) . "\n"
@@ -200,7 +200,7 @@ class C_Telegram extends CI_Controller
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
                 . "📍 Alamat: " . trim(ucwords(strtolower($data->alamat_customer))) . "\n"
                 . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
-                . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
+                . "🌐 Paket: " . strtoupper($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
                 . "💵 Status: Belum Dibayar ❌" . "\n\n"
                 . "---===[BILLING NAKASY]===---";
