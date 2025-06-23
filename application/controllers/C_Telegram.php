@@ -18,8 +18,6 @@ class C_Telegram extends CI_Controller
 
         $commands = [
             ['command' => 'start', 'description' => 'Memulai bot'],
-            ['command' => 'cek', 'description' => 'Cek status pelanggan'],
-            ['command' => 'pembayaran', 'description' => 'Cek status pembayaran']
         ];
 
         $postData = ['commands' => json_encode($commands)];
