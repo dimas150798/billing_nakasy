@@ -22,11 +22,13 @@ class C_Telegram extends CI_Controller
             $username = $update['message']['from']['username'] ?? 'pengguna';
 
             if (strtolower($text) === '/start') {
-                $pesan = "Halo @$username! 👋\n\n"
-                    . "Selamat datang di Bot Billing Nakasy.\n"
-                    . "Perintah yang tersedia:\n"
-                    . "• /cek [kode] — untuk cek status pelanggan\n"
-                    . "• /pembayaran [kode] — untuk cek status pembayaran pelanggan\n";
+                $pesan = "👋 Halo @$username!\n\n"
+                    . "📡 *Selamat datang di Bot Nakasy Kraksaan!*\n"
+                    . "Bot ini membantu Anda mengecek status layanan internet dan pembayaran.\n\n"
+                    . "🛠️ *Perintah yang tersedia:*\n"
+                    . "• 🔍 `/cek [Name PPOE]` — cek status pelanggan (online/offline, paket, dll)\n"
+                    . "• 💰 `/pembayaran [Name PPOE]` — cek status pembayaran bulan ini\n\n"
+                    . "📞 Hubungi admin jika butuh bantuan lebih lanjut.";
                 $this->sendMessage($chat_id, $pesan);
             } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
                 $kode = $matches[1];
