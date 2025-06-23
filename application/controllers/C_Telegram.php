@@ -103,22 +103,20 @@ class C_Telegram extends CI_Controller
 
         $status_mikrotik = $this->getMikrotikLastStatus($data->name_pppoe);
 
-        $status_langganan = ($data->disabled == '0' || $data->disabled == 'false') ? 'Aktif ✅' : 'Nonaktif ❌';
         $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
 
-        $msg = "🧑 *Nama:* {$data->nama_customer}\n"
-            . "🔌 *Status Mikrotik:* {$status_login}\n"
-            . "📦 *Paket:* {$data->nama_paket}\n"
-            . "📍 *Alamat:* {$data->alamat_customer}\n\n";
+        $msg = "🧑 Nama: {$data->nama_customer}\n"
+            . "🔌 Status: {$status_login}\n"
+            . "📦 Paket: {$data->nama_paket}\n"
+            . "📍 Alamat: {$data->alamat_customer}\n\n";
 
         if ($status_mikrotik['online']) {
-            $msg .= "🌐 *IP:* `{$status_mikrotik['ip']}`\n"
-                . "📞 *Caller:* `{$status_mikrotik['caller']}`\n"
-                . "⏱ *Uptime:* `{$status_mikrotik['uptime']}`\n";
+            $msg .= "🌐 IP: {$status_mikrotik['ip']}\n"
+                . "📞 Caller: {$status_mikrotik['caller']}\n"
+                . "⏱ Uptime: {$status_mikrotik['uptime']}\n";
         } else {
-            $msg .= "📤 *Last Logout:* `{$status_mikrotik['lastlogout']}`\n"
-                . "📴 *Last Disconnect:* `{$status_mikrotik['lastdisc']}`\n"
-                . "📞 *Last Caller ID:* `{$status_mikrotik['lastcaller']}`\n";
+            $msg .=  "📴 Last Disconnect: {$status_mikrotik['lastlogout']}\n"
+                . "📞 Last Caller ID: {$status_mikrotik['lastcaller']}\n";
         }
 
 
