@@ -44,20 +44,30 @@ class C_Telegram extends CI_Controller
 
     private function cekPelanggan($chat_id, $kode)
     {
-        $query = $this->db->get_where('data_customer', ['name_pppoe' => $kode]);
+        // Pastikan huruf kecil semua untuk pencarian case-insensitive
+        $kode = strtolower(trim($kode));
+
+        // WHERE name_pppoe (case-insensitive)
+        $this->db->where('LOWER(name_pppoe)', $kode);
+        $query = $this->db->get('data_customer');
 
         if ($query->num_rows() > 0) {
             $d = $query->row();
+
+            // Konversi status disabled jadi teks yang lebih ramah
+            $status = ($d->disabled == 'false' || $d->disabled == '0') ? 'Aktif ✅' : 'Nonaktif ❌';
+
             $msg = "🧑 *Nama:* $d->nama_customer\n"
-                . "📶 *Status:* $d->disabled\n"
+                . "📶 *Status:* $status\n"
                 . "📦 *Paket:* $d->nama_paket\n"
                 . "📍 *Alamat:* $d->alamat_customer";
         } else {
-            $msg = "❌ Data pelanggan dengan kode `$kode` tidak ditemukan.";
+            $msg = "❌ Data pelanggan dengan kode *$kode* tidak ditemukan.";
         }
 
         $this->sendMessage($chat_id, $msg);
     }
+
 
     private function sendMessage($chat_id, $text)
     {
