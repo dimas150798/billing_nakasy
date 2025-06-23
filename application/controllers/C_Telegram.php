@@ -40,27 +40,6 @@ class C_Telegram extends CI_Controller
             }
         }
 
-        // if (strtolower($text) === '/start') {
-        //     $pesan = "Halo @$username! 👋\n\n"
-        //         . "Selamat datang di *Bot Billing Nakasy*.\n"
-        //         . "Perintah yang tersedia:\n"
-        //         . "• `/cek [kode]` — cek status pelanggan\n"
-        //         . "• `/pembayaran [kode]` — cek status pembayaran bulan ini\n"
-        //         . "• `/help` — bantuan umum.";
-        //     $this->sendMessage($chat_id, $pesan);
-        // } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
-        //     $kode = $matches[1];
-        //     $this->cekPelanggan($chat_id, $kode);
-        // } elseif (preg_match('/^\/pembayaran\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
-        //     $kode = $matches[1];
-        //     $this->cekPembayaran($chat_id, $kode);
-        // } else {
-        //     $this->sendMessage($chat_id, "⚠️ Perintah tidak dikenali. Gunakan `/start` untuk melihat bantuan.");
-        // }
-
-
-
-
         // Penting! Beri response ke Telegram agar tidak timeout
         http_response_code(200);
         exit('OK');
@@ -162,7 +141,6 @@ class C_Telegram extends CI_Controller
     private function cekPembayaran($chat_id, $kode)
     {
         $data = $this->M_Pelanggan->Name_PPPOE($kode);
-
         if (!$data) {
             $this->sendMessage($chat_id, "❌ Pelanggan dengan PPPoE *$kode* tidak ditemukan.");
             return;
@@ -172,11 +150,13 @@ class C_Telegram extends CI_Controller
         $tahun = date('Y');
         $periode = date('F Y');
 
-        $query = $this->db->get_where('data_pembayaran', [
-            'name_pppoe' => $data->name_pppoe,
-            'bulan' => $bulan,
-            'tahun' => $tahun
-        ]);
+        // Query manual pakai WHERE + LIKE
+        $this->db->from('data_pembayaran');
+        $this->db->where('name_pppoe', $data->name_pppoe);
+        $this->db->where('MONTH(transaction_time)', $bulan);
+        $this->db->where('YEAR(transaction_time)', $tahun);
+
+        $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
             $p = $query->row();
@@ -186,7 +166,7 @@ class C_Telegram extends CI_Controller
                 . "📦 Paket: " . ucwords($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
                 . "💵 Status: Sudah Dibayar ✅\n"
-                . "📆 Tanggal Bayar: " . date('d M Y', strtotime($p->tgl_bayar)) . "\n"
+                . "📆 Tanggal Bayar: " . date('d M Y', strtotime($p->transaction_time)) . "\n"
                 . "👨‍💼 Admin: " . ucwords($p->nama_admin);
         } else {
             $msg = "💰 *Status Pembayaran*\n\n"
@@ -199,6 +179,7 @@ class C_Telegram extends CI_Controller
 
         $this->sendMessage($chat_id, $msg);
     }
+
 
 
 
