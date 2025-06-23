@@ -43,7 +43,7 @@ class C_Telegram extends CI_Controller
 
     private function cekPelanggan($chat_id, $kode)
     {
-        $query = $this->db->get_where('data_customer', ['kode_customer' => $kode]);
+        $query = $this->db->get_where('data_customer', ['name_pppoe' => $kode]);
 
         if ($query->num_rows() > 0) {
             $d = $query->row();
