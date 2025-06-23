@@ -26,8 +26,7 @@ class C_Telegram extends CI_Controller
                     . "Selamat datang di Bot Billing Nakasy.\n"
                     . "Perintah yang tersedia:\n"
                     . "• /cek [kode] — untuk cek status pelanggan\n"
-                    . "• /pembayaran [kode] — untuk cek status pelanggan\n"
-                    . "• /help — bantuan";
+                    . "• /pembayaran [kode] — untuk cek status pelanggan\n";
                 $this->sendMessage($chat_id, $pesan);
             } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
                 $kode = $matches[1];
@@ -117,22 +116,24 @@ class C_Telegram extends CI_Controller
         $status_mikrotik = $this->getMikrotikLastStatus($data->name_pppoe);
 
         $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
-
-        $msg = "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+        $msg = "🖥️ *Status Pelanggan*\n\n"
+            . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
             . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
-            . "📦 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
-            . "🔌 Status: {$status_login}\n"
+            . "🌐 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
+            . "📶 Status: {$status_login}\n"
             . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n\n";
 
         if ($status_mikrotik['online']) {
             $msg .= "🌐 IP: {$status_mikrotik['ip']}\n"
                 . "📡 Index: $index\n"
                 . "📞 Caller: {$status_mikrotik['caller']}\n"
-                . "⏱ Uptime: {$status_mikrotik['uptime']}\n";
+                . "⏱ Uptime: {$status_mikrotik['uptime']}\n\n"
+                . "---===[LIVE TRAFFIC]===---";
         } else {
             $msg .=  "📡 Index:  $index\n"
                 . "📴 Last Disconnect: {$status_mikrotik['lastlogout']}\n"
-                . "📞 Last Caller ID: {$status_mikrotik['lastcaller']}\n";
+                . "📞 Last Caller ID: {$status_mikrotik['lastcaller']}\n"
+                . "---===[LIVE TRAFFIC]===---";
         }
 
         $this->sendMessage($chat_id, $msg);
@@ -161,18 +162,18 @@ class C_Telegram extends CI_Controller
         if ($query->num_rows() > 0) {
             $p = $query->row();
             $msg = "💰 *Status Pembayaran*\n\n"
-                . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
-                . "📦 Paket: " . ucwords($data->nama_paket) . "\n"
+                . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+                . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
                 . "💵 Status: Sudah Dibayar ✅\n"
                 . "📆 Tanggal Bayar: " . date('d M Y', strtotime($p->transaction_time)) . "\n"
-                . "👨‍💼 Admin: " . ucwords($p->nama_admin);
+                . "👨‍💼 Melalui: " . ucwords($p->nama_admin);
         } else {
             $msg = "💰 *Status Pembayaran*\n\n"
-                . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
-                . "📦 Paket: " . ucwords($data->nama_paket) . "\n"
+                . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
+                . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
                 . "💵 Status: Belum Dibayar ❌";
         }
