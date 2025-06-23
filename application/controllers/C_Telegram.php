@@ -144,8 +144,7 @@ class C_Telegram extends CI_Controller
             . "🌐 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
             . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
             . "📶 Status: {$status_login}\n"
-            . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n\n";
-
+            . "📍 Alamat: " . trim(ucwords(strtolower($data->alamat_customer))) . "\n\n";
         if ($status_mikrotik['online']) {
             $msg .= "🌐 IP: {$status_mikrotik['ip']}\n"
                 . "📡 Index: $index\n"
@@ -187,7 +186,7 @@ class C_Telegram extends CI_Controller
             $msg = "---===[💰 Status Pembayaran]===---" . "\n\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
-                . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n"
+                . "📍 Alamat: " . trim(ucwords(strtolower($data->alamat_customer))) . "\n"
                 . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
                 . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
@@ -199,7 +198,7 @@ class C_Telegram extends CI_Controller
             $msg = "---===[💰 Status Pembayaran]===---" . "\n\n"
                 . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
                 . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
-                . "📍 Alamat: " . ucwords(strtolower($data->alamat_customer)) . "\n"
+                . "📍 Alamat: " . trim(ucwords(strtolower($data->alamat_customer))) . "\n"
                 . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
                 . "🌐 Paket: " . ucwords($data->nama_paket) . "\n"
                 . "📅 Periode: $periode\n"
