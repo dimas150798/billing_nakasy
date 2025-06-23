@@ -119,8 +119,8 @@ class C_Telegram extends CI_Controller
 
         $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
         $msg = "---===[🖥️ Status Pelanggan]===---\n\n"
-            . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
             . "🆔 ID Pelanggan: " . strtoupper($data->name_pppoe) . "\n"
+            . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
             . "🌐 Paket: " . ucwords(strtolower($data->nama_paket)) . "\n"
             . "📞 Telepon: " . ucwords(strtolower($data->phone_customer)) . "\n"
             . "📶 Status: {$status_login}\n"
@@ -189,9 +189,6 @@ class C_Telegram extends CI_Controller
 
         $this->sendMessage($chat_id, $msg);
     }
-
-
-
 
     private function sendMessage($chat_id, $text)
     {
