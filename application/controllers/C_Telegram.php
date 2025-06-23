@@ -96,6 +96,14 @@ class C_Telegram extends CI_Controller
     {
         $data = $this->M_Pelanggan->Name_PPPOE($kode);
 
+        // Gunakan regex untuk memisahkan nama dan index
+        if (preg_match('/^(.*?)(\d+\/\d+\/\d+:\d+)$/', $data->deskripsi_customer, $match)) {
+            $nama  = trim($match[1]);
+            $index = $match[2];
+        } else {
+            $index = '-';
+        }
+
         if (!$data) {
             $this->sendMessage($chat_id, "❌ Data pelanggan dengan kode *$kode* tidak ditemukan.");
             return;
@@ -105,17 +113,20 @@ class C_Telegram extends CI_Controller
 
         $status_login     = $status_mikrotik['online'] ? 'Online 🟢' : 'Offline 🔴';
 
-        $msg = "🧑 Nama: {$data->nama_customer}\n"
+        $msg = "🆔 ID Pelanggan: " . strtoupper($data->id_customer) . "\n"
+            . "🧑 Nama: " . ucwords(strtolower($data->nama_customer)) . "\n"
             . "🔌 Status: {$status_login}\n"
             . "📦 Paket: {$data->nama_paket}\n"
             . "📍 Alamat: {$data->alamat_customer}\n\n";
 
         if ($status_mikrotik['online']) {
             $msg .= "🌐 IP: {$status_mikrotik['ip']}\n"
+                . "📡 Index: $index\n"
                 . "📞 Caller: {$status_mikrotik['caller']}\n"
                 . "⏱ Uptime: {$status_mikrotik['uptime']}\n";
         } else {
-            $msg .=  "📴 Last Disconnect: {$status_mikrotik['lastlogout']}\n"
+            $msg .=  "📡 Index:  $index\n"
+                . "📴 Last Disconnect: {$status_mikrotik['lastlogout']}\n"
                 . "📞 Last Caller ID: {$status_mikrotik['lastcaller']}\n";
         }
 
