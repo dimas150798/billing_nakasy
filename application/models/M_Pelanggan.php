@@ -184,8 +184,15 @@ class M_Pelanggan extends CI_Model
         $this->db->where('LOWER(name_pppoe)', strtolower(trim($name_pppoe)));
         $this->db->limit(1);
 
-        $query = $this->db->get('data_customer');
-        return ($query->num_rows() > 0) ? $query->row() : false;
+        $this->db->limit(1);
+        $result = $this->db->get('data_customer');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
     }
 
 
