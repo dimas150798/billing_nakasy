@@ -21,23 +21,44 @@ class C_Telegram extends CI_Controller
             $text     = trim($update['message']['text']);
             $username = $update['message']['from']['username'] ?? 'pengguna';
 
-            if (strtolower($text) === '/start') {
-                $pesan = "Halo @$username! 👋\n\n"
-                    . "Selamat datang di *Bot Billing Nakasy*.\n"
-                    . "Perintah yang tersedia:\n"
-                    . "• `/cek [kode]` — cek status pelanggan\n"
-                    . "• `/pembayaran [kode]` — cek status pembayaran bulan ini\n"
-                    . "• `/help` — bantuan umum.";
-                $this->sendMessage($chat_id, $pesan);
-            } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
-                $kode = $matches[1];
-                $this->cekPelanggan($chat_id, $kode);
-            } elseif (preg_match('/^\/pembayaran\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
-                $kode = $matches[1];
-                $this->cekPembayaran($chat_id, $kode);
-            } else {
-                $this->sendMessage($chat_id, "⚠️ Perintah tidak dikenali. Gunakan `/start` untuk melihat bantuan.");
+            if (isset($update['message'])) {
+                $chat_id  = $update['message']['chat']['id'];
+                $text     = trim($update['message']['text']);
+                $username = $update['message']['from']['username'] ?? 'pengguna';
+
+                if (strtolower($text) === '/start') {
+                    $pesan = "Halo @$username! 👋\n\n"
+                        . "Selamat datang di Bot Billing Nakasy.\n"
+                        . "Perintah yang tersedia:\n"
+                        . "• /cek [kode] — untuk cek status pelanggan\n"
+                        . "• /pembayaran [kode] — untuk cek status pelanggan\n"
+                        . "• /help — bantuan";
+                    $this->sendMessage($chat_id, $pesan);
+                } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
+                    $kode = $matches[1];
+                    $this->cekPelanggan($chat_id, $kode);
+                } else {
+                    $this->sendMessage($chat_id, "⚠️ Gunakan format: /cek [kode_customer] atau /start");
+                }
             }
+
+            // if (strtolower($text) === '/start') {
+            //     $pesan = "Halo @$username! 👋\n\n"
+            //         . "Selamat datang di *Bot Billing Nakasy*.\n"
+            //         . "Perintah yang tersedia:\n"
+            //         . "• `/cek [kode]` — cek status pelanggan\n"
+            //         . "• `/pembayaran [kode]` — cek status pembayaran bulan ini\n"
+            //         . "• `/help` — bantuan umum.";
+            //     $this->sendMessage($chat_id, $pesan);
+            // } elseif (preg_match('/^\/cek\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
+            //     $kode = $matches[1];
+            //     $this->cekPelanggan($chat_id, $kode);
+            // } elseif (preg_match('/^\/pembayaran\s+([a-zA-Z0-9_-]+)$/i', $text, $matches)) {
+            //     $kode = $matches[1];
+            //     $this->cekPembayaran($chat_id, $kode);
+            // } else {
+            //     $this->sendMessage($chat_id, "⚠️ Perintah tidak dikenali. Gunakan `/start` untuk melihat bantuan.");
+            // }
         }
 
 
