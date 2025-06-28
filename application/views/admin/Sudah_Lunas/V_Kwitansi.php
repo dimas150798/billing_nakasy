@@ -170,7 +170,14 @@ if (!function_exists('changeDateFormat')) {
                 <p><strong>ALAMAT:</strong> <?= ucwords(strtolower(htmlspecialchars($data['alamat_customer']))); ?></p>
 
                 <p class="section-title">RINCIAN TRANSAKSI</p>
-                <p><strong>BULAN:</strong> <?= $months[$data['bulan_payment']] ?></p>
+                <p><strong>BULAN:</strong> <?= strtoupper(htmlspecialchars($months[$data['bulan_payment']])); ?></p>
+                <p><strong>TANGGAL:</strong>
+                    <?php
+                    $tanggalTampil = !empty($data['created_at']) ? $data['created_at'] : $data['transaction_time'];
+                    echo date('d/m/Y H:i', strtotime($tanggalTampil));
+                    ?>
+                </p>
+
                 <p><strong>PAKET:</strong> <?= htmlspecialchars($data['nama_paket']); ?></p>
                 <p><strong>HARGA:</strong> Rp. <?= number_format($data['harga_paket'], 0, ',', '.'); ?></p>
                 <p><strong>TOTAL:</strong> <span class="highlight">Rp. <?= number_format(($data['harga_paket'] + ($data['biaya_admin'] ?? 0)), 0, ',', '.'); ?></span></p>

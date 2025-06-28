@@ -38,8 +38,8 @@ class C_Kwitansi extends CI_Controller
             $data['Alamat']  = $infoCluster[$cluster]['alamat'];
             $data['Telepon'] = $infoCluster[$cluster]['telepon'];
         } else {
-            $data['Alamat']  = 'Alamat tidak tersedia';
-            $data['Telepon'] = 'Telepon tidak tersedia';
+            $data['Alamat']  = '-';
+            $data['Telepon'] = '-';
         }
 
         // Ambil data pelanggan dari model
