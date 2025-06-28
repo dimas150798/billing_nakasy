@@ -87,6 +87,8 @@ class C_Pembayaran_Perbulan extends CI_Controller
 
     public function PaymentSave()
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         $months = [
             1  => 'Januari',
             2  => 'Februari',
@@ -136,6 +138,7 @@ class C_Pembayaran_Perbulan extends CI_Controller
             'keterangan'       => 'Pembayaran Melalui ' . $nama_penagih,
             'transaction_time' => $post['transaction_time'],
             'expired_date'     => $post['transaction_time'],
+            'created_at'       => date('Y-m-d H:i:s'),
             'status_code'      => 200,
         ];
 
@@ -148,6 +151,7 @@ class C_Pembayaran_Perbulan extends CI_Controller
             'keterangan'       => 'Pembayaran Melalui ' . $nama_penagih,
             'transaction_time' => $post['transaction_time'],
             'expired_date'     => $post['transaction_time'],
+            'created_at'       => date('Y-m-d H:i:s'),
             'status_code'      => 200,
         ];
 
