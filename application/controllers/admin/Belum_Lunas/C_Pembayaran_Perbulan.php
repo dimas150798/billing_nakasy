@@ -88,6 +88,8 @@ class C_Pembayaran_Perbulan extends CI_Controller
 
     public function PaymentSave()
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         $months = [
             1 => 'Januari',
             2 => 'Februari',
