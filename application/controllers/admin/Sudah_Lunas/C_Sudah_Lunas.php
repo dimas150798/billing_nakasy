@@ -93,12 +93,12 @@ class C_Sudah_Lunas extends CI_Controller
 
         if (!empty($result)) {
             foreach ($result as $customer) {
-                $isBelumBayar = is_null($customer['gross_amount']);
                 $isDisabled = $customer['disabled'] === 'true';
+                $isBelumBayar = is_null($customer['created_at']) || $customer['created_at'] == '';
 
                 $tanggalInfo = $isBelumBayar
-                    ? 'Penagihan Tanggal ' . $customer['tanggal']
-                    : date('d-m-Y / H:i:s', strtotime($customer['transaction_time']));
+                    ? date('d-m-Y / H:i:s', strtotime($customer['transaction_time']))
+                    : date('d-m-Y / H:i:s', strtotime($customer['created_at']));
 
                 $Status_Mikrotik = $isDisabled
                     ? '<span class="badge bg-danger px-2 py-1" style="font-size: 0.65rem; border-radius: 999px;">DISABLE</span>'
