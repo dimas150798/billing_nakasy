@@ -138,6 +138,7 @@ class C_Pembayaran_Perbulan extends CI_Controller
             'keterangan'       => $post['keterangan'],
             'transaction_time' => $post['transaction_time'],
             'expired_date'     => $post['transaction_time'],
+            'created_at'       => date('Y-m-d H:i:s'),
             'status_code'      => 200
         ];
 
@@ -150,6 +151,7 @@ class C_Pembayaran_Perbulan extends CI_Controller
             'keterangan'       => $post['keterangan'],
             'transaction_time' => $post['transaction_time'],
             'expired_date'     => $post['transaction_time'],
+            'created_at'       => date('Y-m-d H:i:s'),
             'status_code'      => 200
         ];
 
