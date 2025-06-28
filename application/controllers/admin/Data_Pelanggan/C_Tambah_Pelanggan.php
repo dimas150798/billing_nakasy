@@ -33,6 +33,8 @@ class C_Tambah_Pelanggan extends CI_Controller
 
     public function TambahPelangganSave()
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         // Ambil data dari form
         $input = $this->input->post();
         $cluster = $this->session->userdata('cluster');
@@ -110,13 +112,13 @@ class C_Tambah_Pelanggan extends CI_Controller
         $dataPembayaran = [
             'order_id'         => $order_id,
             'gross_amount'     => $price_paket,
-            'biaya_admin'      => '0',
             'name_pppoe'       => $name_pppoe,
             'nama_paket'       => $nama_paket,
             'nama_admin'       => 'Registrasi Baru',
             'keterangan'       => 'Registrasi Baru',
             'transaction_time' => date('Y-m-d H:i:s'),
-            'status_code'      => '200'
+            'status_code'      => '200',
+            'created_at'         => date('Y-m-d H:i:s')
         ];
 
         // Tambahkan ke Mikrotik
