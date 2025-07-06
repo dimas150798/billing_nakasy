@@ -51,6 +51,22 @@
         rupiahRaw.value = rawValue;
     });
 </script>
+
+<!-- <script>
+    $(document).ready(function() {
+        var table = $('#yourTableId').DataTable({
+            // opsi inisialisasi lain jika ada
+            "ajax": "<?= base_url('admin/YourController/YourMethod_JSON') ?>",
+            "destroy": true
+        });
+
+        // Refresh data setiap 5 menit (300000 ms)
+        setInterval(function() {
+            table.ajax.reload(null, false); // false agar tetap di halaman yang sama
+        }, 300000);
+    });
+</script> -->
+
 </body>
 
 </html>

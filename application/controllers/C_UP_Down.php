@@ -69,6 +69,7 @@ class C_UP_Down extends CI_Controller
                     [
                         'status' => 'UP',
                         'up_time' => $active_uptimes[$du],
+                        'kode_mikrotik' => 'Kraksaan',
                         'updated_at' => date('Y-m-d H:i:s')
                     ],
                     ['name_pppoe' => $du, 'status' => 'DOWN']
@@ -122,6 +123,7 @@ class C_UP_Down extends CI_Controller
                                 : $info['last_logged_out'],
                             'last_caller_id' => $info['last_caller_id'],
                             'last_disconnect_reason' => $info['last_disconnect_reason'],
+                            'kode_mikrotik' => 'Kraksaan',
                             'updated_at' => date('Y-m-d H:i:s')
                         ],
                         [
@@ -250,7 +252,7 @@ class C_UP_Down extends CI_Controller
                         'last_disconnect_reason' => $info['last_disconnect_reason'],
                         'status' => 'DOWN',
                         'jumlah_gangguan' => $jumlah_gangguan,
-                        'kode_mikrotik' => 'Kraksaan',
+                        'kode_mikrotik' => 'Paiton',
                         'created_at' => date('Y-m-d H:i:s')
                     ];
 
@@ -266,6 +268,7 @@ class C_UP_Down extends CI_Controller
                                 : $info['last_logged_out'],
                             'last_caller_id' => $info['last_caller_id'],
                             'last_disconnect_reason' => $info['last_disconnect_reason'],
+                            'kode_mikrotik' => 'Paiton',
                             'updated_at' => date('Y-m-d H:i:s')
                         ],
                         [
