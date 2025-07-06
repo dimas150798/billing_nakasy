@@ -167,8 +167,6 @@ class C_UP_Down extends CI_Controller
         $all_users = [];
         $secret_data = [];
 
-        var_dump($secrets);
-
         foreach ($secrets as $s) {
             if (isset($s['disabled']) && $s['disabled'] === 'false') {
                 $username = $s['name'];
