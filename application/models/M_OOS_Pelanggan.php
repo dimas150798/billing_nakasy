@@ -15,7 +15,7 @@ class M_OOS_Pelanggan extends CI_Model
         FROM data_gangguan_customer AS dgc
         LEFT JOIN data_customer AS dc ON dgc.name_pppoe = dc.name_pppoe
 
-        WHERE dgc.kode_mikrotik = '$cluster'
+        WHERE dgc.kode_mikrotik = '$cluster' AND dgc.status = 'DOWN'
         
         ORDER BY dgc.last_logged_out DESC");
 

@@ -79,11 +79,14 @@ class C_UP_Down extends CI_Controller
                 $cek_down = $this->db
                     ->where('name_pppoe', $du)
                     ->where('status', 'DOWN')
+                    ->order_by('created_at', 'DESC') // memastikan ambil tiket terakhir
                     ->limit(1)
                     ->get('data_gangguan_customer')
                     ->row();
 
                 if (!$cek_down) {
+                    // Tidak ada tiket aktif, buat tiket baru
+
                     // Hitung jumlah gangguan sebelumnya
                     $jumlah_gangguan = $this->db
                         ->where('name_pppoe', $du)
@@ -110,8 +113,7 @@ class C_UP_Down extends CI_Controller
                     $this->M_CRUD->insertData($data_gangguan, 'data_gangguan_customer');
                     $inserted++;
                 } else {
-                    // Tiket DOWN sudah ada, update last_logged_out dan last_disconnect_reason agar fresh
-
+                    // Tiket DOWN sudah ada, update tiket terakhir agar datanya fresh
                     $this->M_CRUD->updateData(
                         'data_gangguan_customer',
                         [
@@ -127,7 +129,7 @@ class C_UP_Down extends CI_Controller
                         ]
                     );
 
-                    $skipped++; // jika ingin ganti label, misal $updated_down_existing++
+                    $skipped++; // jika ingin label jelas, ganti ke $updated_existing_down++
                 }
             }
         }
@@ -221,11 +223,14 @@ class C_UP_Down extends CI_Controller
                 $cek_down = $this->db
                     ->where('name_pppoe', $du)
                     ->where('status', 'DOWN')
+                    ->order_by('created_at', 'DESC') // memastikan ambil tiket terakhir
                     ->limit(1)
                     ->get('data_gangguan_customer')
                     ->row();
 
                 if (!$cek_down) {
+                    // Tidak ada tiket aktif, buat tiket baru
+
                     // Hitung jumlah gangguan sebelumnya
                     $jumlah_gangguan = $this->db
                         ->where('name_pppoe', $du)
@@ -233,7 +238,6 @@ class C_UP_Down extends CI_Controller
 
                     // Generate tiket_id otomatis
                     $tiket_id = 'NKY-' . date('Ymd-His') . '-' . rand(100, 999);
-
 
                     // Insert tiket baru gangguan
                     $data_gangguan = [
@@ -246,15 +250,14 @@ class C_UP_Down extends CI_Controller
                         'last_disconnect_reason' => $info['last_disconnect_reason'],
                         'status' => 'DOWN',
                         'jumlah_gangguan' => $jumlah_gangguan,
-                        'kode_mikrotik' => 'Paiton',
+                        'kode_mikrotik' => 'Kraksaan',
                         'created_at' => date('Y-m-d H:i:s')
                     ];
 
                     $this->M_CRUD->insertData($data_gangguan, 'data_gangguan_customer');
                     $inserted++;
                 } else {
-                    // Tiket DOWN sudah ada, update last_logged_out dan last_disconnect_reason agar fresh
-
+                    // Tiket DOWN sudah ada, update tiket terakhir agar datanya fresh
                     $this->M_CRUD->updateData(
                         'data_gangguan_customer',
                         [
@@ -270,7 +273,7 @@ class C_UP_Down extends CI_Controller
                         ]
                     );
 
-                    $skipped++; // jika ingin ganti label, misal $updated_down_existing++
+                    $skipped++; // jika ingin label jelas, ganti ke $updated_existing_down++
                 }
             }
         }
