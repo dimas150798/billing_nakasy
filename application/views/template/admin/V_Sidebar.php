@@ -51,6 +51,12 @@
                                 </a>
                             </li>
                             <li class="menu-item">
+                                <a href="<?php echo base_url('admin/OOS_Pelanggan/C_OOS_Pelanggan') ?>" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-error"></i>
+                                    <div class="text-truncate" data-i18n="Without menu">OOS</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
                                 <a href="<?php echo base_url('admin/Pelanggan_Terminated/C_Pelanggan_Terminated') ?>" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-user-x"></i>
                                     <div class="text-truncate" data-i18n="Without navbar">Pelanggan Terminasi</div>

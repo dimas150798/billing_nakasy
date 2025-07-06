@@ -18,6 +18,11 @@
                         </a>
                     </li>
                     <li class="nav-item mx-1">
+                        <a class="nav-link text-white fw-semibold <?= $this->uri->segment(3) == 'C_Gangguan_Pelanggan' ? 'active' : '' ?>" href="<?= base_url('admin/OOS_Pelanggan/C_OOS_Pelanggan') ?>">
+                            <i class="bx bx-error me-1"></i> OOS
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
                         <a class="nav-link text-white fw-semibold <?= $this->uri->segment(3) == 'C_Terminasi' ? 'active' : '' ?>" href="<?= base_url('admin/Pelanggan_Terminated/C_Pelanggan_Terminated') ?>">
                             <i class="bx bx-user-x me-1"></i> Terminasi
                         </a>
