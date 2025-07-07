@@ -71,7 +71,7 @@ class C_UP_Down extends CI_Controller
                     ],
                     [
                         'name_pppoe' => $du,
-                        'status' => 'UP' // hanya DISABLE yang masih UP
+                        'status !=' => 'DISABLE'
                     ]
                 );
                 $disabled++;
