@@ -26,10 +26,10 @@ class C_UP_Down extends CI_Controller
         $secret_data = [];
 
         foreach ($secrets as $s) {
-            if (isset($s['disabled']) && $s['disabled'] === 'false') {
-                $username = $s['name'];
-                $all_users[] = $username;
+            $username = $s['name'];
+            $all_users[] = $username; // masukkan semua user, termasuk yang disable
 
+            if (isset($s['disabled']) && $s['disabled'] === 'false') {
                 $last_logged_out_raw = $s['last-logged-out'] ?? null;
                 $converted_last_logged_out = $this->convertLastLoggedOutToDatetime($last_logged_out_raw);
 
@@ -57,8 +57,28 @@ class C_UP_Down extends CI_Controller
         $updated = 0;
         $inserted = 0;
         $skipped = 0;
+        $disabled = 0;
 
         foreach ($all_users as $du) {
+            // Jika user sudah tidak aktif dan sudah disable di Mikrotik, update ke DISABLE
+            if (!isset($secret_data[$du]) && !in_array($du, $active_users)) {
+                $this->M_CRUD->updateData(
+                    'data_gangguan_customer',
+                    [
+                        'status' => 'DISABLE',
+                        'kode_mikrotik' => 'Kraksaan',
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ],
+                    [
+                        'name_pppoe' => $du,
+                        'status' => 'UP' // hanya DISABLE yang masih UP
+                    ]
+                );
+                $disabled++;
+                continue;
+            }
+
+            // Jika user tidak ada di secret aktif, skip
             if (!isset($secret_data[$du])) continue;
             $info = $secret_data[$du];
 
@@ -80,23 +100,19 @@ class C_UP_Down extends CI_Controller
                 $cek_down = $this->db
                     ->where('name_pppoe', $du)
                     ->where('status', 'DOWN')
-                    ->order_by('created_at', 'DESC') // memastikan ambil tiket terakhir
+                    ->order_by('created_at', 'DESC')
                     ->limit(1)
                     ->get('data_gangguan_customer')
                     ->row();
 
                 if (!$cek_down) {
                     // Tidak ada tiket aktif, buat tiket baru
-
-                    // Hitung jumlah gangguan sebelumnya
                     $jumlah_gangguan = $this->db
                         ->where('name_pppoe', $du)
                         ->count_all_results('data_gangguan_customer') + 1;
 
-                    // Generate tiket_id otomatis
                     $tiket_id = 'NKY-' . date('Ymd-His') . '-' . rand(100, 999);
 
-                    // Insert tiket baru gangguan
                     $data_gangguan = [
                         'tiket_id' => $tiket_id,
                         'name_pppoe' => $du,
@@ -131,7 +147,7 @@ class C_UP_Down extends CI_Controller
                         ]
                     );
 
-                    $skipped++; // jika ingin label jelas, ganti ke $updated_existing_down++
+                    $skipped++;
                 }
             }
         }
@@ -144,11 +160,12 @@ class C_UP_Down extends CI_Controller
             'updated_to_UP' => $updated,
             'inserted_DOWN' => $inserted,
             'skipped_already_exists' => $skipped,
-            'converted_last_logged_out' => $converted_last_logged_out,
+            'disabled_users' => $disabled,
             'total_checked' => count($all_users),
             'timestamp' => date('Y-m-d H:i:s')
         ]);
     }
+
 
     public function Mikrotik_Paiton()
     {
