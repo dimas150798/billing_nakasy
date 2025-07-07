@@ -277,10 +277,19 @@ class C_UP_Down extends CI_Controller
                     ->row();
 
                 if (!$cek_down) {
-                    // Tidak ada tiket aktif, buat tiket baru
-                    $jumlah_gangguan = $this->db
+                    // Cek apakah sudah ada gangguan hari ini
+                    $today_gangguan = $this->db
+                        ->select_max('jumlah_gangguan')
                         ->where('name_pppoe', $du)
-                        ->count_all_results('data_gangguan_customer') + 1;
+                        ->where('DATE(created_at)', date('Y-m-d'))
+                        ->get('data_gangguan_customer')
+                        ->row();
+
+                    if ($today_gangguan && $today_gangguan->jumlah_gangguan) {
+                        $jumlah_gangguan = $today_gangguan->jumlah_gangguan + 1;
+                    } else {
+                        $jumlah_gangguan = 1; // reset ke 1 jika belum ada gangguan hari ini
+                    }
 
                     $tiket_id = 'NKY-' . date('Ymd-His') . '-' . rand(100, 999);
 
