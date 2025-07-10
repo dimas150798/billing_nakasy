@@ -171,15 +171,17 @@ class M_Mikrotik_Paiton extends CI_Model
         $api = Connect_Paiton();
 
         foreach ($getData as $data) {
-            // disable secret dan active otomatis 
+            // Disable secret
             $api->comm('/ppp/secret/set', [
                 ".id" => $data['id_pppoe'],
                 "disabled" => 'true',
             ]);
 
-            // disable active otomatis
+            // Disable active
             $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
-            $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+            if (!empty($ambilid)) {
+                $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+            }
 
             // Siapkan untuk update batch database
             $updateData[] = [
