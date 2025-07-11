@@ -51,8 +51,8 @@ function Connect_Paiton()
     $CI = &get_instance();
 
     $ipMikrotik         = '103.189.60.33:8799';
-    $usernameMikrotik   = 'adminnakasy';
-    $passwordMikrotik   = 'nakasyinfly';
+    $usernameMikrotik = 'adminnakasy';
+    $passwordMikrotik = 'nakasyinfly';
 
     $api = new RouterosAPI();
     try {
