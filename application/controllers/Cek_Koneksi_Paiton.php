@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Cek_koneksi_paiton extends CI_Controller
+class Cek_Koneksi_Paiton extends CI_Controller
 {
     public function index()
     {
