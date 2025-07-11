@@ -50,26 +50,25 @@ function Connect_Paiton()
 {
     $CI = &get_instance();
 
-    $ipMikrotik         = '103.189.60.33:8799';
+    $ipMikrotik = '103.189.60.33';
+    $portMikrotik = 8799;
     $usernameMikrotik = 'berlin';
     $passwordMikrotik = '@infly2024';
 
     $api = new RouterosAPI();
     try {
-        if (!$api->connect($ipMikrotik, $usernameMikrotik, $passwordMikrotik)) {
-            throw new Exception("Gagal terhubung ke Mikrotik Paiton. Silakan periksa koneksi atau kredensial.");
+        if (!$api->connect($ipMikrotik, $usernameMikrotik, $passwordMikrotik, $portMikrotik)) {
+            throw new Exception("❌ Gagal terhubung ke Mikrotik Paiton. Silakan periksa koneksi, user, password, port, dan firewall.");
         }
 
-        // Jika tidak ada data PPP
         $pppSecrets = $api->comm('/ppp/secret/print');
         if (count($pppSecrets) == 0) {
             $api->disconnect();
-            throw new Exception("Tidak ada data PPP ditemukan di Mikrotik Paiton.");
+            throw new Exception("⚠️ Tidak ada data PPP ditemukan di Mikrotik Paiton.");
         }
 
         return $api;
     } catch (Exception $e) {
-        // Kembalikan null jika gagal, dan simpan pesan ke session untuk ditampilkan
         $CI->session->set_flashdata('mikrotik_error', $e->getMessage());
         return null;
     }
