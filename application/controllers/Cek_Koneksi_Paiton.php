@@ -6,36 +6,28 @@ class Cek_Koneksi_Paiton extends CI_Controller
     public function index()
     {
         header('Content-Type: application/json');
-        date_default_timezone_set("Asia/Jakarta");
 
-        // Load RouterosAPI jika belum autoload
-        $this->load->library('RouterosAPI');
+        $this->load->library('RouterosAPI_SSL');
 
-        // Panggil fungsi Connect_Paiton
-        $api = Connect_Paiton();
+        $ip = '103.189.60.33';
+        $username = 'berlin';
+        $password = '@infly2024';
+        $port = 8729;
 
-        if ($api) {
-            // Berhasil konek, ambil identitas Router
-            $identity = $api->comm('/system/identity/print');
-            $board = $api->comm('/system/routerboard/print');
-            $api->disconnect();
+        if ($this->routerosapi_ssl->connect($ip, $username, $password, $port)) {
+            $identity = $this->routerosapi_ssl->comm('/system/identity/print');
+            $this->routerosapi_ssl->disconnect();
 
             echo json_encode([
                 'status' => true,
-                'message' => '✅ Berhasil terhubung ke Mikrotik Paiton',
-                'identity' => $identity[0]['name'] ?? null,
-                'board_name' => $board[0]['board-name'] ?? null,
-                'model' => $board[0]['model'] ?? null,
-                'serial_number' => $board[0]['serial-number'] ?? null,
-                'firmware' => $board[0]['current-firmware'] ?? null,
+                'message' => '✅ Berhasil konek ke Mikrotik via API-SSL',
+                'identity' => $identity[0]['name'] ?? 'Unknown',
                 'time' => date('Y-m-d H:i:s')
             ], JSON_PRETTY_PRINT);
         } else {
-            // Ambil pesan error dari flashdata jika ada
-            $error = $this->session->flashdata('mikrotik_error');
             echo json_encode([
                 'status' => false,
-                'message' => $error ?: '❌ Gagal terhubung ke Mikrotik Paiton',
+                'message' => '❌ Gagal konek: ' . $this->routerosapi_ssl->error,
                 'time' => date('Y-m-d H:i:s')
             ], JSON_PRETTY_PRINT);
         }
